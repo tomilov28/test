@@ -52,13 +52,33 @@ Status legend: `[ ]` not started, `[~]` in progress, `[x]` verified by actual ru
 
 ## Flowable (pinned 8.0.0)
 
-- [ ] `make up-flowable` starts engine container
-- [ ] Adapter REST mapping implemented (deploy/start/cancel/query)
-- [ ] BPMN fixture deployed
-- [ ] External worker completes a human task
-- [ ] Outbox START_PROCESS -> engine instance created
-- [ ] Reconciler mirrors engine tasks to WorkItems
-- [ ] Fault/timer scenarios measured
+- [x] `make up-flowable` starts engine container
+- [x] Adapter REST mapping implemented (deploy/start/cancel/query/history/jobs/executions)
+- [x] BPMN fixture deployed (`LONG_VISIT_POC` v1 + v2, `credit_decision`, `flowable:type="external"`)
+- [x] External worker completes an external service task (topic `load_prisoner_data`,
+      Flowable external-job protocol: `/external-job-api/acquire/jobs` + complete/fail)
+- [x] External worker real retry verified (fail -> engine re-activates after lock expiry)
+- [x] Dead-letter path verified (`get_failed_jobs` -> `/management/deadletter-jobs`)
+- [x] Outbox START_PROCESS -> engine instance created (version-pinned dispatch)
+- [x] Reconciler mirrors engine tasks to WorkItems (idempotent)
+- [x] Request auto-closes on natural engine completion (CLOSED/COMPLETED)
+- [x] Parallel tasks + join + `PT15S` durable timer -> `final_decision` (natural fire ~18s)
+- [x] v1/v2 versioning verified: old instance stays on v1, new starts on v2
+- [x] Cancellation marks local WorkItems CANCELLED + engine instance ENDED
+- [x] F07 full stack restart with preserved DB: state + reconcile survive, flow completes
+- [x] F09 durable timer across engine restart: timer fires, reconciler surfaces `final_decision`
+- [x] `make test-flowable` passes (integration tests + F07/F09 scenarios), writes `test-results.xml`
+- [x] `make demo-flowable` drives a request to COMPLETED and leaves the stack running
+
+### Flowable notes
+
+* REST credentials: `rest-admin` / `test` (default bootstrap user).
+* Flowable external worker uses a different protocol than Camunda/Operaton: a single
+  acquire call locks jobs of ONE topic; failed jobs re-enter the queue after the async
+  executor resets the expired lock (observed ~30s incl. executor cadence at PT6S timeout).
+* Cancellation can hit a transient PostgreSQL deadlock racing the async executor; the
+  adapter retries 5xx on delete.
+* History paginates at 10 by default; the adapter always requests `size=10000`.
 
 ## Comparative tests
 

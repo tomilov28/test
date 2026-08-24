@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:flowable="http://flowable.org/bpmn"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_LONG_VISIT_POC_v2"
+                  targetNamespace="http://benchmark.local/bpmn/long-visit-poc">
+  <bpmn:process id="LONG_VISIT_POC" name="Long Visit POC" isExecutable="true">
+    <bpmn:documentation>Benchmark fixture v2: adds discipline_check to the parallel
+      section (three parallel human checks).</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_1" name="Request received">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="load_prisoner_data" />
+
+    <bpmn:serviceTask id="load_prisoner_data" name="Load Prisoner Data"
+                      flowable:type="external" flowable:topic="load_prisoner_data">
+      <bpmn:documentation>External worker fetches prisoner record from a remote system.</bpmn:documentation>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="load_prisoner_data" targetRef="ParallelSplit" />
+
+    <bpmn:parallelGateway id="ParallelSplit" name="Parallel split">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:parallelGateway>
+
+    <bpmn:userTask id="finance_check" name="Finance Check">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="relative_check" name="Relative Check">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="discipline_check" name="Discipline Check">
+      <bpmn:documentation>New in v2: parallel discipline review.</bpmn:documentation>
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="ParallelSplit" targetRef="finance_check" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ParallelSplit" targetRef="relative_check" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="ParallelSplit" targetRef="discipline_check" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="finance_check" targetRef="ParallelJoin" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="relative_check" targetRef="ParallelJoin" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="discipline_check" targetRef="ParallelJoin" />
+
+    <bpmn:parallelGateway id="ParallelJoin" name="Parallel join">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:parallelGateway>
+
+    <bpmn:intermediateCatchEvent id="Timer_1" name="10-20s window">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>PT15S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="ParallelJoin" targetRef="Timer_1" />
+
+    <bpmn:userTask id="final_decision" name="Final Decision">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Timer_1" targetRef="final_decision" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="final_decision" targetRef="EndEvent_1" />
+
+    <bpmn:endEvent id="EndEvent_1" name="Decision recorded">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

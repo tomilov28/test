@@ -1,0 +1,65 @@
+{
+  "scenario": "f07",
+  "steps": [
+    {
+      "step": "start",
+      "request_id": "6624f066-c8ce-4fbe-a111-b0d193aa0cd4",
+      "instance_id": "b744904a-9fef-11f1-9774-52d44a5d161d"
+    },
+    {
+      "step": "partial progress",
+      "completed": [
+        "finance_check"
+      ]
+    }
+  ],
+  "before_restart": {
+    "active_activities": [
+      "ParallelJoin",
+      "relative_check"
+    ],
+    "work_items": [
+      [
+        "finance_check",
+        "COMPLETED"
+      ],
+      [
+        "relative_check",
+        "ACTIVE"
+      ]
+    ]
+  },
+  "after_restart": {
+    "active_activities": [
+      "ParallelJoin",
+      "relative_check"
+    ],
+    "request_state": "ACTIVE",
+    "work_items": [
+      [
+        "finance_check",
+        "COMPLETED"
+      ],
+      [
+        "relative_check",
+        "ACTIVE"
+      ]
+    ]
+  },
+  "reconcile_after_restart": {
+    "summary": {
+      "requests_seen": 1,
+      "tasks_seen": 1,
+      "work_items_upserted": 1,
+      "completed_requests": 0,
+      "errors": []
+    },
+    "work_item_count": 2
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED",
+    "instance_state": "ENDED",
+    "history_events": 19
+  }
+}

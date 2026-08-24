@@ -32,15 +32,13 @@ def process_key_from_xml(xml: str, fallback: str) -> str:
 
 
 def _reset_process_key(adapter, process_key: str) -> None:
-    if not hasattr(adapter, "get_process_definitions") or not hasattr(adapter, "cancel_process"):
+    if not hasattr(adapter, "get_running_instances") or not hasattr(adapter, "delete_deployment"):
         print(f"  (skip reset for {process_key}: adapter has no reset support)")
         return
-    for inst in adapter._client.get(
-        "/process-instance", params={"processDefinitionKey": process_key}
-    ).json():
-        adapter.cancel_process(inst["id"])
+    for instance_id in adapter.get_running_instances(process_key):
+        adapter.cancel_process(instance_id)
     for definition in adapter.get_process_definitions(process_key):
-        adapter._client.delete(f"/deployment/{definition['deploymentId']}", params={"cascade": "true"})
+        adapter.delete_deployment(definition["deploymentId"])
 
 
 def main() -> int:

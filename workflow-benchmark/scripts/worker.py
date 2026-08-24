@@ -24,12 +24,18 @@ import uuid
 
 import httpx
 
+from app.config import get_settings
 from app.workers.external_worker import ExternalTaskWorker
+from app.workers.flowable_worker import FlowableExternalTaskWorker
 
 API_BASE = "http://localhost:8000"
-ENGINE_BASE = "http://localhost:8080/engine-rest"
 
 LONG_VISIT_TOPIC = "load_prisoner_data"
+
+WORKER_CLASSES = {
+    "OPERATON": (ExternalTaskWorker, "engine_operaton_url"),
+    "FLOWABLE": (FlowableExternalTaskWorker, "engine_flowable_url"),
+}
 
 # Human-task decision payloads for the LONG_VISIT_POC process.
 HUMAN_DECISIONS = {
@@ -66,10 +72,17 @@ def complete_active_work_items(client: httpx.Client, request_id: uuid.UUID) -> i
     return completed
 
 
+def build_external_worker(engine: str, fail_first: bool, engine_url: str | None = None):
+    worker_cls, url_setting = WORKER_CLASSES[engine]
+    return worker_cls(
+        engine_url=engine_url or getattr(get_settings(), url_setting), fail_first=fail_first
+    )
+
+
 def run_request_flow(args) -> int:
     """One-shot flow for a specific (or freshly created) request."""
     client = httpx.Client(base_url=args.api, timeout=15.0)
-    ext = ExternalTaskWorker(engine_url=args.engine_url, fail_first=args.fail_first)
+    ext = build_external_worker(args.engine, args.fail_first, args.engine_url)
     request_id = args.request_id
 
     try:
@@ -121,7 +134,7 @@ def run_daemon(args) -> int:
     """Long-running worker: keep both the external topic and all active
     requests' human tasks drained."""
     client = httpx.Client(base_url=args.api, timeout=15.0)
-    ext = ExternalTaskWorker(engine_url=args.engine_url, fail_first=args.fail_first)
+    ext = build_external_worker(args.engine, args.fail_first, args.engine_url)
     try:
         while True:
             ext.poll_once()
@@ -145,7 +158,7 @@ def run_daemon(args) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--api", default=API_BASE)
-    parser.add_argument("--engine-url", default=ENGINE_BASE)
+    parser.add_argument("--engine-url", default=None)
     parser.add_argument("--engine", choices=["OPERATON", "FLOWABLE"], default="OPERATON")
     parser.add_argument("--request-id", type=uuid.UUID, default=None)
     parser.add_argument("--create", action="store_true", help="create a LONG_VISIT_POC request first")

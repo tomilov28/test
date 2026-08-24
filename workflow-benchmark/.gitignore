@@ -7,3 +7,4 @@ artifacts/benchmark/
 artifacts/outbox/
 artifacts/reconcile/
 artifacts/operaton/*.pid
+artifacts/flowable/*.pid

@@ -23,16 +23,33 @@ import time
 import httpx
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARTIFACTS = os.path.join(ROOT, "artifacts", "operaton")
 VENV_PY = os.path.join(ROOT, ".venv", "bin", "python")
 
-APP_PIDFILE = os.path.join(ARTIFACTS, "app.pid")
-APP_LOG = os.path.join(ARTIFACTS, "app.log")
-WORKER_PIDFILE = os.path.join(ARTIFACTS, "worker.pid")
-WORKER_LOG = os.path.join(ARTIFACTS, "worker.log")
+ARTIFACT_DIRS = {
+    "OPERATON": os.path.join(ROOT, "artifacts", "operaton"),
+    "FLOWABLE": os.path.join(ROOT, "artifacts", "flowable"),
+}
+ENGINE_BASES = {
+    "OPERATON": "http://localhost:8080/engine-rest",
+    "FLOWABLE": "http://localhost:8081/flowable-rest/service",
+}
+ENGINE_PROBE_PATHS = {
+    "OPERATON": "/engine",
+    "FLOWABLE": "/management/engine",
+}
 
 API_BASE = "http://localhost:8000"
-ENGINE_BASE = "http://localhost:8080/engine-rest"
+
+
+def _paths(engine: str) -> dict:
+    artifacts = ARTIFACT_DIRS[engine]
+    return {
+        "artifacts": artifacts,
+        "app_pidfile": os.path.join(artifacts, "app.pid"),
+        "app_log": os.path.join(artifacts, "app.log"),
+        "worker_pidfile": os.path.join(artifacts, "worker.pid"),
+        "worker_log": os.path.join(artifacts, "worker.log"),
+    }
 
 
 def _pid_alive(pidfile: str) -> int | None:
@@ -49,7 +66,6 @@ def _pid_alive(pidfile: str) -> int | None:
 
 
 def _write_pidfile(pidfile: str, pid: int) -> None:
-    os.makedirs(ARTIFACTS, exist_ok=True)
     with open(pidfile, "w") as fh:
         fh.write(str(pid))
 
@@ -74,7 +90,7 @@ def _spawn(name: str, pidfile: str, logfile: str, argv: list[str]) -> None:
     if _pid_alive(pidfile) is not None:
         print(f"{name}: already running (pid {_pid_alive(pidfile)}); skipping")
         return
-    os.makedirs(ARTIFACTS, exist_ok=True)
+    os.makedirs(os.path.dirname(pidfile), exist_ok=True)
     with open(logfile, "ab") as log_fh:
         proc = subprocess.Popen(
             argv,
@@ -99,9 +115,11 @@ def _app_healthy() -> bool:
         return False
 
 
-def _engine_up() -> bool:
+def _engine_up(engine: str) -> bool:
     try:
-        return httpx.get(f"{ENGINE_BASE}/engine", timeout=3.0).status_code == 200
+        return httpx.get(
+            f"{ENGINE_BASES[engine]}{ENGINE_PROBE_PATHS[engine]}", timeout=3.0
+        ).status_code == 200
     except Exception:
         return False
 
@@ -119,13 +137,18 @@ def main() -> int:
             "status-worker",
         ],
     )
+    parser.add_argument(
+        "--engine", choices=list(ARTIFACT_DIRS), default="OPERATON",
+        help="engine the worker serves (selects pidfile dir + engine URL)",
+    )
     args = parser.parse_args()
+    paths = _paths(args.engine)
 
     if args.action == "start-app":
         _spawn(
             "app",
-            APP_PIDFILE,
-            APP_LOG,
+            paths["app_pidfile"],
+            paths["app_log"],
             [VENV_PY, "-u", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"],
         )
         deadline = time.time() + 30
@@ -135,31 +158,34 @@ def main() -> int:
         return 0 if _app_healthy() else 1
 
     if args.action == "stop-app":
-        _stop_pid(APP_PIDFILE, "app")
+        _stop_pid(paths["app_pidfile"], "app")
         return 0
 
     if args.action == "status-app":
-        _status("app", APP_PIDFILE, _app_healthy())
+        _status("app", paths["app_pidfile"], _app_healthy())
         return 0
 
     if args.action == "start-worker":
-        if not _engine_up():
+        if not _engine_up(args.engine):
             print("worker: engine not reachable; start infra first")
             return 1
         _spawn(
             "worker",
-            WORKER_PIDFILE,
-            WORKER_LOG,
-            [VENV_PY, "-u", "-m", "scripts.worker", "--engine", "OPERATON", "--daemon", "--poll-requests"],
+            paths["worker_pidfile"],
+            paths["worker_log"],
+            [
+                VENV_PY, "-u", "-m", "scripts.worker",
+                "--engine", args.engine, "--daemon", "--poll-requests",
+            ],
         )
         return 0
 
     if args.action == "stop-worker":
-        _stop_pid(WORKER_PIDFILE, "worker")
+        _stop_pid(paths["worker_pidfile"], "worker")
         return 0
 
     if args.action == "status-worker":
-        _status("worker", WORKER_PIDFILE, _engine_up())
+        _status("worker", paths["worker_pidfile"], _engine_up(args.engine))
         return 0
 
     return 2

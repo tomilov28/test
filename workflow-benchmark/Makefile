@@ -57,16 +57,29 @@ _operaton-infra: create-enginedbs
 	$(PYTHON) -m scripts.deploy_fixtures --engine OPERATON --reset
 	$(PYTHON) -m scripts.stackctl start-app
 
-up-flowable: create-enginedbs
+up-flowable: _flowable-infra
+	$(PYTHON) -m scripts.stackctl start-worker --engine FLOWABLE
+	@echo "== flowable stack up =="
+	@echo "  Swagger UI        : http://localhost:8081/flowable-rest/docs"
+	@echo "  API               : http://localhost:8000/docs"
+	@echo "  Credentials       : rest-admin / test"
+
+# postgres + flowable engine + migrated DB + fixtures + FastAPI harness
+# (dispatcher + reconciler run inside the app). No Operaton.
+_flowable-infra: create-enginedbs
 	$(COMPOSE_FLOWABLE) up -d flowable
 	$(PYTHON) scripts/wait_for_engine.py --engine FLOWABLE
+	$(PYTHON) -m alembic upgrade head
+	$(PYTHON) -m scripts.deploy_fixtures --engine FLOWABLE --reset
+	$(PYTHON) -m scripts.stackctl start-app
 
 create-enginedbs:
 	$(PYTHON) scripts/create_databases.py
 
 down:
 	$(PYTHON) -m scripts.stackctl stop-app
-	$(PYTHON) -m scripts.stackctl stop-worker
+	$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
+	$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
 	$(COMPOSE_ALL) down
 
 clean: down
@@ -84,9 +97,14 @@ test-operaton: _operaton-infra
 	$(PYTHON) -m scripts.operaton_scenarios --scenario all
 	@echo "== test-operaton done =="
 
-test-flowable:
-	@echo "TODO(phase:flowable): run Flowable benchmark tests"
-	$(PYTHON) -m pytest -q tests -k flowable || true
+test-flowable: _flowable-infra
+	@# tests manage their own external workers; stop a leftover daemon to avoid interference
+	-$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
+	$(PYTHON) -m pytest -q -m integration \
+		--junitxml=artifacts/flowable/test-results.xml \
+		tests/test_flowable_integration.py
+	$(PYTHON) -m scripts.flowable_scenarios --scenario all
+	@echo "== test-flowable done =="
 
 benchmark:
 	@echo "TODO(phase:benchmark): run full comparative benchmark"
@@ -96,9 +114,9 @@ demo-operaton: up-operaton
 	$(PYTHON) -m scripts.demo --engine OPERATON
 	@echo "== stack left running =="
 
-demo-flowable:
-	@echo "TODO(phase:flowable): run Flowable demo scenario"
-	$(PYTHON) -m scripts.demo --engine FLOWABLE || true
+demo-flowable: up-flowable
+	$(PYTHON) -m scripts.demo --engine FLOWABLE
+	@echo "== stack left running =="
 
 report:
 	@echo "TODO(phase:report): generate comparative report from artifacts/"

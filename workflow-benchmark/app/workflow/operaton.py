@@ -224,5 +224,19 @@ class OperatonAdapter:
                 )
         return jobs
 
+    # ---- engine-agnostic helpers used by fixture/cleanup tooling -----------
+
+    def get_running_instances(self, process_key: str) -> list[str]:
+        """Ids of currently running instances of a process key."""
+        resp = self._client.get("/process-instance", params={"processDefinitionKey": process_key})
+        resp.raise_for_status()
+        return [inst["id"] for inst in resp.json()]
+
+    def delete_deployment(self, deployment_id: str) -> None:
+        resp = self._client.delete(
+            f"/deployment/{deployment_id}", params={"cascade": "true"}
+        )
+        resp.raise_for_status()
+
     def close(self) -> None:
         self._client.close()
