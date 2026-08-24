@@ -1,0 +1,69 @@
+=== Environment snapshot: 2026-08-24T16:45:19Z ===
+
+--- uname -a ---
+Linux 00cc6987-fe3b-406c-a781-cdf35ac99e47 6.6.116 #4 SMP PREEMPT_DYNAMIC Tue Jan  6 08:26:42 UTC 2026 x86_64 GNU/Linux
+
+--- OS ---
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+
+--- docker version ---
+Client: Docker Engine - Community
+ Version:           29.7.2
+ API version:       1.55
+ Go version:        go1.26.5
+ Git commit:        a7dcaa6
+ Built:             Wed Aug  5 18:28:36 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.7.2
+  API version:      1.55 (minimum version 1.40)
+  Go version:       go1.26.5
+  Git commit:       6a43e3d
+  Built:            Wed Aug  5 18:28:36 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.3.3
+  GitCommit:        aad11006b869517fcd3009450b6f82da282e1a9b
+ runc:
+  Version:          1.4.3
+  GitCommit:        v1.4.3-0-gbb14dabe
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+--- docker compose version ---
+Docker Compose version v5.5.0
+
+--- python --version ---
+Python 3.12.14
+
+--- free -h ---
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       7.4Gi       165Mi       800Ki       404Mi       341Mi
+Swap:             0B          0B          0B
+
+--- df -h ---
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        20G  2.6G   16G  15% /
+devtmpfs        3.9G     0  3.9G   0% /dev
+tmpfs           3.9G   32K  3.9G   1% /run
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+
+--- nproc ---
+2
+
+--- cpuinfo (model/cores) ---
+model name	: Intel(R) Xeon(R) Processor @ 2.50GHz
+2
+
+--- kvm present? ---
+ls: cannot access '/dev/kvm': No such file or directory
+no /dev/kvm
+
+--- swap ---

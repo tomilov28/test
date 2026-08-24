@@ -1,0 +1,7 @@
+services:
+  flowable:
+    image: flowable/flowable-rest:8.0.0
+    ports:
+      - "8081:8081"
+    profiles: ["engine-flowable"]
+    # Engine phase (PROGRESS.md): add datasource/env tuning and healthcheck.

@@ -1,0 +1,7 @@
+services:
+  operaton:
+    image: operaton/operaton:2.1.4
+    ports:
+      - "8080:8080"
+    profiles: ["engine-operaton"]
+    # Engine phase (PROGRESS.md): add datasource/env tuning and healthcheck.
