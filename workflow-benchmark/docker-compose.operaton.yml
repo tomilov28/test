@@ -1,7 +1,29 @@
 services:
   operaton:
     image: operaton/operaton:2.1.4
+    container_name: benchmark-operaton
     ports:
       - "8080:8080"
+    mem_limit: ${OPERATON_MEM_LIMIT:-512m}
+    cpus: 2
+    environment:
+      # Official Operaton image config (operaton-docker README):
+      # Spring Boot distro; container-aware JVM; REST at /engine-rest.
+      DB_DRIVER: org.postgresql.Driver
+      DB_URL: jdbc:postgresql://postgres:5432/operaton
+      DB_USERNAME: benchmark
+      DB_PASSWORD: benchmark
+      WAIT_FOR: postgres:5432
+      WAIT_FOR_TIMEOUT: "60"
+      # Official recommendation: limit container to 2g, give JVM 70% -> ~1.4g heap.
+      JAVA_OPTS: ${OPERATON_JAVA_OPTS:--XX:MaxRAMPercentage=70.0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080'"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 30s
     profiles: ["engine-operaton"]
-    # Engine phase (PROGRESS.md): add datasource/env tuning and healthcheck.

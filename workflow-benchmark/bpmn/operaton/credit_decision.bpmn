@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:operaton="http://operaton.org/schema/1.0/bpmn"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_credit_decision"
+                  targetNamespace="http://benchmark.local/bpmn/credit-decision">
+  <bpmn:process id="credit_decision" name="Credit Decision" isExecutable="true"
+                operaton:historyTimeToLive="180">
+    <bpmn:startEvent id="StartEvent_1" name="Request received">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="review_request" />
+    <bpmn:userTask id="review_request" name="Review Request">
+      <bpmn:documentation>External worker reviews the credit request.</bpmn:documentation>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="review_request" targetRef="final_approval" />
+    <bpmn:userTask id="final_approval" name="Final Approval">
+      <bpmn:documentation>External worker issues the final approval decision.</bpmn:documentation>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="final_approval" targetRef="EndEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" name="Decision recorded">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

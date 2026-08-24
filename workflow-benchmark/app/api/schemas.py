@@ -79,6 +79,7 @@ class ReconcileResult(BaseModel):
     requests_seen: int
     tasks_seen: int
     work_items_upserted: int
+    completed_requests: int
     errors: list[dict[str, str]]
 
 

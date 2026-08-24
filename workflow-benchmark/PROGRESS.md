@@ -19,13 +19,28 @@ Status legend: `[ ]` not started, `[~]` in progress, `[x]` verified by actual ru
 
 ## Operaton (pinned 2.1.4)
 
-- [ ] `make up-operaton` starts engine container
-- [ ] Adapter REST mapping implemented (deploy/start/cancel/query)
-- [ ] BPMN fixture deployed
-- [ ] External worker completes a human task
-- [ ] Outbox START_PROCESS -> engine instance created
-- [ ] Reconciler mirrors engine tasks to WorkItems
+- [x] `make up-operaton` starts engine container
+- [x] Adapter REST mapping implemented (deploy/start/cancel/query)
+- [x] BPMN fixture deployed (`credit_decision` + `historyTimeToLive`)
+- [x] External worker completes a human task
+- [x] Outbox START_PROCESS -> engine instance created
+- [x] Reconciler mirrors engine tasks to WorkItems
+- [x] Request auto-closes on natural engine completion (CLOSED/COMPLETED)
+- [x] Memory floor determined (see below)
 - [ ] Fault/timer scenarios measured
+
+### Operaton memory floor (headless REST runtime, Spring Boot distro)
+
+| limit | JVM heap (70%) | outcome | RSS at idle |
+|---|---|---|---|
+| 2g (official doc) | ~1.4g | stable | ~860 MiB |
+| 1g | ~700m | stable | ~378 MiB |
+| 768m | ~537m | stable | ~357 MiB |
+| 512m | ~358m | stable (headroom ~35%) | ~318 MiB |
+| 384m | ~268m | works but ~90% used, no headroom | ~345 MiB |
+| 256m | ~179m | JVM OOM-killed at startup | - |
+
+**Recorded config**: `OPERATON_MEM_LIMIT=512m` + `MaxRAMPercentage=70.0` (practical floor with headroom; below this OOM). Config is env-parameterized in `docker-compose.operaton.yml`.
 
 ## Flowable (pinned 8.0.0)
 

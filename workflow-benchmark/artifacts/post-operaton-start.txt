@@ -1,0 +1,14 @@
+=== Post-Operaton-start resource snapshot 2026-08-24T17:17:36Z ===
+MemAvailable:     308428 kB
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       7.5Gi       246Mi        42Mi       321Mi       301Mi
+--- docker stats ---
+benchmark-operaton	860.5MiB / 2GiB	42.01%	5.00%
+workflow-benchmark-postgres-1	103.5MiB / 7.779GiB	1.30%	0.25%
+--- top host procs ---
+PID RSS COMMAND
+17710 879100 /usr/lib/jvm/java-17-openjdk/bin/java
+516 389808 /root/.codingmatrix/bin/opencode-167e55c83ed7/opencode
+25486 94148 .venv/bin/python
+6714 64292 dockerd
+7833 36728 postgres:

@@ -66,3 +66,22 @@ def test_reconcile_survives_engine_absence(db):
     assert summary["errors"]
     assert summary["requests_seen"] == 1
     assert db.query(WorkItem).count() == 0
+
+
+def test_reconcile_closes_request_on_natural_completion(db):
+    from app.domain.enums import RequestOutcome
+
+    request = _active_request(db)
+    mock = MockAdapter()
+    instance = mock.start_process("credit_decision", business_key=request.number)
+    instance.process_instance_id = "pi-1"
+    instance.state = "ENDED"
+    mock.process_instances["pi-1"] = instance
+
+    summary = reconcile_once(db, lambda engine: mock)
+
+    db.refresh(request)
+    assert summary["completed_requests"] == 1
+    assert request.lifecycle_state == LifecycleState.CLOSED.value
+    assert request.outcome == RequestOutcome.COMPLETED.value
+    assert request.closed_at is not None

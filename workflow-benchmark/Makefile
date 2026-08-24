@@ -31,15 +31,23 @@ dev:
 	$(PYTHON) -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 test:
-	$(PYTHON) -m pytest -q
+	$(PYTHON) -m pytest -q -m "not integration"
+
+test-integration:
+	$(PYTHON) -m pytest -q -m "integration"
 
 # ---- engines -------------------------------------------------------------
 
-up-operaton:
+up-operaton: create-enginedbs
 	$(COMPOSE_OPERATON) up -d operaton
+	$(PYTHON) scripts/wait_for_engine.py --engine OPERATON
 
-up-flowable:
+up-flowable: create-enginedbs
 	$(COMPOSE_FLOWABLE) up -d flowable
+	$(PYTHON) scripts/wait_for_engine.py --engine FLOWABLE
+
+create-enginedbs:
+	$(PYTHON) scripts/create_databases.py
 
 down:
 	$(COMPOSE_ALL) down

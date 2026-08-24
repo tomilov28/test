@@ -20,16 +20,21 @@ import logging
 import threading
 import time
 import uuid
+from datetime import datetime, timezone
 
 from sqlalchemy import select
 from sqlalchemy.dialects import postgresql, sqlite
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
-from app.domain.enums import LifecycleState, WorkItemState
+from app.domain.enums import LifecycleState, RequestOutcome, WorkItemState
 from app.domain.models import Request, WorkItem
 
 logger = logging.getLogger(__name__)
+
+
+def _utcnow() -> datetime:
+    return datetime.now(timezone.utc)
 
 
 def upsert_work_item(db: Session, *, request_id: uuid.UUID, task_definition_key: str, external_task_id: str) -> WorkItem:
@@ -63,9 +68,18 @@ def upsert_work_item(db: Session, *, request_id: uuid.UUID, task_definition_key:
 
 
 def reconcile_once(db: Session, adapter_factory, engine_filter: str | None = None) -> dict:
-    summary = {"requests_seen": 0, "tasks_seen": 0, "work_items_upserted": 0, "errors": []}
+    summary = {
+        "requests_seen": 0,
+        "tasks_seen": 0,
+        "work_items_upserted": 0,
+        "completed_requests": 0,
+        "errors": [],
+    }
 
-    stmt = select(Request).where(Request.lifecycle_state == LifecycleState.ACTIVE.value)
+    stmt = select(Request).where(
+        Request.lifecycle_state == LifecycleState.ACTIVE.value,
+        Request.workflow_instance_id.is_not(None),
+    )
     if engine_filter:
         stmt = stmt.where(Request.workflow_engine == engine_filter)
     requests = db.execute(stmt).scalars().all()
@@ -84,6 +98,15 @@ def reconcile_once(db: Session, adapter_factory, engine_filter: str | None = Non
                     external_task_id=task.id,
                 )
                 summary["work_items_upserted"] += 1
+
+            if request.workflow_instance_id:
+                instance = adapter.get_process_instance(request.workflow_instance_id)
+                if instance.state == "ENDED":
+                    request.lifecycle_state = LifecycleState.CLOSED.value
+                    request.outcome = RequestOutcome.COMPLETED.value
+                    request.closed_at = _utcnow()
+                    summary["completed_requests"] += 1
+
             db.commit()
         except NotImplementedError:
             db.rollback()
