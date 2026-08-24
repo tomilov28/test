@@ -19,15 +19,23 @@ Status legend: `[ ]` not started, `[~]` in progress, `[x]` verified by actual ru
 
 ## Operaton (pinned 2.1.4)
 
-- [x] `make up-operaton` starts engine container
-- [x] Adapter REST mapping implemented (deploy/start/cancel/query)
-- [x] BPMN fixture deployed (`credit_decision` + `historyTimeToLive`)
-- [x] External worker completes a human task
-- [x] Outbox START_PROCESS -> engine instance created
-- [x] Reconciler mirrors engine tasks to WorkItems
+- [x] `make up-operaton` starts full stack (postgres + engine + app + worker), no Flowable
+- [x] Adapter REST mapping implemented (deploy/start/cancel/query/history/jobs/activity tree)
+- [x] BPMN fixture deployed (`LONG_VISIT_POC` v1 + v2, `operaton:historyTimeToLive`)
+- [x] External worker completes external service task (topic `load_prisoner_data`)
+- [x] External worker real retry verified (T03: fail -> engine re-activates after retryTimeout)
+- [x] Outbox START_PROCESS -> engine instance created (version-pinned dispatch)
+- [x] Reconciler mirrors engine tasks to WorkItems (idempotent)
 - [x] Request auto-closes on natural engine completion (CLOSED/COMPLETED)
+- [x] Parallel tasks + join + `PT15S` durable timer -> `final_decision` (T08)
+- [x] v1/v2 versioning verified (T10): old instance stays on v1, new starts on v2
+- [x] Cancellation marks local WorkItems CANCELLED + engine instance ENDED (T11)
+- [x] T07 full stack restart with preserved DB: state + reconcile survive, flow completes
+- [x] T09 durable timer across engine restart: timer fires, reconciler surfaces `final_decision`
+- [x] `make test-operaton` passes (12 integration + 16 unit), writes `test-results.xml`
+- [x] `make demo-operaton` drives a request to COMPLETED and leaves the stack running
 - [x] Memory floor determined (see below)
-- [ ] Fault/timer scenarios measured
+- [x] Artifacts collected -> `artifacts/operaton/` (benchmark.json, engine.log, docker-stats.json, api-evidence/)
 
 ### Operaton memory floor (headless REST runtime, Spring Boot distro)
 

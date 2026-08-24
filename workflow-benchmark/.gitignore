@@ -6,3 +6,4 @@ __pycache__/
 artifacts/benchmark/
 artifacts/outbox/
 artifacts/reconcile/
+artifacts/operaton/*.pid

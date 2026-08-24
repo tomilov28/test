@@ -65,6 +65,11 @@ def create_request(body: RequestCreate, db: Session = Depends(get_db)):
     return request
 
 
+@router.get("/requests", response_model=list[RequestOut])
+def list_requests(db: Session = Depends(get_db)):
+    return db.execute(select(Request).order_by(Request.created_at.desc()).limit(100)).scalars().all()
+
+
 @router.get("/requests/{request_id}", response_model=RequestDetail)
 def get_request(request_id: uuid.UUID, db: Session = Depends(get_db)):
     request = _get_request_or_404(db, request_id)

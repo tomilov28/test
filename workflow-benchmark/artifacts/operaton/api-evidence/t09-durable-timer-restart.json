@@ -1,0 +1,39 @@
+{
+  "scenario": "t09",
+  "steps": [
+    {
+      "step": "start",
+      "request_id": "088de2e9-bd75-4cfd-b1b7-cb9093c21742",
+      "instance_id": "c3282ade-9fe6-11f1-9fce-6a420232cf00"
+    }
+  ],
+  "before_restart": {
+    "active_activities": [
+      "Timer_1"
+    ],
+    "timer_jobs": 1
+  },
+  "after_restart": {
+    "active_activities": [
+      "final_decision"
+    ]
+  },
+  "reconciled": {
+    "summary": {
+      "requests_seen": 1,
+      "tasks_seen": 1,
+      "work_items_upserted": 1,
+      "completed_requests": 0,
+      "errors": []
+    },
+    "work_items": [
+      "final_decision",
+      "finance_check",
+      "relative_check"
+    ]
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED"
+  }
+}

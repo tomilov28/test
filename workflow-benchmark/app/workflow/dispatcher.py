@@ -19,8 +19,8 @@ from sqlalchemy import select, update
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
-from app.domain.enums import CommandState, CommandType, LifecycleState, RequestOutcome
-from app.domain.models import Request, WorkflowCommand
+from app.domain.enums import CommandState, CommandType, LifecycleState, RequestOutcome, WorkItemState
+from app.domain.models import Request, WorkItem, WorkflowCommand
 
 logger = logging.getLogger(__name__)
 
@@ -89,6 +89,7 @@ def dispatch_one(db: Session, command: WorkflowCommand, adapter_factory, max_att
                 process_key=request.request_type,
                 business_key=request.number,
                 variables=command.payload.get("variables") or {},
+                version=request.request_type_version,
             )
             request.workflow_instance_id = result.process_instance_id
 
@@ -115,6 +116,17 @@ def dispatch_one(db: Session, command: WorkflowCommand, adapter_factory, max_att
             request.lifecycle_state = LifecycleState.CLOSED.value
             request.outcome = RequestOutcome.CANCELLED.value
             request.closed_at = _now_minus(0, db)
+            # Mirror the engine cancellation into local WorkItems.
+            db.execute(
+                update(WorkItem)
+                .where(
+                    WorkItem.request_id == request.id,
+                    WorkItem.state == WorkItemState.ACTIVE.value,
+                )
+                .values(
+                    state=WorkItemState.CANCELLED.value,
+                )
+            )
 
         db.commit()
     except Exception as exc:  # engine down, timeouts, adapter errors...

@@ -12,6 +12,16 @@ class RequestCreate(BaseModel):
     variables: dict[str, Any] = Field(default_factory=dict)
 
 
+class TaskResultOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    work_item_id: uuid.UUID
+    version: int
+    data: dict[str, Any]
+    created_at: datetime
+
+
 class WorkItemOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -22,6 +32,9 @@ class WorkItemOut(BaseModel):
     state: str
     created_at: datetime
     completed_at: datetime | None
+    results: list[TaskResultOut] = Field(default_factory=list)
+    completed_at: datetime | None
+    results: list[TaskResultOut] = Field(default_factory=list)
 
 
 class TaskResultOut(BaseModel):

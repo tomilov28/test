@@ -69,12 +69,25 @@ class OperatonAdapter:
         raise RuntimeError(f"deployment created but no process definition for key {process_key}")
 
     def start_process(
-        self, process_key: str, business_key: str | None = None, variables: dict | None = None
+        self,
+        process_key: str,
+        business_key: str | None = None,
+        variables: dict | None = None,
+        version: int | None = None,
     ) -> ProcessInstanceInfo:
         payload: dict = {"variables": self._to_variables(variables or {})}
         if business_key:
             payload["businessKey"] = business_key
-        resp = self._client.post(f"/process-definition/key/{process_key}/start", json=payload)
+        if version is None:
+            url = f"/process-definition/key/{process_key}/start"
+        else:
+            target = next(
+                (d for d in self.get_process_definitions(process_key) if d["version"] == version), None
+            )
+            if target is None:
+                raise RuntimeError(f"process {process_key} version {version} not deployed")
+            url = f"/process-definition/{target['id']}/start"
+        resp = self._client.post(url, json=payload)
         resp.raise_for_status()
         body = resp.json()
         return ProcessInstanceInfo(
@@ -133,6 +146,46 @@ class OperatonAdapter:
             json={"variables": self._to_variables(variables or {})},
         )
         resp.raise_for_status()
+
+    def get_process_definitions(self, process_key: str) -> list[dict]:
+        """All deployed versions of a process key (id, key, version, deploymentId, ...)."""
+        resp = self._client.get("/process-definition", params={"key": process_key})
+        resp.raise_for_status()
+        return resp.json()
+
+    def get_instance_definition_version(self, process_instance_id: str) -> int | None:
+        """Version of the process definition an instance is running on."""
+        resp = self._client.get(f"/process-instance/{process_instance_id}")
+        if resp.status_code == 404:
+            return None
+        resp.raise_for_status()
+        definition_id = resp.json().get("definitionId")
+        if not definition_id:
+            return None
+        definition = self._client.get(f"/process-definition/{definition_id}")
+        definition.raise_for_status()
+        return definition.json().get("version")
+
+    def get_active_activity_ids(self, process_instance_id: str) -> set[str]:
+        """Currently active wait-state activity ids (from the activity-instance tree)."""
+        resp = self._client.get(f"/process-instance/{process_instance_id}/activity-instances")
+        if resp.status_code == 404:
+            return set()
+        resp.raise_for_status()
+        tree = resp.json()
+        active: set[str] = set()
+
+        def walk(node: dict) -> None:
+            for child in node.get("childActivityInstances") or []:
+                if child.get("activityId"):
+                    active.add(child["activityId"])
+                walk(child)
+            for transition in node.get("childTransitionInstances") or []:
+                if transition.get("active") and transition.get("activityId"):
+                    active.add(transition["activityId"])
+
+        walk(tree)
+        return active
 
     def get_process_history(self, process_instance_id: str) -> list[HistoryEvent]:
         resp = self._client.get(

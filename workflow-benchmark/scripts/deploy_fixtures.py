@@ -1,13 +1,16 @@
 """Deploy BPMN fixtures to an engine.
 
-Idempotent: uses the engine's duplicate filtering / changed-only semantics.
+Process key is read from the BPMN XML (`<bpmn:process id="...">`), so multiple
+files may carry the same process key (e.g. LONG_VISIT_POC v1 and v2).
 
 Usage:
   .venv/bin/python -m scripts.deploy_fixtures --engine OPERATON
+  .venv/bin/python -m scripts.deploy_fixtures --engine OPERATON --reset
 """
 
 import argparse
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -20,10 +23,34 @@ FIXTURES = {
     "FLOWABLE": ("bpmn/flowable", FlowableAdapter),
 }
 
+_PROCESS_ID_RE = re.compile(r'<bpmn:process\s+id="([^"]+)"')
+
+
+def process_key_from_xml(xml: str, fallback: str) -> str:
+    match = _PROCESS_ID_RE.search(xml)
+    return match.group(1) if match else fallback
+
+
+def _reset_process_key(adapter, process_key: str) -> None:
+    if not hasattr(adapter, "get_process_definitions") or not hasattr(adapter, "cancel_process"):
+        print(f"  (skip reset for {process_key}: adapter has no reset support)")
+        return
+    for inst in adapter._client.get(
+        "/process-instance", params={"processDefinitionKey": process_key}
+    ).json():
+        adapter.cancel_process(inst["id"])
+    for definition in adapter.get_process_definitions(process_key):
+        adapter._client.delete(f"/deployment/{definition['deploymentId']}", params={"cascade": "true"})
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine", choices=list(FIXTURES), required=True)
+    parser.add_argument(
+        "--reset",
+        action="store_true",
+        help="cancel instances + delete existing deployments of each process key first",
+    )
     args = parser.parse_args()
 
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,14 +62,25 @@ def main() -> int:
 
     adapter = adapter_cls()
     try:
+        keys: set[str] = set()
         for entry in sorted(os.listdir(fixtures_dir)):
             if not entry.endswith(".bpmn"):
                 continue
-            process_key = os.path.splitext(entry)[0]
             with open(os.path.join(fixtures_dir, entry)) as fh:
                 xml = fh.read()
-            info = adapter.deploy_process(xml, process_key, name=f"benchmark-fixture-{process_key}")
-            print(f"deployed {entry} -> deployment {info.deployment_id}")
+            process_key = process_key_from_xml(xml, fallback=os.path.splitext(entry)[0])
+            keys.add(process_key)
+        if args.reset:
+            for process_key in sorted(keys):
+                _reset_process_key(adapter, process_key)
+        for entry in sorted(os.listdir(fixtures_dir)):
+            if not entry.endswith(".bpmn"):
+                continue
+            with open(os.path.join(fixtures_dir, entry)) as fh:
+                xml = fh.read()
+            process_key = process_key_from_xml(xml, fallback=os.path.splitext(entry)[0])
+            info = adapter.deploy_process(xml, process_key, name=f"benchmark-fixture-{entry}")
+            print(f"deployed {entry} -> deployment {info.deployment_id} (key={process_key})")
         return 0
     finally:
         adapter.close()

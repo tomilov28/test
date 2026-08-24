@@ -35,7 +35,11 @@ class MockAdapter:
         return info
 
     def start_process(
-        self, process_key: str, business_key: str | None = None, variables: dict | None = None
+        self,
+        process_key: str,
+        business_key: str | None = None,
+        variables: dict | None = None,
+        version: int | None = None,
     ) -> ProcessInstanceInfo:
         if self.fail_start:
             raise RuntimeError("mock: start_process failure injected")

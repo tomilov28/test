@@ -7,7 +7,8 @@ COMPOSE_FLOWABLE := docker compose -f docker-compose.yml -f docker-compose.flowa
 COMPOSE_ALL := docker compose -f docker-compose.yml -f docker-compose.operaton.yml -f docker-compose.flowable.yml
 
 .PHONY: setup venv deps up-db migrate dev test up-operaton up-flowable down clean \
-        test-operaton test-flowable benchmark demo-operaton demo-flowable report
+        test-operaton test-flowable benchmark demo-operaton demo-flowable report \
+        _operaton-infra
 
 # ---- bootstrap -----------------------------------------------------------
 
@@ -38,9 +39,23 @@ test-integration:
 
 # ---- engines -------------------------------------------------------------
 
-up-operaton: create-enginedbs
-	$(COMPOSE_OPERATON) up -d operaton
+up-operaton: _operaton-infra
+	$(PYTHON) -m scripts.stackctl start-worker
+	@echo "== operaton stack up =="
+	@echo "  Swagger UI        : http://localhost:8080/engine-rest/swaggerui/"
+	@echo "  Operaton Cockpit  : http://localhost:8080/operaton/app/cockpit/"
+	@echo "  Operaton Tasklist : http://localhost:8080/operaton/app/tasklist/"
+	@echo "  API               : http://localhost:8000/docs"
+	@echo "  Credentials       : demo / demo"
+
+# postgres + operaton engine + migrated DB + fixtures + FastAPI harness
+# (dispatcher + reconciler run inside the app). No Flowable.
+_operaton-infra: create-enginedbs
+	$(COMPOSE_OPERATON) up -d postgres operaton
 	$(PYTHON) scripts/wait_for_engine.py --engine OPERATON
+	$(PYTHON) -m alembic upgrade head
+	$(PYTHON) -m scripts.deploy_fixtures --engine OPERATON --reset
+	$(PYTHON) -m scripts.stackctl start-app
 
 up-flowable: create-enginedbs
 	$(COMPOSE_FLOWABLE) up -d flowable
@@ -50,6 +65,8 @@ create-enginedbs:
 	$(PYTHON) scripts/create_databases.py
 
 down:
+	$(PYTHON) -m scripts.stackctl stop-app
+	$(PYTHON) -m scripts.stackctl stop-worker
 	$(COMPOSE_ALL) down
 
 clean: down
@@ -57,11 +74,15 @@ clean: down
 	rm -rf artifacts/benchmark artifacts/outbox artifacts/reconcile
 	@echo "== clean done (artifacts/environment.txt preserved) =="
 
-# ---- benchmark / demo (placeholders, wired in later phases) --------------
+# ---- benchmark / demo ----------------------------------------------------
 
-test-operaton:
-	@echo "TODO(phase:operaton): run Operaton benchmark tests"
-	$(PYTHON) -m pytest -q tests -k operaton || true
+test-operaton: _operaton-infra
+	@# tests manage their own external workers; stop a leftover daemon to avoid interference
+	-$(PYTHON) -m scripts.stackctl stop-worker
+	$(PYTHON) -m pytest -q -m integration \
+		--junitxml=artifacts/operaton/test-results.xml
+	$(PYTHON) -m scripts.operaton_scenarios --scenario all
+	@echo "== test-operaton done =="
 
 test-flowable:
 	@echo "TODO(phase:flowable): run Flowable benchmark tests"
@@ -71,9 +92,9 @@ benchmark:
 	@echo "TODO(phase:benchmark): run full comparative benchmark"
 	$(PYTHON) -m scripts.benchmark_runner --help || true
 
-demo-operaton:
-	@echo "TODO(phase:operaton): run Operaton demo scenario"
-	$(PYTHON) -m scripts.demo --engine OPERATON || true
+demo-operaton: up-operaton
+	$(PYTHON) -m scripts.demo --engine OPERATON
+	@echo "== stack left running =="
 
 demo-flowable:
 	@echo "TODO(phase:flowable): run Flowable demo scenario"
