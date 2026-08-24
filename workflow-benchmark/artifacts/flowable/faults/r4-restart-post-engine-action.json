@@ -1,0 +1,49 @@
+{
+  "scenario": "r4",
+  "engine": "FLOWABLE",
+  "steps": [],
+  "before_restart": {
+    "instance_id": "76af9002-9fff-11f1-a3e6-16836dca3dfc",
+    "engine_has_finance_check": false,
+    "complete_task_command": {
+      "id": "5beb0c8f-6d10-4d9c-8777-8512432e9656",
+      "request_id": "a3ceaf1e-f863-47bd-bb93-4c80b3a1d01d",
+      "command_type": "COMPLETE_TASK",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "created_at": "2026-08-24T21:05:00.348361Z",
+      "processed_at": "2026-08-24T21:05:02.288861Z"
+    }
+  },
+  "after_restart": {
+    "active_activities": [
+      "ParallelJoin",
+      "relative_check"
+    ],
+    "work_items": [
+      [
+        "finance_check",
+        "COMPLETED"
+      ],
+      [
+        "relative_check",
+        "ACTIVE"
+      ]
+    ],
+    "reconcile_after_restart": {
+      "work_item_count": 2,
+      "summary": {
+        "requests_seen": 14,
+        "tasks_seen": 23,
+        "work_items_upserted": 23,
+        "completed_requests": 0,
+        "errors": []
+      }
+    }
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED"
+  }
+}

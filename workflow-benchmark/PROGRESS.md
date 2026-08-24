@@ -93,13 +93,83 @@ Status legend: `[ ]` not started, `[~]` in progress, `[x]` verified by actual ru
 
 ## Comparative tests
 
-- [ ] Same BPMN fixture on both engines (identical behavior contract)
-- [ ] API surface parity across adapters
-- [ ] Outbox/dispatcher behavior under engine down/up
-- [ ] Reconciler idempotency under restart
-- [ ] Engine failure & retry semantics compared
-- [ ] `make benchmark` produces artifacts
-- [ ] `make report` writes comparative report
+- [x] Same BPMN fixture on both engines (identical behavior contract)
+- [x] API surface parity across adapters
+- [x] Outbox/dispatcher behavior under engine down/up
+- [x] Reconciler idempotency under restart
+- [x] Engine failure & retry semantics compared
+- [x] `make benchmark` produces artifacts
+- [~] `make report` writes comparative report
+
+## Fault recovery & idempotency (phase 4)
+
+Outbox commands were made **idempotent** via query-before-action instead of relying
+on engine idempotency keys (neither engine guarantees a unique business key):
+
+- [x] `START_PROCESS` -> `find_process_instance_by_business_key` before start; reuses the
+      single existing instance on a retry after a lost response (T12)
+- [x] `COMPLETE_TASK` -> `get_human_task` returns `None` on 404, i.e. "requested state
+      already achieved", treated as success (T13)
+- [x] `CANCEL_PROCESS` -> re-check actual engine state; already-ENDED instance is a
+      no-op, so a lost cancel response retries idempotently (T14)
+- [x] Fault injector (`app/workflow/fault_injector.py`): `loss` hides a *verified
+      successful* engine response (real call runs first), `fail` rejects before the
+      call to exhaust retries. Query methods are never faulted. Admin surface
+      `POST /admin/faults/{arm,clear}` + `GET /admin/faults`.
+- [x] T12: exactly one engine process instance per Request under repeated lost
+      `start_process` responses (both engines, incl. racing edge cases)
+- [x] T13: lost `complete_human_task` response -> retry sees task gone, business
+      branch stays correct, flow reaches CLOSED/COMPLETED
+- [x] T14: lost `cancel_process` response -> retry terminates idempotently,
+      CLOSED/CANCELLED, instance ENDED, WorkItems CANCELLED
+- [x] T15: exhausted outbox retries leave the Request ACTIVE with no business
+      outcome; the technical failure is stored *engine-side*
+- [x] T15 engine-side failure storage: Operaton records `failedExternalTask`
+      INCIDENT (the job disappears from `/job` once retries=0); Flowable records a
+      dead-letter job. `get_failed_jobs` surfaces both.
+- [x] R1-R5 app restart scenarios converge on both engines
+      (evidence under `artifacts/<engine>/faults/`)
+- [x] Stress smoke: 50 instances/engine, no duplicate instances, no failed commands,
+      no failed jobs; rough latency/throughput recorded (no winner)
+- [x] Flowable cancellation deadlock: reproduced 25x, **recurrence=0/25** after fix,
+      retries converge (see `cancel-deadlock-reproduction.json`); this race is
+      Flowable-specific (async executor can re-activate a task after cancel), so the
+      deadlock scenario runs for FLOWABLE only
+
+### Bugs found & fixed in phase 4
+
+1. **Reconciler raced a concurrent cancellation** (identity-map stale read): the
+   auto-close code read the Request through SQLAlchemy's identity map after a
+   `SELECT ... FOR UPDATE`; an already-loaded object is returned *without refreshing*,
+   so the ACTIVE/outcome-None guard read stale values and overwrote a dispatcher's
+   committed CLOSED/CANCELLED with CLOSED/COMPLETED (leaving WorkItems CANCELLED).
+   Fixed with an **atomic conditional UPDATE** (`WHERE lifecycle_state=ACTIVE AND
+   outcome IS NULL`) whose guard is re-evaluated against the latest committed row.
+   Regression test `test_reconcile_does_not_overwrite_concurrent_cancel`.
+2. **Operaton history endpoint filter mismatch**: `/history/process-instance`
+   filters on `processInstanceBusinessKey` (the runtime endpoint uses `businessKey`);
+   passing `businessKey` to history is silently ignored and returns ALL instances,
+   which made the idempotent START reuse an unrelated instance. Fixed + verified the
+   param names directly against the engine.
+3. **Operaton external-task failure is an incident, not a job**: after
+   `failure(retries=0)` the job is absent from `/job`; the engine's failure record is
+   a `failedExternalTask` incident. `get_failed_jobs` now surfaces both jobs and
+   incidents.
+
+### Invariants (checked across recovered requests)
+
+- one Request -> exactly one engine process instance (T12)
+- one engine task -> at most one WorkItem (unique key `request_id +
+  task_definition_key + external_task_id`)
+- a CLOSED request is never reopened; completed/cancelled requests never return to
+  ACTIVE
+- an exhausted technical retry never sets a business outcome (request stays ACTIVE,
+  outcome None)
+- **cannot be fully guaranteed by the engine alone**: unique business keys
+  (neither engine enforces uniqueness), and cancellation-vs-completion atomicity at
+  the engine layer (Flowable async executor can briefly re-activate a task after
+  cancel; the dispatcher's state re-check + reconcile-on-poll make the *local*
+  outcome correct, but a cancelled engine task is not instant)
 
 ## Known limits (cloud sandbox)
 

@@ -1,6 +1,0 @@
-completed work_item finance_check -> {'result': 'OK', 'balance_sufficient': True}
-completed work_item relative_check -> {'result': 'OK', 'relatives_verified': True}
-completed work_item final_decision -> {'decision': 'APPROVE', 'reason': 'all checks passed'}
-completed work_item finance_check -> {'result': 'OK', 'balance_sufficient': True}
-completed work_item relative_check -> {'result': 'OK', 'relatives_verified': True}
-completed work_item final_decision -> {'decision': 'APPROVE', 'reason': 'all checks passed'}

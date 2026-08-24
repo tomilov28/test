@@ -164,12 +164,52 @@ class FlowableAdapter:
             )
         return tasks
 
+    def get_human_task(self, external_task_id: str) -> EngineTask | None:
+        # Flowable removes completed tasks from the runtime tables, so a 404
+        # here means the requested state (task completed) is already true.
+        resp = self._client.get(f"{self._service}/runtime/tasks/{external_task_id}")
+        if resp.status_code == 404:
+            return None
+        resp.raise_for_status()
+        t = resp.json()
+        return EngineTask(
+            id=t["id"],
+            task_definition_key=t.get("taskDefinitionKey") or t.get("name") or t["id"],
+            process_instance_id=t.get("processInstanceId", ""),
+            priority=int(t.get("priority", 0)),
+        )
+
     def complete_human_task(self, external_task_id: str, variables: dict | None = None) -> None:
         resp = self._client.post(
             f"{self._service}/runtime/tasks/{external_task_id}",
             json={"action": "complete", "variables": self._to_variables(variables or {})},
         )
         resp.raise_for_status()
+
+    def find_process_instance_by_business_key(
+        self, process_key: str, business_key: str
+    ) -> list[ProcessInstanceInfo]:
+        seen: dict[str, ProcessInstanceInfo] = {}
+        runtime = self._client.get(
+            f"{self._service}/runtime/process-instances",
+            params={"processDefinitionKey": process_key, "businessKey": business_key, "size": _PAGE_SIZE},
+        )
+        runtime.raise_for_status()
+        for inst in runtime.json().get("data", []):
+            seen[inst["id"]] = ProcessInstanceInfo(
+                process_instance_id=inst["id"], state="ACTIVE", business_key=inst.get("businessKey")
+            )
+        historic = self._client.get(
+            f"{self._service}/history/historic-process-instances",
+            params={"processDefinitionKey": process_key, "businessKey": business_key, "size": _PAGE_SIZE},
+        )
+        historic.raise_for_status()
+        for inst in historic.json().get("data", []):
+            if inst["id"] not in seen:
+                seen[inst["id"]] = ProcessInstanceInfo(
+                    process_instance_id=inst["id"], state="ENDED", business_key=inst.get("businessKey")
+                )
+        return list(seen.values())
 
     def get_process_definitions(self, process_key: str) -> list[dict]:
         """All deployed versions of a process key (id, key, version, deploymentId, ...)."""

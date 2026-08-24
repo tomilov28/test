@@ -7,7 +7,7 @@ COMPOSE_FLOWABLE := docker compose -f docker-compose.yml -f docker-compose.flowa
 COMPOSE_ALL := docker compose -f docker-compose.yml -f docker-compose.operaton.yml -f docker-compose.flowable.yml
 
 .PHONY: setup venv deps up-db migrate dev test up-operaton up-flowable down clean \
-        test-operaton test-flowable benchmark demo-operaton demo-flowable report \
+        test-operaton test-flowable fault-operaton fault-flowable benchmark demo-operaton demo-flowable report \
         _operaton-infra
 
 # ---- bootstrap -----------------------------------------------------------
@@ -108,6 +108,28 @@ test-flowable: _flowable-infra
 	$(PYTHON) -m scripts.deploy_fixtures --engine FLOWABLE --reset
 	$(PYTHON) -m scripts.collect_artifacts --engine FLOWABLE
 	@echo "== test-flowable done =="
+
+# ---- fault recovery (phase 4) --------------------------------------------
+
+fault-operaton: _operaton-infra
+	-$(PYTHON) -m scripts.stackctl stop-worker
+	$(PYTHON) -m pytest -q -m integration \
+		--junitxml=artifacts/operaton/fault-test-results.xml \
+		tests/test_fault_injection.py
+	$(PYTHON) -m scripts.fault_scenarios --engine OPERATON
+	$(PYTHON) -m scripts.collect_artifacts --engine OPERATON
+	@echo "== fault-operaton done =="
+
+fault-flowable: _flowable-infra
+	-$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
+	$(PYTHON) -m pytest -q -m integration \
+		--junitxml=artifacts/flowable/fault-test-results.xml \
+		tests/test_fault_injection.py
+	$(PYTHON) -m scripts.fault_scenarios --engine FLOWABLE
+	@# redeploy canonical fixtures so the artifact snapshot reflects benchmark-fixture state
+	$(PYTHON) -m scripts.deploy_fixtures --engine FLOWABLE --reset
+	$(PYTHON) -m scripts.collect_artifacts --engine FLOWABLE
+	@echo "== fault-flowable done =="
 
 benchmark:
 	@echo "TODO(phase:benchmark): run full comparative benchmark"

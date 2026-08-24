@@ -140,12 +140,54 @@ class OperatonAdapter:
             )
         return tasks
 
+    def get_human_task(self, external_task_id: str) -> EngineTask | None:
+        # Camunda/Operaton delete completed tasks from the runtime tables, so a
+        # 404 here means the requested state (task completed) is already true.
+        resp = self._client.get(f"/task/{external_task_id}")
+        if resp.status_code == 404:
+            return None
+        resp.raise_for_status()
+        t = resp.json()
+        return EngineTask(
+            id=t["id"],
+            task_definition_key=t.get("taskDefinitionKey") or t.get("name") or t["id"],
+            process_instance_id=t.get("processInstanceId", ""),
+            priority=int(t.get("priority", 0)),
+        )
+
     def complete_human_task(self, external_task_id: str, variables: dict | None = None) -> None:
         resp = self._client.post(
             f"/task/{external_task_id}/complete",
             json={"variables": self._to_variables(variables or {})},
         )
         resp.raise_for_status()
+
+    def find_process_instance_by_business_key(
+        self, process_key: str, business_key: str
+    ) -> list[ProcessInstanceInfo]:
+        seen: dict[str, ProcessInstanceInfo] = {}
+        params = {"businessKey": business_key, "processDefinitionKey": process_key}
+        active = self._client.get("/process-instance", params=params)
+        active.raise_for_status()
+        for inst in active.json():
+            seen[inst["id"]] = ProcessInstanceInfo(
+                process_instance_id=inst["id"], state="ACTIVE", business_key=inst.get("businessKey")
+            )
+        # Operaton's HISTORY endpoint filters on `processInstanceBusinessKey`
+        # (unlike the runtime endpoint which uses `businessKey`); passing
+        # `businessKey` there is silently ignored and returns ALL instances,
+        # which would make an idempotent START reuse an unrelated instance.
+        historic = self._client.get(
+            "/history/process-instance",
+            params={"processInstanceBusinessKey": business_key, "processDefinitionKey": process_key},
+        )
+        historic.raise_for_status()
+        for inst in historic.json():
+            if inst["id"] not in seen:
+                seen[inst["id"]] = ProcessInstanceInfo(
+                    process_instance_id=inst["id"], state="ENDED", business_key=inst.get("businessKey")
+                )
+        return list(seen.values())
 
     def get_process_definitions(self, process_key: str) -> list[dict]:
         """All deployed versions of a process key (id, key, version, deploymentId, ...)."""
@@ -222,6 +264,20 @@ class OperatonAdapter:
                         exception_message=j.get("exceptionMessage"),
                     )
                 )
+        # External-service failures with retries=0 are recorded by Operaton as
+        # `failedExternalTask` INCIDENTS (the underlying job no longer appears
+        # under /job). The incident IS the engine-side technical-failure record.
+        inc = self._client.get("/incident", params={**params, "incidentType": "failedExternalTask"})
+        inc.raise_for_status()
+        for i in inc.json():
+            jobs.append(
+                FailedJobInfo(
+                    job_id=i["id"],
+                    process_instance_id=i.get("processInstanceId", ""),
+                    retries=0,
+                    exception_message=f"incident {i.get('incidentType')} on {i.get('activityId')}",
+                )
+            )
         return jobs
 
     # ---- engine-agnostic helpers used by fixture/cleanup tooling -----------
@@ -237,6 +293,31 @@ class OperatonAdapter:
             f"/deployment/{deployment_id}", params={"cascade": "true"}
         )
         resp.raise_for_status()
+
+    # ---- timer handling ----------------------------------------------------
+
+    def fire_timer(self, process_instance_id: str) -> int:
+        """Deterministically fire all pending timer jobs of an instance.
+
+        Moves timer jobs' due date to now so they run on the next job executor
+        cycle instead of waiting for the natural due date (used by benchmark
+        scenarios to keep timings deterministic).
+        """
+        from datetime import datetime, timezone
+
+        resp = self._client.get("/job", params={"processInstanceId": process_instance_id})
+        resp.raise_for_status()
+        fired = 0
+        for job in resp.json():
+            if job.get("jobDefinitionType") != "timer":
+                continue
+            due = self._client.put(
+                f"/job/{job['id']}/duedate",
+                json={"duedate": datetime.now(timezone.utc).isoformat(), "cascade": False},
+            )
+            due.raise_for_status()
+            fired += 1
+        return fired
 
     def close(self) -> None:
         self._client.close()

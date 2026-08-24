@@ -61,7 +61,19 @@ class WorkflowAdapter(Protocol):
 
     def get_active_human_tasks(self, process_instance_id: str | None = None) -> list[EngineTask]: ...
 
+    def get_human_task(self, external_task_id: str) -> EngineTask | None:
+        """Look up a single runtime task; None when it no longer exists (e.g.
+        already completed/removed). Used for idempotent task completion."""
+        ...
+
     def complete_human_task(self, external_task_id: str, variables: dict[str, Any] | None = None) -> None: ...
+
+    def find_process_instance_by_business_key(
+        self, process_key: str, business_key: str
+    ) -> list[ProcessInstanceInfo]:
+        """Every instance ever created for a business key (runtime + history).
+        Used to make START_PROCESS idempotent under at-least-once retries."""
+        ...
 
     def get_process_history(self, process_instance_id: str) -> list[HistoryEvent]: ...
 

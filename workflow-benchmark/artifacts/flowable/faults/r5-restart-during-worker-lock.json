@@ -1,0 +1,21 @@
+{
+  "scenario": "r5",
+  "engine": "FLOWABLE",
+  "steps": [],
+  "before_restart": {
+    "instance_id": "8b649e84-9fff-11f1-a3e6-16836dca3dfc",
+    "locked_external_task": {
+      "id": "8b64c59d-9fff-11f1-a3e6-16836dca3dfc",
+      "worker_id": "benchmark-flowable-worker-717f23ee"
+    },
+    "lock_owner": "benchmark-flowable-worker-717f23ee"
+  },
+  "after_restart": {
+    "reacquired_and_completed": true,
+    "reacquire_latency_s": 59.4
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED"
+  }
+}

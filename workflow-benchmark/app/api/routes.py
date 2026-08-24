@@ -8,6 +8,8 @@ from app.api.schemas import (
     CancelRequestIn,
     CommandOut,
     CompleteWorkItemIn,
+    FaultArmIn,
+    FaultClearIn,
     HealthOut,
     ReconcileResult,
     RequestCreate,
@@ -23,6 +25,7 @@ from app.domain.enums import (
     WorkItemState,
 )
 from app.domain.models import Request, TaskResult, WorkItem, WorkflowCommand
+from app.workflow.fault_injector import SUPPORTED_OPERATIONS, controller
 from app.workflow.reconciler import reconcile_once
 from app.workflow.registry import build_adapter
 
@@ -145,6 +148,28 @@ def cancel_request(request_id: uuid.UUID, body: CancelRequestIn, db: Session = D
 @router.post("/admin/reconcile", response_model=ReconcileResult)
 def admin_reconcile(db: Session = Depends(get_db)):
     return reconcile_once(db, build_adapter)
+
+
+# ---- fault injection control surface (benchmark/test only) -----------------
+
+
+@router.post("/admin/faults/arm")
+def admin_faults_arm(body: FaultArmIn):
+    """Arm a fault for an engine+operation. Inert unless called; nothing is
+    armed in the default production configuration."""
+    controller.arm(body.engine, body.operation, body.mode, remaining=body.remaining)
+    return {"armed": body.engine, "operations": controller.snapshot().get(body.engine, {})}
+
+
+@router.post("/admin/faults/clear")
+def admin_faults_clear(body: FaultClearIn):
+    cleared = controller.clear(body.engine, body.operation)
+    return {"cleared": cleared, "operations": controller.snapshot()}
+
+
+@router.get("/admin/faults")
+def admin_faults_status():
+    return {"operations": controller.snapshot(), "supported": list(SUPPORTED_OPERATIONS)}
 
 
 @router.get("/health", response_model=HealthOut)

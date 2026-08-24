@@ -85,3 +85,69 @@ def test_reconcile_closes_request_on_natural_completion(db):
     assert request.lifecycle_state == LifecycleState.CLOSED.value
     assert request.outcome == RequestOutcome.COMPLETED.value
     assert request.closed_at is not None
+
+
+def test_reconcile_does_not_overwrite_concurrent_cancel(db, tmp_path):
+    """Regression: a request selected as ACTIVE must not be auto-closed as
+    COMPLETED when a concurrent cancellation commits CLOSED/CANCELLED between
+    the reconciler's SELECT and its auto-close UPDATE. The engine's ENDED state
+    is indistinguishable from natural completion, so the auto-close guard must
+    be re-evaluated against the latest committed row (atomic conditional
+    UPDATE), never against a stale in-session snapshot."""
+    import os
+
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+
+    from app.db import Base
+    from app.domain.enums import RequestOutcome
+    from app.workflow.mock import MockAdapter
+    from app.workflow.reconciler import reconcile_once
+
+    dbfile = str(tmp_path / "race.db")
+    engine = create_engine(f"sqlite:///{dbfile}")
+    Base.metadata.create_all(engine)
+    factory = sessionmaker(bind=engine, expire_on_commit=False)
+
+    s1 = factory()
+    request = Request(
+        number="REQ-RACE-1",
+        request_type="credit_decision",
+        request_type_version=1,
+        lifecycle_state=LifecycleState.ACTIVE.value,
+        workflow_engine="OPERATON",
+        workflow_instance_id="pi-1",
+    )
+    s1.add(request)
+    s1.commit()
+
+    s2 = factory()
+
+    mock = MockAdapter()
+
+    def _get_process_instance(instance_id=None):
+        # Simulate the dispatcher's CANCEL_PROCESS committing CLOSED/CANCELLED
+        # in the window between the reconciler's SELECT and its auto-close.
+        row = s2.get(Request, request.id)
+        row.lifecycle_state = LifecycleState.CLOSED.value
+        row.outcome = RequestOutcome.CANCELLED.value
+        s2.commit()
+        instance = mock.start_process("credit_decision", business_key=request.number)
+        instance.process_instance_id = instance_id
+        instance.state = "ENDED"
+        return instance
+
+    mock.get_process_instance = _get_process_instance
+
+    summary = reconcile_once(s1, lambda engine: mock)
+
+    s1.expire_all()
+    fresh = s1.get(Request, request.id)
+    assert summary["completed_requests"] == 0
+    assert fresh.lifecycle_state == LifecycleState.CLOSED.value
+    assert fresh.outcome == RequestOutcome.CANCELLED.value
+
+    s2.close()
+    s1.close()
+    engine.dispose()
+    os.unlink(dbfile)

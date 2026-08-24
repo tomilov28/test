@@ -1,0 +1,33 @@
+{
+  "scenario": "r2",
+  "engine": "OPERATON",
+  "steps": [],
+  "before_restart": {
+    "active_activities": [
+      "Timer_1"
+    ]
+  },
+  "after_restart": {
+    "active_activities": [
+      "final_decision"
+    ],
+    "work_items": [
+      [
+        "final_decision",
+        "ACTIVE"
+      ],
+      [
+        "finance_check",
+        "COMPLETED"
+      ],
+      [
+        "relative_check",
+        "COMPLETED"
+      ]
+    ]
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED"
+  }
+}

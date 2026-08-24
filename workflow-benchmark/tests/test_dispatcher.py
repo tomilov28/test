@@ -1,5 +1,6 @@
 from app.domain.enums import CommandState, CommandType, LifecycleState, RequestOutcome
 from app.domain.models import Request, WorkflowCommand
+from app.workflow.base import ProcessInstanceInfo
 from app.workflow.dispatcher import claim_pending_commands, dispatch_once, rearm_stale_processing
 from app.workflow.mock import MockAdapter
 
@@ -108,6 +109,75 @@ def test_claim_is_atomic_and_excludes_processing(db):
     assert len(claimed) == 3
     assert all(c.state == CommandState.PROCESSING.value for c in claimed)
     assert claim_pending_commands(db, limit=10) == []
+
+
+def test_start_process_reuses_existing_instance(db):
+    """A retried START after a lost response reuses the instance the first
+    attempt created instead of starting a second one (business-key lookup)."""
+    request = _active_request(db)
+    existing = ProcessInstanceInfo(process_instance_id="pi-existing", state="ACTIVE", business_key=request.number)
+    db.add(
+        WorkflowCommand(
+            request_id=request.id,
+            command_type=CommandType.START_PROCESS.value,
+            payload={"process_key": request.request_type, "business_key": request.number},
+        )
+    )
+    db.commit()
+
+    mock = MockAdapter()
+    mock.process_instances["pi-existing"] = existing
+    dispatch_once(db, _adapter_factory(mock))
+
+    db.refresh(request)
+    assert request.workflow_instance_id == "pi-existing"
+    # start_process must not have been called: only one instance ever exists
+    assert "pi-1" not in mock.process_instances
+
+
+def test_complete_task_state_already_achieved(db):
+    """A retried COMPLETE whose engine task is already gone is a success."""
+    request = _active_request(db)
+    db.add(
+        WorkflowCommand(
+            request_id=request.id,
+            command_type=CommandType.COMPLETE_TASK.value,
+            payload={"external_task_id": "gone-task", "data": {"ok": True}},
+        )
+    )
+    db.commit()
+
+    mock = MockAdapter()  # no task "gone-task" -> requested state already achieved
+    dispatch_once(db, _adapter_factory(mock))
+
+    cmd = db.query(WorkflowCommand).one()
+    assert cmd.state == CommandState.DONE.value
+    assert mock.completed == []
+
+
+def test_cancel_already_ended_skips_engine_call(db):
+    """A retried CANCEL for an already-ended instance converges without a 500."""
+    request = _active_request(db)
+    request.workflow_instance_id = "pi-ended"
+    db.add(
+        WorkflowCommand(
+            request_id=request.id,
+            command_type=CommandType.CANCEL_PROCESS.value,
+            payload={"workflow_instance_id": "pi-ended"},
+        )
+    )
+    db.commit()
+
+    mock = MockAdapter()
+    mock.process_instances["pi-ended"] = ProcessInstanceInfo(
+        process_instance_id="pi-ended", state="ENDED"
+    )
+    dispatch_once(db, _adapter_factory(mock))
+
+    db.refresh(request)
+    assert request.lifecycle_state == LifecycleState.CLOSED.value
+    assert request.outcome == RequestOutcome.CANCELLED.value
+    assert mock.cancelled == []  # engine already ended the instance
 
 
 def test_stale_processing_commands_are_rearmed(db):

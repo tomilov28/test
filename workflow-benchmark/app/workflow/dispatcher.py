@@ -74,7 +74,16 @@ def _now_minus(seconds: float, db: Session):
 
 def dispatch_one(db: Session, command: WorkflowCommand, adapter_factory, max_attempts: int = 5) -> None:
     """Dispatch a single claimed command to the engine. Raises on failure."""
-    request = db.get(Request, command.request_id)
+    # Row-lock the request: serializes dispatcher vs reconciler writers so a
+    # concurrent auto-close (or cancellation) cannot be silently overwritten.
+    # populate_existing forces a refresh from the locked row even if the entity
+    # is already in the session identity map (avoids stale-guard reads).
+    request = db.execute(
+        select(Request)
+        .where(Request.id == command.request_id)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    ).scalars().first()
     if request is None:
         command.state = CommandState.FAILED.value
         command.last_error = "request not found"
@@ -85,25 +94,45 @@ def dispatch_one(db: Session, command: WorkflowCommand, adapter_factory, max_att
     adapter = adapter_factory(request.workflow_engine)
     try:
         if command.command_type == CommandType.START_PROCESS.value:
-            result = adapter.start_process(
-                process_key=request.request_type,
-                business_key=request.number,
-                variables=command.payload.get("variables") or {},
-                version=request.request_type_version,
+            # Idempotent start: the engine has no unique business-key
+            # constraint, so under at-least-once dispatch a retried START after
+            # a lost response must reuse the instance the first attempt created
+            # instead of starting a second one. Query-before-start covers both
+            # still-running and already-finished instances.
+            existing = adapter.find_process_instance_by_business_key(
+                request.request_type, request.number
             )
+            if existing:
+                result = existing[0]
+            else:
+                result = adapter.start_process(
+                    process_key=request.request_type,
+                    business_key=request.number,
+                    variables=command.payload.get("variables") or {},
+                    version=request.request_type_version,
+                )
             request.workflow_instance_id = result.process_instance_id
 
         elif command.command_type == CommandType.COMPLETE_TASK.value:
-            adapter.complete_human_task(
-                external_task_id=command.payload["external_task_id"],
-                variables=command.payload.get("data") or {},
-            )
+            # Idempotent completion: if the engine task no longer exists the
+            # requested state (task completed) is already achieved, so a retried
+            # COMPLETE after a lost response is a success, not a failure.
+            task = adapter.get_human_task(external_task_id=command.payload["external_task_id"])
+            if task is not None:
+                adapter.complete_human_task(
+                    external_task_id=command.payload["external_task_id"],
+                    variables=command.payload.get("data") or {},
+                )
 
         elif command.command_type == CommandType.CANCEL_PROCESS.value:
             instance_id = command.payload.get("workflow_instance_id") or request.workflow_instance_id
             if instance_id is None:
                 raise RuntimeError("cancel requested but no workflow instance id known")
-            adapter.cancel_process(process_instance_id=instance_id, reason=command.payload.get("reason"))
+            # Idempotent cancellation: check the actual engine state first so a
+            # retried CANCEL after a lost response is a no-op when the instance
+            # already ended (either cancelled by us or finished naturally).
+            if adapter.get_process_instance(instance_id).state != "ENDED":
+                adapter.cancel_process(process_instance_id=instance_id, reason=command.payload.get("reason"))
 
         else:
             raise ValueError(f"unknown command_type: {command.command_type}")

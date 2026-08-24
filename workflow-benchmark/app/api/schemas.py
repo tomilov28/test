@@ -96,6 +96,18 @@ class ReconcileResult(BaseModel):
     errors: list[dict[str, str]]
 
 
+class FaultArmIn(BaseModel):
+    engine: str = Field(pattern="^(OPERATON|FLOWABLE)$")
+    operation: str
+    mode: str = Field(pattern="^(loss|fail)$")
+    remaining: int = Field(default=-1, ge=-1)
+
+
+class FaultClearIn(BaseModel):
+    engine: str | None = Field(default=None, pattern="^(OPERATON|FLOWABLE)$")
+    operation: str | None = None
+
+
 class HealthOut(BaseModel):
     status: str
     database: str

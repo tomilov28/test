@@ -57,13 +57,31 @@ class MockAdapter:
     # ---- queries -----------------------------------------------------------
 
     def get_process_instance(self, process_instance_id: str) -> ProcessInstanceInfo:
-        return self.process_instances[process_instance_id]
+        # Unknown ids default to ACTIVE so the dispatcher's idempotent-cancel
+        # state check still routes through cancel_process (matches real engine
+        # behavior for instances the mock never explicitly registered).
+        return self.process_instances.get(
+            process_instance_id,
+            ProcessInstanceInfo(process_instance_id=process_instance_id, state="ACTIVE"),
+        )
 
     def get_active_human_tasks(self, process_instance_id: str | None = None) -> list[EngineTask]:
         return [
             t
             for t in self.tasks.values()
             if (process_instance_id is None or t.process_instance_id == process_instance_id)
+        ]
+
+    def get_human_task(self, external_task_id: str) -> EngineTask | None:
+        return self.tasks.get(external_task_id)
+
+    def find_process_instance_by_business_key(
+        self, process_key: str, business_key: str
+    ) -> list[ProcessInstanceInfo]:
+        return [
+            inst
+            for inst in self.process_instances.values()
+            if inst.business_key == business_key
         ]
 
     def complete_human_task(self, external_task_id: str, variables: dict | None = None) -> None:
