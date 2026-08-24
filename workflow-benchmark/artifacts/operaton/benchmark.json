@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-08-24T18:09:53.201243+00:00",
+  "collected_at": "2026-08-24T19:40:04.332882+00:00",
   "engine": {
     "name": "Operaton",
     "version": "2.1.4",
@@ -22,88 +22,53 @@
   "containers": 2,
   "docker_stats": [
     {
-      "BlockIO": "4.24MB / 205kB",
-      "CPUPerc": "0.43%",
+      "BlockIO": "5.31MB / 193kB",
+      "CPUPerc": "0.39%",
       "Container": "2d0d370f984a3b3c420770c38f9c1a4d3a000c965eeda810b4a274ba00244f27",
       "ID": "2d0d370f984a",
-      "MemPerc": "63.73%",
-      "MemUsage": "326.3MiB / 512MiB",
+      "MemPerc": "63.92%",
+      "MemUsage": "327.3MiB / 512MiB",
       "Name": "benchmark-operaton",
-      "NetIO": "228kB / 108kB",
-      "PIDs": "39"
+      "NetIO": "201kB / 91.7kB",
+      "PIDs": "40"
     },
     {
-      "BlockIO": "306MB / 43.1MB",
-      "CPUPerc": "0.07%",
+      "BlockIO": "699MB / 99.7MB",
+      "CPUPerc": "1.34%",
       "Container": "0e9b5ce6efd266e55f9b58db64ac91702127c51eb49893c87c08d320fdbe1893",
       "ID": "0e9b5ce6efd2",
-      "MemPerc": "0.93%",
-      "MemUsage": "73.78MiB / 7.779GiB",
+      "MemPerc": "1.02%",
+      "MemUsage": "81.49MiB / 7.779GiB",
       "Name": "workflow-benchmark-postgres-1",
-      "NetIO": "13.2MB / 13.9MB",
+      "NetIO": "76.9MB / 104MB",
       "PIDs": "18"
     }
   ],
   "engine_boot_seconds": 21.646,
   "adapter_loc": {
-    "app/workflow/operaton.py": 228,
+    "app/workflow/operaton.py": 242,
     "app/workers/external_worker.py": 152
   },
-  "adapter_loc_total": 380,
+  "adapter_loc_total": 394,
   "bpmn_vendor_extensions": {
     "bpmn/operaton/long_visit_poc.bpmn": {
       "vendor_namespace_declarations": 1,
-      "camunda_attribute_usages": 0,
-      "operaton_attribute_usages": 3
+      "vendor_attribute_usages": 3
     },
     "bpmn/operaton/long_visit_poc_v2.bpmn": {
       "vendor_namespace_declarations": 1,
-      "camunda_attribute_usages": 0,
-      "operaton_attribute_usages": 3
+      "vendor_attribute_usages": 3
     }
   },
   "evidence": {
-    "process_definitions": [
-      {
-        "id": "LONG_VISIT_POC:1:c2c4fc38-9fe6-11f1-9fce-6a420232cf00",
-        "key": "LONG_VISIT_POC",
-        "category": "http://benchmark.local/bpmn/long-visit-poc",
-        "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
-        "name": "Long Visit POC",
-        "version": 1,
-        "resource": "LONG_VISIT_POC.bpmn",
-        "deploymentId": "c2bf08c6-9fe6-11f1-9fce-6a420232cf00",
-        "diagram": null,
-        "suspended": false,
-        "tenantId": null,
-        "versionTag": null,
-        "historyTimeToLive": 180,
-        "startableInTasklist": true
-      },
-      {
-        "id": "LONG_VISIT_POC:2:c2cdd5dc-9fe6-11f1-9fce-6a420232cf00",
-        "key": "LONG_VISIT_POC",
-        "category": "http://benchmark.local/bpmn/long-visit-poc",
-        "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
-        "name": "Long Visit POC",
-        "version": 2,
-        "resource": "LONG_VISIT_POC.bpmn",
-        "deploymentId": "c2ca7a7a-9fe6-11f1-9fce-6a420232cf00",
-        "diagram": null,
-        "suspended": false,
-        "tenantId": null,
-        "versionTag": null,
-        "historyTimeToLive": 180,
-        "startableInTasklist": true
-      }
-    ],
+    "process_definitions": [],
     "deployments_count": 0,
     "running_instances": [],
-    "external_task_topics": [],
-    "engine_info": [
-      {
-        "name": "default"
-      }
-    ]
+    "engine_info": {
+      "type": "NotFoundException",
+      "message": "HTTP 404 Not Found",
+      "code": null
+    },
+    "external_task_topics": []
   }
 }

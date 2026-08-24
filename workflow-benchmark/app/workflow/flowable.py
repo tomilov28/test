@@ -67,12 +67,15 @@ class FlowableAdapter:
     # ---- lifecycle ---------------------------------------------------------
 
     def deploy_process(self, bpmn_xml: str, process_key: str, name: str | None = None) -> DeploymentInfo:
+        # Flowable derives the stored deployment name from the uploaded file's
+        # base name (it ignores the `deploymentName` form field), so pass the
+        # requested name through the filename itself.
+        deployment_name = name or process_key
         resp = self._client.post(
             f"{self._service}/repository/deployments",
             files={
-                "file": (f"{process_key}.bpmn", bpmn_xml.encode("utf-8"), "text/xml"),
+                "file": (f"{deployment_name}.bpmn", bpmn_xml.encode("utf-8"), "text/xml"),
             },
-            data={"deploymentName": name or process_key},
         )
         resp.raise_for_status()
         body = resp.json()

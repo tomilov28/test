@@ -23,9 +23,19 @@ API_BASE = "http://localhost:8000"
 ENGINE_BASE = "http://localhost:8080/engine-rest"
 REQUEST_TYPE = "LONG_VISIT_POC"
 
-UI_COCKPIT = "http://localhost:8080/operaton/app/cockpit/"
-UI_TASKLIST = "http://localhost:8080/operaton/app/tasklist/"
-UI_SWAGGER = "http://localhost:8080/engine-rest/swaggerui/"
+UI_URLS = {
+    "OPERATON": {
+        "Swagger UI": "http://localhost:8080/engine-rest/swaggerui/",
+        "Operaton Cockpit": "http://localhost:8080/operaton/app/cockpit/",
+        "Operaton Tasklist": "http://localhost:8080/operaton/app/tasklist/",
+        "Credentials": "demo / demo",
+    },
+    "FLOWABLE": {
+        "Swagger UI": "http://localhost:8081/flowable-rest/docs",
+        "Flowable REST (service)": "http://localhost:8081/flowable-rest/service",
+        "Credentials": "rest-admin / test",
+    },
+}
 
 
 def _get(path: str, client: httpx.Client) -> dict:
@@ -50,7 +60,7 @@ def main() -> int:
             "request_type": REQUEST_TYPE,
             "request_type_version": 1,
             "workflow_engine": args.engine,
-            "variables": {"initiator": "operaton-demo", "amount": 1000, "currency": "USD"},
+            "variables": {"initiator": f"{args.engine.lower()}-demo", "amount": 1000, "currency": "USD"},
         }
         resp = client.post("/requests", json=body)
         resp.raise_for_status()
@@ -87,10 +97,8 @@ def main() -> int:
         print(f"commands            : {[(c['command_type'], c['state']) for c in commands]}")
 
         print("\n=== URLs ===")
-        print(f"Swagger UI          : {UI_SWAGGER}")
-        print(f"Operaton Cockpit    : {UI_COCKPIT}")
-        print(f"Operaton Tasklist   : {UI_TASKLIST}")
-        print(f"Credentials         : demo / demo")
+        for label, value in UI_URLS[args.engine].items():
+            print(f"{label:<20}: {value}")
         print("\ndemo complete")
         return 0
     finally:

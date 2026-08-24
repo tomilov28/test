@@ -102,8 +102,11 @@ test-flowable: _flowable-infra
 	-$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
 	$(PYTHON) -m pytest -q -m integration \
 		--junitxml=artifacts/flowable/test-results.xml \
-		tests/test_flowable_integration.py
+		tests/test_flowable_integration.py tests/test_long_visit_poc_flowable.py
 	$(PYTHON) -m scripts.flowable_scenarios --scenario all
+	@# redeploy canonical fixtures so the artifact snapshot reflects benchmark-fixture state
+	$(PYTHON) -m scripts.deploy_fixtures --engine FLOWABLE --reset
+	$(PYTHON) -m scripts.collect_artifacts --engine FLOWABLE
 	@echo "== test-flowable done =="
 
 benchmark:

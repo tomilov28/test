@@ -210,14 +210,14 @@ def _reset_fixtures(adapter: FlowableAdapter) -> None:
         adapter.delete_deployment(definition["deploymentId"])
     bpmn_dir = os.path.join(ROOT, "bpmn", "flowable")
     adapter.deploy_process(
-        open(os.path.join(bpmn_dir, "long_visit_poc.bpmn")).read(),
+        open(os.path.join(bpmn_dir, "long_visit_v1.bpmn")).read(),
         PROCESS_KEY,
-        name="scenario-long_visit_poc_v1",
+        name="scenario-long_visit_v1",
     )
     adapter.deploy_process(
-        open(os.path.join(bpmn_dir, "long_visit_poc_v2.bpmn")).read(),
+        open(os.path.join(bpmn_dir, "long_visit_v2.bpmn")).read(),
         PROCESS_KEY,
-        name="scenario-long_visit_poc_v2",
+        name="scenario-long_visit_v2",
     )
     versions = sorted(d["version"] for d in adapter.get_process_definitions(PROCESS_KEY))
     assert 1 in versions and 2 in versions, f"fixture reset failed, versions={versions}"

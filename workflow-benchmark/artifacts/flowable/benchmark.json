@@ -1,0 +1,110 @@
+{
+  "collected_at": "2026-08-24T19:36:19.072216+00:00",
+  "engine": {
+    "name": "Flowable",
+    "version": "8.0.0",
+    "base": "http://localhost:8081/flowable-rest/service"
+  },
+  "images": [
+    {
+      "Containers": "1",
+      "CreatedAt": "2026-02-27 16:33:55 +0000 UTC",
+      "CreatedSince": "5 months ago",
+      "Digest": "<none>",
+      "ID": "708dfa32f27b",
+      "Repository": "flowable/flowable-rest",
+      "SharedSize": "N/A",
+      "Size": "517MB",
+      "Tag": "8.0.0",
+      "UniqueSize": "N/A"
+    }
+  ],
+  "containers": 2,
+  "docker_stats": [
+    {
+      "BlockIO": "2.08MB / 98.3kB",
+      "CPUPerc": "11.52%",
+      "Container": "605e13f20bc1abbd850dbfd99ddd29020967df8662f6bbfe6a5a6d4100b8405f",
+      "ID": "605e13f20bc1",
+      "MemPerc": "27.84%",
+      "MemUsage": "285.1MiB / 1GiB",
+      "Name": "benchmark-flowable",
+      "NetIO": "353kB / 240kB",
+      "PIDs": "38"
+    },
+    {
+      "BlockIO": "696MB / 91.2MB",
+      "CPUPerc": "0.02%",
+      "Container": "0e9b5ce6efd266e55f9b58db64ac91702127c51eb49893c87c08d320fdbe1893",
+      "ID": "0e9b5ce6efd2",
+      "MemPerc": "1.10%",
+      "MemUsage": "87.32MiB / 7.779GiB",
+      "Name": "workflow-benchmark-postgres-1",
+      "NetIO": "75.3MB / 103MB",
+      "PIDs": "18"
+    }
+  ],
+  "engine_boot_seconds": 15.237,
+  "adapter_loc": {
+    "app/workflow/flowable.py": 341,
+    "app/workers/flowable_worker.py": 125
+  },
+  "adapter_loc_total": 466,
+  "bpmn_vendor_extensions": {
+    "bpmn/flowable/long_visit_v1.bpmn": {
+      "vendor_namespace_declarations": 1,
+      "vendor_attribute_usages": 2
+    },
+    "bpmn/flowable/long_visit_v2.bpmn": {
+      "vendor_namespace_declarations": 1,
+      "vendor_attribute_usages": 2
+    }
+  },
+  "evidence": {
+    "process_definitions": [
+      {
+        "category": "http://benchmark.local/bpmn/long-visit-poc",
+        "deploymentId": "13f83a09-9ff3-11f1-a013-222188ad4bfa",
+        "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/13f83a09-9ff3-11f1-a013-222188ad4bfa",
+        "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
+        "diagramResource": null,
+        "graphicalNotationDefined": false,
+        "id": "LONG_VISIT_POC:1:1408dbdb-9ff3-11f1-a013-222188ad4bfa",
+        "key": "LONG_VISIT_POC",
+        "name": "Long Visit POC",
+        "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/13f83a09-9ff3-11f1-a013-222188ad4bfa/resources/benchmark-fixture-long_visit_v1.bpmn.bpmn",
+        "startFormDefined": false,
+        "suspended": false,
+        "tenantId": "",
+        "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:1:1408dbdb-9ff3-11f1-a013-222188ad4bfa",
+        "version": 1
+      },
+      {
+        "category": "http://benchmark.local/bpmn/long-visit-poc",
+        "deploymentId": "140ea83c-9ff3-11f1-a013-222188ad4bfa",
+        "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/140ea83c-9ff3-11f1-a013-222188ad4bfa",
+        "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
+        "diagramResource": null,
+        "graphicalNotationDefined": false,
+        "id": "LONG_VISIT_POC:2:1416224e-9ff3-11f1-a013-222188ad4bfa",
+        "key": "LONG_VISIT_POC",
+        "name": "Long Visit POC",
+        "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/140ea83c-9ff3-11f1-a013-222188ad4bfa/resources/benchmark-fixture-long_visit_v2.bpmn.bpmn",
+        "startFormDefined": false,
+        "suspended": false,
+        "tenantId": "",
+        "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:2:1416224e-9ff3-11f1-a013-222188ad4bfa",
+        "version": 2
+      }
+    ],
+    "deployments_count": 3,
+    "running_instances": [],
+    "engine_info": {
+      "exception": null,
+      "name": "default",
+      "resourceUrl": null,
+      "version": "8.0.0"
+    },
+    "external_jobs": []
+  }
+}

@@ -116,10 +116,14 @@ def _app_healthy() -> bool:
 
 
 def _engine_up(engine: str) -> bool:
+    """Probe an engine. Flowable answers 401 without credentials (Spring
+    security) but the server is up; Operaton answers 200. Treat any response
+    below 500 as reachable (mirrors scripts/wait_for_engine.py)."""
     try:
-        return httpx.get(
+        resp = httpx.get(
             f"{ENGINE_BASES[engine]}{ENGINE_PROBE_PATHS[engine]}", timeout=3.0
-        ).status_code == 200
+        )
+        return resp.status_code < 500
     except Exception:
         return False
 

@@ -1,0 +1,27 @@
+{
+  "collected_at": "2026-08-24T19:36:19.072216+00:00",
+  "containers": [
+    {
+      "BlockIO": "2.08MB / 98.3kB",
+      "CPUPerc": "11.52%",
+      "Container": "605e13f20bc1abbd850dbfd99ddd29020967df8662f6bbfe6a5a6d4100b8405f",
+      "ID": "605e13f20bc1",
+      "MemPerc": "27.84%",
+      "MemUsage": "285.1MiB / 1GiB",
+      "Name": "benchmark-flowable",
+      "NetIO": "353kB / 240kB",
+      "PIDs": "38"
+    },
+    {
+      "BlockIO": "696MB / 91.2MB",
+      "CPUPerc": "0.02%",
+      "Container": "0e9b5ce6efd266e55f9b58db64ac91702127c51eb49893c87c08d320fdbe1893",
+      "ID": "0e9b5ce6efd2",
+      "MemPerc": "1.10%",
+      "MemUsage": "87.32MiB / 7.779GiB",
+      "Name": "workflow-benchmark-postgres-1",
+      "NetIO": "75.3MB / 103MB",
+      "PIDs": "18"
+    }
+  ]
+}

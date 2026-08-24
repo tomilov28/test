@@ -3,8 +3,8 @@
   "steps": [
     {
       "step": "start",
-      "request_id": "088de2e9-bd75-4cfd-b1b7-cb9093c21742",
-      "instance_id": "c3282ade-9fe6-11f1-9fce-6a420232cf00"
+      "request_id": "4fffd852-7099-48f5-a040-60e8f82068c5",
+      "instance_id": "8454434a-9ff3-11f1-bee9-16438e1b083e"
     }
   ],
   "before_restart": {

@@ -55,6 +55,9 @@ make test           # pytest (unit, no live DB required)
 make up-operaton    # full Operaton stack: postgres + engine + app + worker daemon
 make test-operaton  # integration suite + durability scenarios -> artifacts/operaton
 make demo-operaton  # drive a request end-to-end, leave the stack running
+make up-flowable    # full Flowable stack: postgres + engine + app + worker daemon
+make test-flowable  # integration suite + durability scenarios -> artifacts/flowable
+make demo-flowable  # drive a request end-to-end, leave the stack running
 make down           # stop all compose services + app/worker processes
 ```
 
@@ -94,6 +97,37 @@ join + timer, T10 v1/v2 versioning, T11 cancellation. Durability scenarios in
 and T09 (durable timer surviving an engine restart). Artifacts land in
 `artifacts/operaton/` (`test-results.xml`, `benchmark.json`, `engine.log`,
 `app.log`, `docker-stats.json`, `api-evidence/`).
+
+## Flowable phase (pinned 8.0.0)
+
+`make up-flowable` brings up, in order: shared Postgres, the separate Flowable
+engine DB + `flowable/flowable-rest:8.0.0` container, migrations, deterministic
+fixture deployment (`LONG_VISIT_POC` v1 and v2 as versions 1 and 2 plus
+`credit_decision`), the FastAPI harness, and the Python worker daemon (external
+job + human task completer).
+
+Stack URLs after `make up-flowable` / `make demo-flowable`:
+
+| Component          | URL                                        |
+| ------------------ | ------------------------------------------ |
+| Swagger UI         | http://localhost:8081/flowable-rest/docs    |
+| Flowable REST      | http://localhost:8081/flowable-rest/service |
+| FastAPI docs       | http://localhost:8000/docs                 |
+| Credentials        | `rest-admin` / `test`                      |
+
+Fixtures mirror the Operaton phase one-to-one: `bpmn/flowable/long_visit_v1.bpmn`
+and `long_visit_v2.bpmn` (`flowable:type="external"` on topic
+`load_prisoner_data`, parallel human checks, `PT15S` durable timer,
+`final_decision`), plus `bpmn/flowable/credit_decision.bpmn`.
+
+The integration suite (`tests/test_flowable_integration.py` +
+`tests/test_long_visit_poc_flowable.py`, `-m integration`) covers the same
+T01..T06, T08, T10, T11 contract as Operaton; durability scenarios
+(`scripts/flowable_scenarios.py`) cover T07/F09 equivalents. Artifacts land in
+`artifacts/flowable/` (`test-results.xml`, `benchmark.json`, `engine.log`,
+`app.log`, `docker-stats.json`, `api-evidence/`).
+
+Vendor differences are documented in `BPMN_VENDOR_DIFF.md`.
 
 ## API surface (bootstrap phase)
 

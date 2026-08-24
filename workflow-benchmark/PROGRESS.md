@@ -52,33 +52,44 @@ Status legend: `[ ]` not started, `[~]` in progress, `[x]` verified by actual ru
 
 ## Flowable (pinned 8.0.0)
 
-- [x] `make up-flowable` starts engine container
+- [x] `make up-flowable` starts engine container (separate DB, no Operaton)
 - [x] Adapter REST mapping implemented (deploy/start/cancel/query/history/jobs/executions)
-- [x] BPMN fixture deployed (`LONG_VISIT_POC` v1 + v2, `credit_decision`, `flowable:type="external"`)
+- [x] BPMN fixtures deployed (`bpmn/flowable/long_visit_v1.bpmn` / `long_visit_v2.bpmn`,
+      `credit_decision`, `flowable:type="external"`)
 - [x] External worker completes an external service task (topic `load_prisoner_data`,
       Flowable external-job protocol: `/external-job-api/acquire/jobs` + complete/fail)
-- [x] External worker real retry verified (fail -> engine re-activates after lock expiry)
+- [x] External worker real retry verified (T03: fail -> engine re-activates ~30-35s)
 - [x] Dead-letter path verified (`get_failed_jobs` -> `/management/deadletter-jobs`)
 - [x] Outbox START_PROCESS -> engine instance created (version-pinned dispatch)
 - [x] Reconciler mirrors engine tasks to WorkItems (idempotent)
 - [x] Request auto-closes on natural engine completion (CLOSED/COMPLETED)
-- [x] Parallel tasks + join + `PT15S` durable timer -> `final_decision` (natural fire ~18s)
-- [x] v1/v2 versioning verified: old instance stays on v1, new starts on v2
-- [x] Cancellation marks local WorkItems CANCELLED + engine instance ENDED
-- [x] F07 full stack restart with preserved DB: state + reconcile survive, flow completes
-- [x] F09 durable timer across engine restart: timer fires, reconciler surfaces `final_decision`
-- [x] `make test-flowable` passes (integration tests + F07/F09 scenarios), writes `test-results.xml`
+- [x] Parallel tasks + join + `PT15S` durable timer -> `final_decision` (T08)
+- [x] v1/v2 versioning verified (T10): old instance stays on v1, new starts on v2
+- [x] Cancellation marks local WorkItems CANCELLED + engine instance ENDED (T11)
+- [x] F07/T07 full stack restart with preserved DB: state + reconcile survive, flow completes
+- [x] F09/T09 durable timer across engine restart: timer fires, reconciler surfaces `final_decision`
+- [x] Full T01..T11 flowable suite green: 13 integration tests (4 adapter + 9 LONG_VISIT_POC) + F07/F09
+- [x] `make test-flowable` passes end to end (integration + scenarios + artifacts), writes `test-results.xml`
 - [x] `make demo-flowable` drives a request to COMPLETED and leaves the stack running
+- [x] Artifacts collected -> `artifacts/flowable/` (benchmark.json, engine.log, docker-stats.json, api-evidence/)
+- [x] `BPMN_VENDOR_DIFF.md` written (namespaces, external declaration, deployment metadata, tooling)
 
 ### Flowable notes
 
 * REST credentials: `rest-admin` / `test` (default bootstrap user).
 * Flowable external worker uses a different protocol than Camunda/Operaton: a single
   acquire call locks jobs of ONE topic; failed jobs re-enter the queue after the async
-  executor resets the expired lock (observed ~30s incl. executor cadence at PT6S timeout).
+  executor resets the expired lock (observed ~30-35s incl. executor cadence at PT6S).
 * Cancellation can hit a transient PostgreSQL deadlock racing the async executor; the
   adapter retries 5xx on delete.
 * History paginates at 10 by default; the adapter always requests `size=10000`.
+* Deployment name: Flowable ignores the `deploymentName` form field and stores the
+  uploaded file base name; `nameLike` filters need explicit SQL `%` wildcards.
+* `flowable-rest` 8.0.0 ships no bundled admin UI and no external-topic listing
+  endpoint (`/external-task/topic-names` is Operaton/Camunda-only); REST is the
+  operational mechanism for Flowable.
+* Engine image `flowable/flowable-rest:8.0.0` = 517 MB; boot ~15-18s; adapter 466 LOC
+  (flowable.py 338 + flowable_worker.py 128).
 
 ## Comparative tests
 
