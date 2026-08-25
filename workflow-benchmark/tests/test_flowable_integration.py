@@ -25,22 +25,9 @@ FIXTURE = os.path.join(
 )
 
 
-def engine_available() -> bool:
-    # Retry briefly: right after a container recreate the Spring context can
-    # still be warming up while Tomcat already answers the probe.
-    deadline = time.time() + 20.0
-    while time.time() < deadline:
-        try:
-            r = httpx.get(f"{ENGINE_BASE}/management/engine", auth=DEFAULT_AUTH, timeout=3.0)
-            if r.status_code == 200:
-                return True
-        except Exception:
-            pass
-        time.sleep(1.0)
-    return False
+from tests.conftest import require_engine_fixture  # noqa: E402
 
-
-pytestmark = [pytestmark, pytest.mark.skipif(not engine_available(), reason="Flowable engine not reachable")]
+require_engine_fixture("Flowable", f"{ENGINE_BASE}/management/engine")
 
 
 @pytest.fixture(scope="module")

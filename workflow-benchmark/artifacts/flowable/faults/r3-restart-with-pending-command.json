@@ -3,32 +3,46 @@
   "engine": "FLOWABLE",
   "steps": [],
   "before_restart": {
-    "request_id": "6c3d8863-0855-411e-ad0a-069c0173e481",
+    "request_id": "91bb77a1-66fa-4fdb-ae2f-a4e352965320",
     "command": {
-      "id": "950f2050-9893-4217-a1ae-12ad44deadb0",
-      "request_id": "6c3d8863-0855-411e-ad0a-069c0173e481",
+      "id": "88b8867a-5287-48e1-8811-b8c09b094045",
+      "request_id": "91bb77a1-66fa-4fdb-ae2f-a4e352965320",
       "command_type": "START_PROCESS",
       "state": "PENDING",
       "attempts": 0,
       "last_error": null,
-      "created_at": "2026-08-24T21:04:49.894657Z",
+      "payload": {
+        "process_key": "LONG_VISIT_POC",
+        "business_key": "REQ-2D685A6B460C",
+        "variables": {
+          "initiator": "flowable-r3-0"
+        }
+      },
+      "created_at": "2026-08-25T19:23:39.152773Z",
       "processed_at": null
     }
   },
   "after_restart": {
-    "instance_id": "743938b9-9fff-11f1-a3e6-16836dca3dfc",
+    "instance_id": "7c608ee6-a0ba-11f1-80e6-6edaf17c70b0",
     "command": {
-      "id": "950f2050-9893-4217-a1ae-12ad44deadb0",
-      "request_id": "6c3d8863-0855-411e-ad0a-069c0173e481",
+      "id": "88b8867a-5287-48e1-8811-b8c09b094045",
+      "request_id": "91bb77a1-66fa-4fdb-ae2f-a4e352965320",
       "command_type": "START_PROCESS",
       "state": "DONE",
       "attempts": 1,
       "last_error": null,
-      "created_at": "2026-08-24T21:04:49.894657Z",
-      "processed_at": "2026-08-24T21:04:54.102556Z"
+      "payload": {
+        "process_key": "LONG_VISIT_POC",
+        "business_key": "REQ-2D685A6B460C",
+        "variables": {
+          "initiator": "flowable-r3-0"
+        }
+      },
+      "created_at": "2026-08-25T19:23:39.152773Z",
+      "processed_at": "2026-08-25T19:23:43.641022Z"
     },
     "engine_instances": [
-      "743938b9-9fff-11f1-a3e6-16836dca3dfc"
+      "7c608ee6-a0ba-11f1-80e6-6edaf17c70b0"
     ]
   }
 }

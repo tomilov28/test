@@ -295,7 +295,13 @@ def scenario_t07(api: httpx.Client, adapter: OperatonAdapter) -> dict:
     )
     req = api.get(f"/requests/{request_id}").json()
     assert req["outcome"] == "COMPLETED"
-    assert adapter.get_process_instance(instance_id).state == "ENDED"
+    # domain-first: the request is CLOSED immediately; the engine instance ENDs
+    # when the dispatcher converges the final COMPLETE_TASK command.
+    wait_for(
+        lambda: adapter.get_process_instance(instance_id).state == "ENDED",
+        timeout=30.0,
+        label="engine instance ENDED after final decision",
+    )
     history = adapter.get_process_history(instance_id)
     assert history, "history must survive full restart"
     evidence["final"] = {
@@ -367,7 +373,11 @@ def scenario_t09(api: httpx.Client, adapter: OperatonAdapter) -> dict:
     )
     req = api.get(f"/requests/{request_id}").json()
     assert req["outcome"] == "COMPLETED"
-    assert adapter.get_process_instance(instance_id).state == "ENDED"
+    wait_for(
+        lambda: adapter.get_process_instance(instance_id).state == "ENDED",
+        timeout=30.0,
+        label="engine instance ENDED after final decision",
+    )
     evidence["final"] = {"request_state": req["lifecycle_state"], "outcome": req["outcome"]}
 
     save_evidence("t09-durable-timer-restart.json", evidence)

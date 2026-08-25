@@ -68,7 +68,11 @@ def test_reconcile_survives_engine_absence(db):
     assert db.query(WorkItem).count() == 0
 
 
-def test_reconcile_closes_request_on_natural_completion(db):
+def test_reconcile_does_not_close_on_engine_ended(db):
+    """Audit A02c: the engine END state is a TECHNICAL state and must NEVER
+    assign a business outcome. An instance that ended without a final domain
+    action is recorded as a workflow/domain ANOMALY, and the Request stays
+    ACTIVE with no outcome."""
     from app.domain.enums import RequestOutcome
 
     request = _active_request(db)
@@ -81,19 +85,19 @@ def test_reconcile_closes_request_on_natural_completion(db):
     summary = reconcile_once(db, lambda engine: mock)
 
     db.refresh(request)
-    assert summary["completed_requests"] == 1
-    assert request.lifecycle_state == LifecycleState.CLOSED.value
-    assert request.outcome == RequestOutcome.COMPLETED.value
-    assert request.closed_at is not None
+    assert summary["completed_requests"] == 0
+    assert summary["anomalies"], "engine ENDED without domain outcome must be recorded"
+    assert summary["anomalies"][0]["kind"] == "engine_ended_without_domain_outcome"
+    assert request.lifecycle_state == LifecycleState.ACTIVE.value
+    assert request.outcome is None
+    assert request.closed_at is None
 
 
 def test_reconcile_does_not_overwrite_concurrent_cancel(db, tmp_path):
-    """Regression: a request selected as ACTIVE must not be auto-closed as
-    COMPLETED when a concurrent cancellation commits CLOSED/CANCELLED between
-    the reconciler's SELECT and its auto-close UPDATE. The engine's ENDED state
-    is indistinguishable from natural completion, so the auto-close guard must
-    be re-evaluated against the latest committed row (atomic conditional
-    UPDATE), never against a stale in-session snapshot."""
+    """Regression: the reconciler writes NO lifecycle state, so a concurrent
+    cancellation committing CLOSED/CANCELLED can never be clobbered back to
+    ACTIVE or COMPLETED. The engine ENDED state under an ACTIVE request is only
+    ever reported as an anomaly, never turned into a business outcome."""
     import os
 
     from sqlalchemy import create_engine
@@ -127,7 +131,7 @@ def test_reconcile_does_not_overwrite_concurrent_cancel(db, tmp_path):
 
     def _get_process_instance(instance_id=None):
         # Simulate the dispatcher's CANCEL_PROCESS committing CLOSED/CANCELLED
-        # in the window between the reconciler's SELECT and its auto-close.
+        # in the window between the reconciler's SELECT and its processing.
         row = s2.get(Request, request.id)
         row.lifecycle_state = LifecycleState.CLOSED.value
         row.outcome = RequestOutcome.CANCELLED.value

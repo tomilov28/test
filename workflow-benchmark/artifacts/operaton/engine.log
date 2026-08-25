@@ -18,60 +18,48 @@ _/    _/  _/    _/  _/        _/        _/    _/    _/      _/    _/  _/    _/
   Spring-Boot:  (v4.0.8)
   Operaton: (v2.1.4)
 
-2026-08-24T17:25:30.046Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 58 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
-2026-08-24T17:25:30.062Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
-2026-08-24T17:25:36.188Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-08-24T17:25:36.240Z  INFO 58 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-08-24T17:25:36.241Z  INFO 58 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
-2026-08-24T17:25:36.394Z  INFO 58 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5200 ms
-2026-08-24T17:25:36.460Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
-2026-08-24T17:25:36.513Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
-2026-08-24T17:25:37.368Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
-2026-08-24T17:25:37.489Z  INFO 58 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], disableDeploymentResourcePattern, eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
-2026-08-24T17:25:37.496Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
-2026-08-24T17:25:37.500Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB020 ProcessApplication enabled: autoDeployment via springConfiguration#deploymentResourcePattern is disabled
-2026-08-24T17:25:37.502Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
-2026-08-24T17:25:37.502Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
-2026-08-24T17:25:37.502Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
-2026-08-24T17:25:37.502Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
-2026-08-24T17:25:37.513Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
-2026-08-24T17:25:37.527Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
-2026-08-24T17:25:38.043Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
-2026-08-24T17:25:38.272Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
-2026-08-24T17:25:38.273Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
-2026-08-24T17:25:38.486Z  INFO 58 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
-2026-08-24T17:25:39.266Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-08-24T17:25:39.749Z  INFO 58 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7c45191e
-2026-08-24T17:25:39.758Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-08-24T17:25:46.196Z  INFO 58 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
-2026-08-24T17:25:46.273Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
-2026-08-24T17:25:46.280Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Invoice example started, creating deployment
-2026-08-24T17:25:47.643Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@38a96593
-2026-08-24T17:25:47.644Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@7bbdb220
-2026-08-24T17:25:48.176Z  INFO 58 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-08-24T17:25:48.519Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-08-24T17:25:48.693Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08024 Found processes.xml file at jar:file:/operaton/internal/example/operaton-bpm-run-modules-example-invoice.jar!/META-INF/processes.xml
-2026-08-24T17:25:48.840Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08023 Deployment summary for process archive 'invoiceProcessApplicationSpringBoot':
-
-        invoiceBusinessDecisions.dmn
-        invoice.v2.bpmn
-
-2026-08-24T17:25:49.624Z  INFO 58 --- [           main] org.operaton.bpm.application             : ENGINE-07021 ProcessApplication 'invoiceProcessApplicationSpringBoot' registered for DB deployments [fa739c06-9fdf-11f1-8ecc-dedc29aa4d90, f8755bfc-9fdf-11f1-8ecc-dedc29aa4d90]. Will execute process definitions 
-
-        invoice[version: 2, id: invoice:2:fa85eb89-9fdf-11f1-8ecc-dedc29aa4d90]
-        ReviewInvoice[version: 1, id: ReviewInvoice:1:f8bf0e32-9fdf-11f1-8ecc-dedc29aa4d90]
-        invoice[version: 1, id: invoice:1:f8bcc440-9fdf-11f1-8ecc-dedc29aa4d90]
-Deployment does not provide any case definitions.
-2026-08-24T17:25:49.633Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Starting invoice example instance
-2026-08-24T17:25:49.855Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 1 started, there are 3 instances running
-2026-08-24T17:25:49.973Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 2 started, there are 3 instances running
-2026-08-24T17:25:49.974Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08050 Process application invoiceProcessApplicationSpringBoot successfully deployed
-2026-08-24T17:25:49.982Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 21.646 seconds (process running for 23.641)
-2026-08-24T17:25:49.999Z  INFO 58 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
-2026-08-24T17:25:50.001Z  INFO 58 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
-2026-08-24T17:28:58.687Z  INFO 58 --- [nio-8080-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-08-24T17:28:58.691Z  INFO 58 --- [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-08-24T17:28:58.704Z  INFO 58 --- [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2026-08-25T20:07:54.576Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 58 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
+2026-08-25T20:07:54.633Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
+2026-08-25T20:08:02.049Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-25T20:08:02.100Z  INFO 58 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-25T20:08:02.101Z  INFO 58 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
+2026-08-25T20:08:02.213Z  INFO 58 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 6147 ms
+2026-08-25T20:08:02.340Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
+2026-08-25T20:08:02.449Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
+2026-08-25T20:08:03.904Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+2026-08-25T20:08:04.077Z  INFO 58 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
+2026-08-25T20:08:04.085Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
+2026-08-25T20:08:04.090Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
+2026-08-25T20:08:04.091Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
+2026-08-25T20:08:04.091Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
+2026-08-25T20:08:04.092Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
+2026-08-25T20:08:04.103Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
+2026-08-25T20:08:04.117Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+2026-08-25T20:08:04.646Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+2026-08-25T20:08:05.088Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+2026-08-25T20:08:05.089Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+2026-08-25T20:08:05.516Z  INFO 58 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
+2026-08-25T20:08:06.330Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-25T20:08:06.810Z  INFO 58 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1b6683c4
+2026-08-25T20:08:06.821Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-25T20:08:14.957Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'engine' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.engine.sql'
+2026-08-25T20:08:15.165Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'history' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.history.sql'
+2026-08-25T20:08:15.209Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'identity' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.identity.sql'
+2026-08-25T20:08:15.261Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'case.engine' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.case.engine.sql'
+2026-08-25T20:08:15.295Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'case.history' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.case.history.sql'
+2026-08-25T20:08:15.324Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'decision.engine' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.decision.engine.sql'
+2026-08-25T20:08:15.367Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03016 Performing database operation 'create' on component 'decision.history' with resource 'org/operaton/bpm/engine/db/create/activiti.postgres.create.decision.history.sql'
+2026-08-25T20:08:15.569Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03067 No history level property found in database
+2026-08-25T20:08:15.580Z  INFO 58 --- [           main] org.operaton.bpm.engine.persistence      : ENGINE-03065 Creating historyLevel property in database for level: HistoryLevelFull(name=full, id=3)
+2026-08-25T20:08:15.805Z  INFO 58 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
+2026-08-25T20:08:17.074Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB015 Create initial filter: id=b5d38896-a0c0-11f1-ac69-eae1f9f21007 name=All tasks
+2026-08-25T20:08:19.064Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@144a5e6e
+2026-08-25T20:08:19.292Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@5635bcd2
+2026-08-25T20:08:21.577Z  INFO 58 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-08-25T20:08:21.790Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-25T20:08:21.821Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 29.156 seconds (process running for 32.431)
+2026-08-25T20:08:21.925Z  INFO 58 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+2026-08-25T20:08:21.930Z  INFO 58 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
 postgres:5432 available
 Setting JAVA property to /usr/lib/jvm/java-17-openjdk/bin/java
 Java version is 17.0.20
@@ -92,57 +80,39 @@ _/    _/  _/    _/  _/        _/        _/    _/    _/      _/    _/  _/    _/
   Spring-Boot:  (v4.0.8)
   Operaton: (v2.1.4)
 
-2026-08-24T17:59:19.695Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 57 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
-2026-08-24T17:59:19.724Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
-2026-08-24T17:59:26.177Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-08-24T17:59:26.215Z  INFO 57 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-08-24T17:59:26.216Z  INFO 57 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
-2026-08-24T17:59:26.450Z  INFO 57 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5475 ms
-2026-08-24T17:59:26.523Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
-2026-08-24T17:59:26.592Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
-2026-08-24T17:59:27.642Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
-2026-08-24T17:59:27.791Z  INFO 57 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], disableDeploymentResourcePattern, eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
-2026-08-24T17:59:27.798Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
-2026-08-24T17:59:27.803Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB020 ProcessApplication enabled: autoDeployment via springConfiguration#deploymentResourcePattern is disabled
-2026-08-24T17:59:27.804Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
-2026-08-24T17:59:27.805Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
-2026-08-24T17:59:27.805Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
-2026-08-24T17:59:27.805Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
-2026-08-24T17:59:27.816Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
-2026-08-24T17:59:27.830Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
-2026-08-24T17:59:28.290Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
-2026-08-24T17:59:28.641Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
-2026-08-24T17:59:28.641Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
-2026-08-24T17:59:28.885Z  INFO 57 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
-2026-08-24T17:59:29.718Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-08-24T17:59:30.222Z  INFO 57 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@74919649
-2026-08-24T17:59:30.240Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-08-24T17:59:37.110Z  INFO 57 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
-2026-08-24T17:59:37.230Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
-2026-08-24T17:59:37.236Z  INFO 57 --- [           main] o.o.bpm.run.example.invoice.Application  : Invoice example started, creating deployment
-2026-08-24T17:59:38.272Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@21f50d2c
-2026-08-24T17:59:38.414Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@43786627
-2026-08-24T17:59:38.904Z  INFO 57 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-08-24T17:59:39.110Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-08-24T17:59:39.297Z  INFO 57 --- [           main] org.operaton.bpm.container               : ENGINE-08024 Found processes.xml file at jar:file:/operaton/internal/example/operaton-bpm-run-modules-example-invoice.jar!/META-INF/processes.xml
-2026-08-24T17:59:39.390Z  INFO 57 --- [           main] org.operaton.bpm.container               : ENGINE-08023 Deployment summary for process archive 'invoiceProcessApplicationSpringBoot':
-
-        invoiceBusinessDecisions.dmn
-        invoice.v2.bpmn
-
-2026-08-24T17:59:40.424Z  INFO 57 --- [           main] org.operaton.bpm.application             : ENGINE-07021 ProcessApplication 'invoiceProcessApplicationSpringBoot' registered for DB deployments [fa739c06-9fdf-11f1-8ecc-dedc29aa4d90, f8755bfc-9fdf-11f1-8ecc-dedc29aa4d90]. Will execute process definitions 
-
-        invoice[version: 2, id: invoice:2:fa85eb89-9fdf-11f1-8ecc-dedc29aa4d90]
-        ReviewInvoice[version: 1, id: ReviewInvoice:1:f8bf0e32-9fdf-11f1-8ecc-dedc29aa4d90]
-        invoice[version: 1, id: invoice:1:f8bcc440-9fdf-11f1-8ecc-dedc29aa4d90]
-Deployment does not provide any case definitions.
-2026-08-24T17:59:40.439Z  INFO 57 --- [           main] o.o.bpm.run.example.invoice.Application  : Starting invoice example instance
-2026-08-24T17:59:40.690Z  INFO 57 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 1 started, there are 3 instances running
-2026-08-24T17:59:40.825Z  INFO 57 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 2 started, there are 3 instances running
-2026-08-24T17:59:40.825Z  INFO 57 --- [           main] org.operaton.bpm.container               : ENGINE-08050 Process application invoiceProcessApplicationSpringBoot successfully deployed
-2026-08-24T17:59:40.834Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 22.889 seconds (process running for 25.039)
-2026-08-24T17:59:40.848Z  INFO 57 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
-2026-08-24T17:59:40.852Z  INFO 57 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+2026-08-25T20:11:27.224Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 57 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
+2026-08-25T20:11:27.250Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
+2026-08-25T20:11:34.487Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-25T20:11:34.527Z  INFO 57 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-25T20:11:34.528Z  INFO 57 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
+2026-08-25T20:11:34.700Z  INFO 57 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 6234 ms
+2026-08-25T20:11:34.920Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
+2026-08-25T20:11:35.054Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
+2026-08-25T20:11:36.447Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+2026-08-25T20:11:36.597Z  INFO 57 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
+2026-08-25T20:11:36.605Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
+2026-08-25T20:11:36.610Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
+2026-08-25T20:11:36.611Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
+2026-08-25T20:11:36.611Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
+2026-08-25T20:11:36.611Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
+2026-08-25T20:11:36.625Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
+2026-08-25T20:11:36.642Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+2026-08-25T20:11:37.118Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+2026-08-25T20:11:37.370Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+2026-08-25T20:11:37.371Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+2026-08-25T20:11:37.915Z  INFO 57 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
+2026-08-25T20:11:38.892Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-25T20:11:39.376Z  INFO 57 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@34d5eac
+2026-08-25T20:11:39.384Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-25T20:11:47.503Z  INFO 57 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
+2026-08-25T20:11:47.589Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
+2026-08-25T20:11:48.449Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@2707c790
+2026-08-25T20:11:48.560Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@5c5c7cc4
+2026-08-25T20:11:49.402Z  INFO 57 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-08-25T20:11:49.792Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-25T20:11:49.860Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 24.878 seconds (process running for 27.156)
+2026-08-25T20:11:49.975Z  INFO 57 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+2026-08-25T20:11:49.980Z  INFO 57 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
 postgres:5432 available
 Setting JAVA property to /usr/lib/jvm/java-17-openjdk/bin/java
 Java version is 17.0.20
@@ -163,267 +133,36 @@ _/    _/  _/    _/  _/        _/        _/    _/    _/      _/    _/  _/    _/
   Spring-Boot:  (v4.0.8)
   Operaton: (v2.1.4)
 
-2026-08-24T18:03:23.344Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 57 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
-2026-08-24T18:03:23.369Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
-2026-08-24T18:03:29.543Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-08-24T18:03:29.605Z  INFO 57 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-08-24T18:03:29.608Z  INFO 57 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
-2026-08-24T18:03:29.813Z  INFO 57 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5123 ms
-2026-08-24T18:03:29.954Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
-2026-08-24T18:03:30.035Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
-2026-08-24T18:03:31.168Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
-2026-08-24T18:03:31.319Z  INFO 57 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], disableDeploymentResourcePattern, eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
-2026-08-24T18:03:31.326Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
-2026-08-24T18:03:31.335Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB020 ProcessApplication enabled: autoDeployment via springConfiguration#deploymentResourcePattern is disabled
-2026-08-24T18:03:31.338Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
-2026-08-24T18:03:31.338Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
-2026-08-24T18:03:31.338Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
-2026-08-24T18:03:31.339Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
-2026-08-24T18:03:31.351Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
-2026-08-24T18:03:31.365Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
-2026-08-24T18:03:31.818Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
-2026-08-24T18:03:32.132Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
-2026-08-24T18:03:32.133Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
-2026-08-24T18:03:32.433Z  INFO 57 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
-2026-08-24T18:03:33.333Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-08-24T18:03:33.824Z  INFO 57 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@444c0f9a
-2026-08-24T18:03:33.832Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-08-24T18:03:40.364Z  INFO 57 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
-2026-08-24T18:03:40.459Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
-2026-08-24T18:03:40.467Z  INFO 57 --- [           main] o.o.bpm.run.example.invoice.Application  : Invoice example started, creating deployment
-2026-08-24T18:03:41.675Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@4b508371
-2026-08-24T18:03:41.818Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@2e1add6f
-2026-08-24T18:03:42.232Z  INFO 57 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-08-24T18:03:42.568Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-08-24T18:03:42.736Z  INFO 57 --- [           main] org.operaton.bpm.container               : ENGINE-08024 Found processes.xml file at jar:file:/operaton/internal/example/operaton-bpm-run-modules-example-invoice.jar!/META-INF/processes.xml
-2026-08-24T18:03:42.828Z  INFO 57 --- [           main] org.operaton.bpm.container               : ENGINE-08023 Deployment summary for process archive 'invoiceProcessApplicationSpringBoot':
-
-        invoiceBusinessDecisions.dmn
-        invoice.v2.bpmn
-
-2026-08-24T18:03:43.563Z  INFO 57 --- [           main] org.operaton.bpm.application             : ENGINE-07021 ProcessApplication 'invoiceProcessApplicationSpringBoot' registered for DB deployments [fa739c06-9fdf-11f1-8ecc-dedc29aa4d90, f8755bfc-9fdf-11f1-8ecc-dedc29aa4d90]. Will execute process definitions 
-
-        invoice[version: 2, id: invoice:2:fa85eb89-9fdf-11f1-8ecc-dedc29aa4d90]
-        ReviewInvoice[version: 1, id: ReviewInvoice:1:f8bf0e32-9fdf-11f1-8ecc-dedc29aa4d90]
-        invoice[version: 1, id: invoice:1:f8bcc440-9fdf-11f1-8ecc-dedc29aa4d90]
-Deployment does not provide any case definitions.
-2026-08-24T18:03:43.570Z  INFO 57 --- [           main] o.o.bpm.run.example.invoice.Application  : Starting invoice example instance
-2026-08-24T18:03:43.750Z  INFO 57 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 1 started, there are 3 instances running
-2026-08-24T18:03:43.862Z  INFO 57 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 2 started, there are 3 instances running
-2026-08-24T18:03:43.863Z  INFO 57 --- [           main] org.operaton.bpm.container               : ENGINE-08050 Process application invoiceProcessApplicationSpringBoot successfully deployed
-2026-08-24T18:03:43.881Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 22.15 seconds (process running for 24.198)
-2026-08-24T18:03:43.904Z  INFO 57 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
-2026-08-24T18:03:43.915Z  INFO 57 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
-postgres:5432 available
-Setting JAVA property to /usr/lib/jvm/java-17-openjdk/bin/java
-Java version is 17.0.20
-JAVA_OPTS: -XX:MaxRAMPercentage=70.0
-REST API enabled
-WebApps enabled
-Invoice Example included - needs to be enabled in application configuration as well
-classpath: /operaton/internal/webapps/,/operaton/internal/rest/,/operaton/internal/example,/operaton/configuration/userlib/,/operaton/configuration/keystore/
-
-     _/_/                                              _/
-  _/    _/  _/_/_/      _/_/    _/  _/_/    _/_/_/  _/_/_/_/    _/_/    _/_/_/
- _/    _/  _/    _/  _/_/_/_/  _/_/      _/    _/    _/      _/    _/  _/    _/
-_/    _/  _/    _/  _/        _/        _/    _/    _/      _/    _/  _/    _/
- _/_/    _/_/_/      _/_/_/  _/          _/_/_/      _/_/    _/_/    _/    _/
-        _/
-       _/
-
-  Spring-Boot:  (v4.0.8)
-  Operaton: (v2.1.4)
-
-2026-08-24T18:04:36.903Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 58 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
-2026-08-24T18:04:36.938Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
-2026-08-24T18:04:42.889Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-08-24T18:04:42.933Z  INFO 58 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-08-24T18:04:42.936Z  INFO 58 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
-2026-08-24T18:04:43.041Z  INFO 58 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5003 ms
-2026-08-24T18:04:43.113Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
-2026-08-24T18:04:43.173Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
-2026-08-24T18:04:44.247Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
-2026-08-24T18:04:44.429Z  INFO 58 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], disableDeploymentResourcePattern, eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
-2026-08-24T18:04:44.434Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
-2026-08-24T18:04:44.439Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB020 ProcessApplication enabled: autoDeployment via springConfiguration#deploymentResourcePattern is disabled
-2026-08-24T18:04:44.440Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
-2026-08-24T18:04:44.440Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
-2026-08-24T18:04:44.440Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
-2026-08-24T18:04:44.441Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
-2026-08-24T18:04:44.452Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
-2026-08-24T18:04:44.465Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
-2026-08-24T18:04:44.848Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
-2026-08-24T18:04:45.064Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
-2026-08-24T18:04:45.065Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
-2026-08-24T18:04:45.281Z  INFO 58 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
-2026-08-24T18:04:46.172Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-08-24T18:04:46.544Z  INFO 58 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5f4f6f89
-2026-08-24T18:04:46.552Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-08-24T18:04:53.015Z  INFO 58 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
-2026-08-24T18:04:53.091Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
-2026-08-24T18:04:53.095Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Invoice example started, creating deployment
-2026-08-24T18:04:54.491Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@25cde5bb
-2026-08-24T18:04:54.495Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@2d2fc130
-2026-08-24T18:04:54.938Z  INFO 58 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-08-24T18:04:55.278Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-08-24T18:04:55.439Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08024 Found processes.xml file at jar:file:/operaton/internal/example/operaton-bpm-run-modules-example-invoice.jar!/META-INF/processes.xml
-2026-08-24T18:04:55.571Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08023 Deployment summary for process archive 'invoiceProcessApplicationSpringBoot':
-
-        invoiceBusinessDecisions.dmn
-        invoice.v2.bpmn
-
-2026-08-24T18:04:57.100Z  INFO 58 --- [           main] org.operaton.bpm.application             : ENGINE-07021 ProcessApplication 'invoiceProcessApplicationSpringBoot' registered for DB deployments [fa739c06-9fdf-11f1-8ecc-dedc29aa4d90, f8755bfc-9fdf-11f1-8ecc-dedc29aa4d90]. Will execute process definitions 
-
-        invoice[version: 2, id: invoice:2:fa85eb89-9fdf-11f1-8ecc-dedc29aa4d90]
-        ReviewInvoice[version: 1, id: ReviewInvoice:1:f8bf0e32-9fdf-11f1-8ecc-dedc29aa4d90]
-        invoice[version: 1, id: invoice:1:f8bcc440-9fdf-11f1-8ecc-dedc29aa4d90]
-Deployment does not provide any case definitions.
-2026-08-24T18:04:57.115Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Starting invoice example instance
-2026-08-24T18:04:57.338Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 1 started, there are 3 instances running
-2026-08-24T18:04:57.483Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 2 started, there are 3 instances running
-2026-08-24T18:04:57.484Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08050 Process application invoiceProcessApplicationSpringBoot successfully deployed
-2026-08-24T18:04:57.497Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 22.276 seconds (process running for 24.018)
-2026-08-24T18:04:57.521Z  INFO 58 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
-2026-08-24T18:04:57.534Z  INFO 58 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
-postgres:5432 available
-Setting JAVA property to /usr/lib/jvm/java-17-openjdk/bin/java
-Java version is 17.0.20
-JAVA_OPTS: -XX:MaxRAMPercentage=70.0
-REST API enabled
-WebApps enabled
-Invoice Example included - needs to be enabled in application configuration as well
-classpath: /operaton/internal/webapps/,/operaton/internal/rest/,/operaton/internal/example,/operaton/configuration/userlib/,/operaton/configuration/keystore/
-
-     _/_/                                              _/
-  _/    _/  _/_/_/      _/_/    _/  _/_/    _/_/_/  _/_/_/_/    _/_/    _/_/_/
- _/    _/  _/    _/  _/_/_/_/  _/_/      _/    _/    _/      _/    _/  _/    _/
-_/    _/  _/    _/  _/        _/        _/    _/    _/      _/    _/  _/    _/
- _/_/    _/_/_/      _/_/_/  _/          _/_/_/      _/_/    _/_/    _/    _/
-        _/
-       _/
-
-  Spring-Boot:  (v4.0.8)
-  Operaton: (v2.1.4)
-
-2026-08-24T18:07:10.598Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 58 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
-2026-08-24T18:07:10.609Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
-2026-08-24T18:07:16.690Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-08-24T18:07:16.729Z  INFO 58 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-08-24T18:07:16.730Z  INFO 58 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
-2026-08-24T18:07:16.828Z  INFO 58 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5201 ms
-2026-08-24T18:07:16.916Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
-2026-08-24T18:07:17.025Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
-2026-08-24T18:07:17.947Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
-2026-08-24T18:07:18.158Z  INFO 58 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], disableDeploymentResourcePattern, eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
-2026-08-24T18:07:18.171Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
-2026-08-24T18:07:18.182Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB020 ProcessApplication enabled: autoDeployment via springConfiguration#deploymentResourcePattern is disabled
-2026-08-24T18:07:18.184Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
-2026-08-24T18:07:18.184Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
-2026-08-24T18:07:18.184Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
-2026-08-24T18:07:18.184Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
-2026-08-24T18:07:18.209Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
-2026-08-24T18:07:18.248Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
-2026-08-24T18:07:18.717Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
-2026-08-24T18:07:18.942Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
-2026-08-24T18:07:18.943Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
-2026-08-24T18:07:19.164Z  INFO 58 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
-2026-08-24T18:07:19.935Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-08-24T18:07:20.472Z  INFO 58 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@444c0f9a
-2026-08-24T18:07:20.491Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-08-24T18:07:26.495Z  INFO 58 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
-2026-08-24T18:07:26.576Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
-2026-08-24T18:07:26.584Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Invoice example started, creating deployment
-2026-08-24T18:07:27.853Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@21f50d2c
-2026-08-24T18:07:27.972Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@43786627
-2026-08-24T18:07:28.506Z  INFO 58 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-08-24T18:07:28.806Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-08-24T18:07:29.007Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08024 Found processes.xml file at jar:file:/operaton/internal/example/operaton-bpm-run-modules-example-invoice.jar!/META-INF/processes.xml
-2026-08-24T18:07:29.287Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08023 Deployment summary for process archive 'invoiceProcessApplicationSpringBoot':
-
-        invoiceBusinessDecisions.dmn
-        invoice.v2.bpmn
-
-2026-08-24T18:07:30.438Z  INFO 58 --- [           main] org.operaton.bpm.application             : ENGINE-07021 ProcessApplication 'invoiceProcessApplicationSpringBoot' registered for DB deployments [fa739c06-9fdf-11f1-8ecc-dedc29aa4d90, f8755bfc-9fdf-11f1-8ecc-dedc29aa4d90]. Will execute process definitions 
-
-        invoice[version: 2, id: invoice:2:fa85eb89-9fdf-11f1-8ecc-dedc29aa4d90]
-        ReviewInvoice[version: 1, id: ReviewInvoice:1:f8bf0e32-9fdf-11f1-8ecc-dedc29aa4d90]
-        invoice[version: 1, id: invoice:1:f8bcc440-9fdf-11f1-8ecc-dedc29aa4d90]
-Deployment does not provide any case definitions.
-2026-08-24T18:07:30.454Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Starting invoice example instance
-2026-08-24T18:07:30.692Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 1 started, there are 3 instances running
-2026-08-24T18:07:30.825Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 2 started, there are 3 instances running
-2026-08-24T18:07:30.825Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08050 Process application invoiceProcessApplicationSpringBoot successfully deployed
-2026-08-24T18:07:30.839Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 21.865 seconds (process running for 23.865)
-2026-08-24T18:07:30.855Z  INFO 58 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
-2026-08-24T18:07:30.858Z  INFO 58 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
-postgres:5432 available
-Setting JAVA property to /usr/lib/jvm/java-17-openjdk/bin/java
-Java version is 17.0.20
-JAVA_OPTS: -XX:MaxRAMPercentage=70.0
-REST API enabled
-WebApps enabled
-Invoice Example included - needs to be enabled in application configuration as well
-classpath: /operaton/internal/webapps/,/operaton/internal/rest/,/operaton/internal/example,/operaton/configuration/userlib/,/operaton/configuration/keystore/
-
-     _/_/                                              _/
-  _/    _/  _/_/_/      _/_/    _/  _/_/    _/_/_/  _/_/_/_/    _/_/    _/_/_/
- _/    _/  _/    _/  _/_/_/_/  _/_/      _/    _/    _/      _/    _/  _/    _/
-_/    _/  _/    _/  _/        _/        _/    _/    _/      _/    _/  _/    _/
- _/_/    _/_/_/      _/_/_/  _/          _/_/_/      _/_/    _/_/    _/    _/
-        _/
-       _/
-
-  Spring-Boot:  (v4.0.8)
-  Operaton: (v2.1.4)
-
-2026-08-24T18:08:16.724Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 58 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
-2026-08-24T18:08:16.758Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
-2026-08-24T18:08:22.673Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-08-24T18:08:22.713Z  INFO 58 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-08-24T18:08:22.714Z  INFO 58 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
-2026-08-24T18:08:22.833Z  INFO 58 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4827 ms
-2026-08-24T18:08:22.949Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
-2026-08-24T18:08:23.002Z  INFO 58 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
-2026-08-24T18:08:24.015Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
-2026-08-24T18:08:24.175Z  INFO 58 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], disableDeploymentResourcePattern, eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
-2026-08-24T18:08:24.185Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
-2026-08-24T18:08:24.190Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB020 ProcessApplication enabled: autoDeployment via springConfiguration#deploymentResourcePattern is disabled
-2026-08-24T18:08:24.192Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
-2026-08-24T18:08:24.192Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
-2026-08-24T18:08:24.193Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
-2026-08-24T18:08:24.193Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
-2026-08-24T18:08:24.205Z  INFO 58 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
-2026-08-24T18:08:24.219Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
-2026-08-24T18:08:24.620Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
-2026-08-24T18:08:24.802Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
-2026-08-24T18:08:24.802Z  INFO 58 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
-2026-08-24T18:08:25.013Z  INFO 58 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
-2026-08-24T18:08:25.859Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-08-24T18:08:26.289Z  INFO 58 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@18bc1064
-2026-08-24T18:08:26.296Z  INFO 58 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-08-24T18:08:32.392Z  INFO 58 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
-2026-08-24T18:08:32.459Z  INFO 58 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
-2026-08-24T18:08:32.463Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Invoice example started, creating deployment
-2026-08-24T18:08:33.777Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@7afb9c93
-2026-08-24T18:08:33.778Z  INFO 58 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@d120d7c
-2026-08-24T18:08:34.330Z  INFO 58 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-08-24T18:08:34.532Z  INFO 58 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-08-24T18:08:34.680Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08024 Found processes.xml file at jar:file:/operaton/internal/example/operaton-bpm-run-modules-example-invoice.jar!/META-INF/processes.xml
-2026-08-24T18:08:34.771Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08023 Deployment summary for process archive 'invoiceProcessApplicationSpringBoot':
-
-        invoiceBusinessDecisions.dmn
-        invoice.v2.bpmn
-
-2026-08-24T18:08:35.645Z  INFO 58 --- [           main] org.operaton.bpm.application             : ENGINE-07021 ProcessApplication 'invoiceProcessApplicationSpringBoot' registered for DB deployments [fa739c06-9fdf-11f1-8ecc-dedc29aa4d90, f8755bfc-9fdf-11f1-8ecc-dedc29aa4d90]. Will execute process definitions 
-
-        invoice[version: 2, id: invoice:2:fa85eb89-9fdf-11f1-8ecc-dedc29aa4d90]
-        ReviewInvoice[version: 1, id: ReviewInvoice:1:f8bf0e32-9fdf-11f1-8ecc-dedc29aa4d90]
-        invoice[version: 1, id: invoice:1:f8bcc440-9fdf-11f1-8ecc-dedc29aa4d90]
-Deployment does not provide any case definitions.
-2026-08-24T18:08:35.663Z  INFO 58 --- [           main] o.o.bpm.run.example.invoice.Application  : Starting invoice example instance
-2026-08-24T18:08:35.937Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 1 started, there are 3 instances running
-2026-08-24T18:08:36.131Z  INFO 58 --- [           main] o.o.b.e.i.InvoiceApplicationHelper       : No new instances of Invoice Receipt version 2 started, there are 3 instances running
-2026-08-24T18:08:36.134Z  INFO 58 --- [           main] org.operaton.bpm.container               : ENGINE-08050 Process application invoiceProcessApplicationSpringBoot successfully deployed
-2026-08-24T18:08:36.162Z  INFO 58 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 21.187 seconds (process running for 22.995)
-2026-08-24T18:08:36.206Z  INFO 58 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
-2026-08-24T18:08:36.214Z  INFO 58 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+2026-08-25T20:12:42.331Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Starting OperatonApp v2.1.4 using Java 17.0.20 with PID 57 (/operaton/internal/operaton-bpm.jar started by operaton in /operaton)
+2026-08-25T20:12:42.381Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : No active profile set, falling back to 1 default profile: "default"
+2026-08-25T20:12:49.823Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-25T20:12:49.860Z  INFO 57 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-25T20:12:49.861Z  INFO 57 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.25]
+2026-08-25T20:12:49.962Z  INFO 57 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 6219 ms
+2026-08-25T20:12:50.074Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Configuring operaton rest api.
+2026-08-25T20:12:50.157Z  INFO 57 --- [           main] o.b.s.b.s.r.OperatonJerseyResourceConfig : Finished configuring operaton rest api.
+2026-08-25T20:12:51.700Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+2026-08-25T20:12:51.920Z  INFO 57 --- [           main] org.operaton.bpm.engine.cfg              : ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, operatonDeploymentConfiguration, operatonProcessEngineConfiguration, operatonDatasourceConfiguration, operatonJobConfiguration, operatonHistoryConfiguration, operatonMetricsConfiguration, operatonAuthorizationConfiguration, createAdminUserConfiguration, failedJobConfiguration, CreateFilterConfiguration[filterName=All tasks], eventPublisherPlugin, ApplicationContextClassloaderSwitchPlugin, ConnectProcessEnginePlugin, SpringBootSpinProcessEnginePlugin]' activated on process engine 'default'
+2026-08-25T20:12:51.936Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB021 Auto-Deploying resources: []
+2026-08-25T20:12:51.944Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-001: Initialized Operaton Spring Boot Eventing Engine Plugin.
+2026-08-25T20:12:51.944Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-003: Task events will be published as Spring Events.
+2026-08-25T20:12:51.944Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-005: Execution events will be published as Spring Events.
+2026-08-25T20:12:51.945Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-009: Listeners will not be invoked if a skipCustomListeners API parameter is set to true by user.
+2026-08-25T20:12:51.958Z  INFO 57 --- [           main] o.o.b.s.b.s.event.EventPublisherPlugin   : EVENTING-007: History events will be published as Spring events.
+2026-08-25T20:12:51.974Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+2026-08-25T20:12:52.473Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01010 Discovered Spin data format provider: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+2026-08-25T20:12:52.717Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+2026-08-25T20:12:52.717Z  INFO 57 --- [           main] org.operaton.spin                        : SPIN-01009 Discovered Spin data format: org.operaton.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+2026-08-25T20:12:53.096Z  INFO 57 --- [           main] org.operaton.bpm.dmn.feel.scala          : FEEL/SCALA-01001 Spin value mapper detected
+2026-08-25T20:12:54.194Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-25T20:12:54.677Z  INFO 57 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1b6683c4
+2026-08-25T20:12:54.698Z  INFO 57 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-25T20:13:02.470Z  INFO 57 --- [           main] org.operaton.bpm.engine                  : ENGINE-00001 Process Engine default created.
+2026-08-25T20:13:02.540Z  INFO 57 --- [           main] org.operaton.bpm.spring.boot             : STARTER-SB016 Skip initial filter creation, the filter with this name already exists: All tasks
+2026-08-25T20:13:03.401Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@144a5e6e
+2026-08-25T20:13:03.817Z  INFO 57 --- [           main] o.o.b.s.b.s.w.f.LazyInitRegistration     : lazy initialized org.operaton.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@5635bcd2
+2026-08-25T20:13:04.592Z  INFO 57 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-08-25T20:13:04.949Z  INFO 57 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-25T20:13:04.980Z  INFO 57 --- [           main] org.operaton.bpm.run.OperatonApp         : Started OperatonApp in 24.441 seconds (process running for 26.725)
+2026-08-25T20:13:05.101Z  INFO 57 --- [           main] org.operaton.bpm.engine.jobexecutor      : ENGINE-14014 Starting up the JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+2026-08-25T20:13:05.105Z  INFO 57 --- [ingJobExecutor]] org.operaton.bpm.engine.jobexecutor      : ENGINE-14018 JobExecutor[org.operaton.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs

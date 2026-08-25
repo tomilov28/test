@@ -22,19 +22,15 @@ import time
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import select, update
+from sqlalchemy import select
 from sqlalchemy.dialects import postgresql, sqlite
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
-from app.domain.enums import LifecycleState, RequestOutcome, WorkItemState
+from app.domain.enums import LifecycleState, WorkItemState
 from app.domain.models import Request, WorkItem
 
 logger = logging.getLogger(__name__)
-
-
-def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
 
 
 def upsert_work_item(db: Session, *, request_id: uuid.UUID, task_definition_key: str, external_task_id: str) -> WorkItem:
@@ -73,6 +69,7 @@ def reconcile_once(db: Session, adapter_factory, engine_filter: str | None = Non
         "tasks_seen": 0,
         "work_items_upserted": 0,
         "completed_requests": 0,
+        "anomalies": [],
         "errors": [],
     }
 
@@ -102,35 +99,29 @@ def reconcile_once(db: Session, adapter_factory, engine_filter: str | None = Non
             if request.workflow_instance_id:
                 instance = adapter.get_process_instance(request.workflow_instance_id)
                 if instance.state == "ENDED":
-                    # Auto-close as COMPLETED only if the request is still
-                    # ACTIVE with no outcome AT COMMIT TIME. An explicit user
-                    # cancellation (dispatcher CANCEL_PROCESS) marks the request
-                    # CLOSED/CANCELLED; the engine's ENDED state alone cannot
-                    # distinguish natural completion from cancellation, so a
-                    # naive overwrite would clobber the cancel outcome.
-                    #
-                    # An ORM read-then-write would be vulnerable to the
-                    # identity map: a request already loaded in this session is
-                    # returned without refreshing, so the ACTIVE/outcome guard
-                    # could read stale values. Use an atomic conditional UPDATE
-                    # instead - its WHERE clause is re-evaluated against the
-                    # latest committed row version, and yields 0 rows when a
-                    # concurrent cancellation already closed the request.
-                    closed = db.execute(
-                        update(Request)
-                        .where(
-                            Request.id == request.id,
-                            Request.lifecycle_state == LifecycleState.ACTIVE.value,
-                            Request.outcome.is_(None),
-                        )
-                        .values(
-                            lifecycle_state=LifecycleState.CLOSED.value,
-                            outcome=RequestOutcome.COMPLETED.value,
-                            closed_at=_utcnow(),
-                        )
+                    # Domain-first completion (audit A02): the engine END state is
+                    # a TECHNICAL state and never assigns a business outcome. A
+                    # Request may only be closed by the final domain action
+                    # (final_decision) or an explicit cancellation, so an ENDED
+                    # instance under an ACTIVE request with no outcome is a
+                    # workflow/domain ANOMALY: it is recorded in the benchmark
+                    # diagnostics, never silently turned into COMPLETED.
+                    summary["anomalies"].append(
+                        {
+                            "request_id": str(request.id),
+                            "engine": request.workflow_engine,
+                            "workflow_instance_id": request.workflow_instance_id,
+                            "kind": "engine_ended_without_domain_outcome",
+                            "detail": "engine instance ended but no final domain action "
+                            "was recorded; request left ACTIVE",
+                        }
                     )
-                    if closed.rowcount:
-                        summary["completed_requests"] += 1
+                    logger.warning(
+                        "reconciler anomaly: request %s engine instance %s ended "
+                        "without a domain outcome; not closing",
+                        request.id,
+                        request.workflow_instance_id,
+                    )
 
             db.commit()
         except NotImplementedError:

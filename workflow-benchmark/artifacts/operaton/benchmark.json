@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-08-24T19:40:04.332882+00:00",
+  "collected_at": "2026-08-25T20:13:14.466365+00:00",
   "engine": {
     "name": "Operaton",
     "version": "2.1.4",
@@ -7,49 +7,73 @@
   },
   "images": [
     {
-      "Containers": "1",
-      "CreatedAt": "2026-08-21 09:51:02 +0000 UTC",
-      "CreatedSince": "3 days ago",
-      "Digest": "<none>",
-      "ID": "590c837c9d79",
-      "Repository": "operaton/operaton",
-      "SharedSize": "N/A",
-      "Size": "812MB",
-      "Tag": "2.1.4",
-      "UniqueSize": "N/A"
+      "ref": "operaton/operaton:2.1.4",
+      "id": "sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+      "repo_digests": [
+        "operaton/operaton@sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410"
+      ],
+      "created": "2026-08-21T09:51:02.930578209Z",
+      "size_bytes": 290696849,
+      "config_entrypoint": [
+        "/sbin/tini",
+        "--"
+      ]
+    },
+    {
+      "ref": "postgres:16",
+      "id": "sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5",
+      "repo_digests": [
+        "postgres@sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5"
+      ],
+      "created": "2026-08-13T19:16:08.705640299Z",
+      "size_bytes": 160248400,
+      "config_entrypoint": [
+        "docker-entrypoint.sh"
+      ]
     }
   ],
-  "containers": 2,
+  "containers": 3,
   "docker_stats": [
     {
-      "BlockIO": "5.31MB / 193kB",
-      "CPUPerc": "0.39%",
-      "Container": "2d0d370f984a3b3c420770c38f9c1a4d3a000c965eeda810b4a274ba00244f27",
-      "ID": "2d0d370f984a",
-      "MemPerc": "63.92%",
-      "MemUsage": "327.3MiB / 512MiB",
+      "BlockIO": "77.1MB / 98.3kB",
+      "CPUPerc": "5.31%",
+      "Container": "fe0b829b2b23563363b658dad4f21b143e3a6efcd50324496a8215a8b3e97a40",
+      "ID": "fe0b829b2b23",
+      "MemPerc": "34.68%",
+      "MemUsage": "355.2MiB / 1GiB",
       "Name": "benchmark-operaton",
-      "NetIO": "201kB / 91.7kB",
+      "NetIO": "150kB / 159kB",
       "PIDs": "40"
     },
     {
-      "BlockIO": "699MB / 99.7MB",
-      "CPUPerc": "1.34%",
-      "Container": "0e9b5ce6efd266e55f9b58db64ac91702127c51eb49893c87c08d320fdbe1893",
-      "ID": "0e9b5ce6efd2",
-      "MemPerc": "1.02%",
-      "MemUsage": "81.49MiB / 7.779GiB",
+      "BlockIO": "562MB / 155MB",
+      "CPUPerc": "11.94%",
+      "Container": "90ab389bd4090c63cc73875c12d49bc2119e9a0b50b22e7af71f7796596eb5a3",
+      "ID": "90ab389bd409",
+      "MemPerc": "1.63%",
+      "MemUsage": "129.9MiB / 7.779GiB",
       "Name": "workflow-benchmark-postgres-1",
-      "NetIO": "76.9MB / 104MB",
-      "PIDs": "18"
+      "NetIO": "17MB / 16.7MB",
+      "PIDs": "29"
+    },
+    {
+      "BlockIO": "278MB / 1.38MB",
+      "CPUPerc": "10.04%",
+      "Container": "aa437b6f50bc40dddd4f07dc21fb1dd2497b6a5a1c6923fbf2c520243a913613",
+      "ID": "aa437b6f50bc",
+      "MemPerc": "31.89%",
+      "MemUsage": "326.6MiB / 1GiB",
+      "Name": "benchmark-flowable",
+      "NetIO": "13MB / 14.3MB",
+      "PIDs": "36"
     }
   ],
-  "engine_boot_seconds": 21.646,
+  "engine_boot_seconds": 29.156,
   "adapter_loc": {
-    "app/workflow/operaton.py": 242,
+    "app/workflow/operaton.py": 323,
     "app/workers/external_worker.py": 152
   },
-  "adapter_loc_total": 394,
+  "adapter_loc_total": 475,
   "bpmn_vendor_extensions": {
     "bpmn/operaton/long_visit_poc.bpmn": {
       "vendor_namespace_declarations": 1,
@@ -61,14 +85,148 @@
     }
   },
   "evidence": {
-    "process_definitions": [],
-    "deployments_count": 0,
+    "process_definitions": [
+      {
+        "id": "LONG_VISIT_POC:1:4dc0826d-a0c1-11f1-8a8d-9e7eec0c7382",
+        "key": "LONG_VISIT_POC",
+        "category": "http://benchmark.local/bpmn/long-visit-poc",
+        "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
+        "name": "Long Visit POC",
+        "version": 1,
+        "resource": "LONG_VISIT_POC.bpmn",
+        "deploymentId": "4db44d6b-a0c1-11f1-8a8d-9e7eec0c7382",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      },
+      {
+        "id": "LONG_VISIT_POC:2:4dd0fc31-a0c1-11f1-8a8d-9e7eec0c7382",
+        "key": "LONG_VISIT_POC",
+        "category": "http://benchmark.local/bpmn/long-visit-poc",
+        "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
+        "name": "Long Visit POC",
+        "version": 2,
+        "resource": "LONG_VISIT_POC.bpmn",
+        "deploymentId": "4dcabb9f-a0c1-11f1-8a8d-9e7eec0c7382",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      }
+    ],
+    "all_process_definitions": [
+      {
+        "id": "credit_decision:1:c776ea19-a0c0-11f1-ac69-eae1f9f21007",
+        "key": "credit_decision",
+        "category": "http://benchmark.local/bpmn/credit-decision",
+        "description": null,
+        "name": "Credit Decision",
+        "version": 1,
+        "resource": "credit_decision.bpmn",
+        "deploymentId": "c70f0087-a0c0-11f1-ac69-eae1f9f21007",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      },
+      {
+        "id": "credit_decision:2:cab4fe24-a0c0-11f1-ac69-eae1f9f21007",
+        "key": "credit_decision",
+        "category": "http://benchmark.local/bpmn/credit-decision",
+        "description": null,
+        "name": "Credit Decision",
+        "version": 2,
+        "resource": "credit_decision.bpmn",
+        "deploymentId": "ca6ecd62-a0c0-11f1-ac69-eae1f9f21007",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      },
+      {
+        "id": "credit_decision:3:cd362ad6-a0c0-11f1-ac69-eae1f9f21007",
+        "key": "credit_decision",
+        "category": "http://benchmark.local/bpmn/credit-decision",
+        "description": null,
+        "name": "Credit Decision",
+        "version": 3,
+        "resource": "credit_decision.bpmn",
+        "deploymentId": "cd2c66d4-a0c0-11f1-ac69-eae1f9f21007",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      },
+      {
+        "id": "credit_decision:4:cd5f5dbd-a0c0-11f1-ac69-eae1f9f21007",
+        "key": "credit_decision",
+        "category": "http://benchmark.local/bpmn/credit-decision",
+        "description": null,
+        "name": "Credit Decision",
+        "version": 4,
+        "resource": "credit_decision.bpmn",
+        "deploymentId": "cd5831cb-a0c0-11f1-ac69-eae1f9f21007",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      },
+      {
+        "id": "LONG_VISIT_POC:1:4dc0826d-a0c1-11f1-8a8d-9e7eec0c7382",
+        "key": "LONG_VISIT_POC",
+        "category": "http://benchmark.local/bpmn/long-visit-poc",
+        "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
+        "name": "Long Visit POC",
+        "version": 1,
+        "resource": "LONG_VISIT_POC.bpmn",
+        "deploymentId": "4db44d6b-a0c1-11f1-8a8d-9e7eec0c7382",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      },
+      {
+        "id": "LONG_VISIT_POC:2:4dd0fc31-a0c1-11f1-8a8d-9e7eec0c7382",
+        "key": "LONG_VISIT_POC",
+        "category": "http://benchmark.local/bpmn/long-visit-poc",
+        "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
+        "name": "Long Visit POC",
+        "version": 2,
+        "resource": "LONG_VISIT_POC.bpmn",
+        "deploymentId": "4dcabb9f-a0c1-11f1-8a8d-9e7eec0c7382",
+        "diagram": null,
+        "suspended": false,
+        "tenantId": null,
+        "versionTag": null,
+        "historyTimeToLive": 180,
+        "startableInTasklist": true
+      }
+    ],
+    "deployments": [],
     "running_instances": [],
-    "engine_info": {
-      "type": "NotFoundException",
-      "message": "HTTP 404 Not Found",
-      "code": null
-    },
+    "engine_info": [
+      {
+        "name": "default"
+      }
+    ],
+    "incidents": [],
+    "failed_jobs": [],
+    "external_tasks": [],
     "external_task_topics": []
   }
 }

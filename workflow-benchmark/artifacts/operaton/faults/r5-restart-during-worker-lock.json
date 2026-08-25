@@ -3,16 +3,16 @@
   "engine": "OPERATON",
   "steps": [],
   "before_restart": {
-    "instance_id": "17bdec4d-a001-11f1-aa71-3682a715cfa9",
+    "instance_id": "462bf050-a0b7-11f1-abc6-ae50b304891e",
     "locked_external_task": {
-      "id": "17beaea3-a001-11f1-aa71-3682a715cfa9",
-      "worker_id": "benchmark-worker-9332c342"
+      "id": "462c6586-a0b7-11f1-abc6-ae50b304891e",
+      "worker_id": "benchmark-worker-8ff25eed"
     },
-    "lock_owner": "benchmark-worker-9332c342"
+    "lock_owner": "benchmark-worker-8ff25eed"
   },
   "after_restart": {
     "reacquired_and_completed": true,
-    "reacquire_latency_s": 28.2
+    "reacquire_latency_s": 28.3
   },
   "final": {
     "request_state": "CLOSED",

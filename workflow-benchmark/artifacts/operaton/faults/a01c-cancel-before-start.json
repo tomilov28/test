@@ -1,0 +1,8 @@
+{
+  "scenario": "a01c",
+  "engine": "OPERATON",
+  "steps": [],
+  "start_pending_before_cancel": "PENDING",
+  "engine_instances_for_business_key": [],
+  "running_instances_for_business_key": []
+}

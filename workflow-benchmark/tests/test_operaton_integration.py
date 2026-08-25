@@ -14,6 +14,8 @@ import pytest
 
 from app.workflow.operaton import OperatonAdapter
 
+from tests.conftest import require_engine_fixture
+
 pytestmark = pytest.mark.integration
 
 ENGINE_BASE = os.environ.get("ENGINE_OPERATON_URL", "http://localhost:8080/engine-rest")
@@ -24,16 +26,7 @@ FIXTURE = os.path.join(
     "credit_decision.bpmn",
 )
 
-
-def engine_available() -> bool:
-    try:
-        r = httpx.get(f"{ENGINE_BASE}/engine", timeout=3.0)
-        return r.status_code == 200
-    except Exception:
-        return False
-
-
-pytestmark = [pytestmark, pytest.mark.skipif(not engine_available(), reason="Operaton engine not reachable")]
+require_engine_fixture("Operaton", f"{ENGINE_BASE}/engine")
 
 
 @pytest.fixture(scope="module")

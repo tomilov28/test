@@ -1,7 +1,7 @@
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.orm import Session
 
 from app.api.schemas import (
@@ -18,7 +18,9 @@ from app.api.schemas import (
     WorkItemOut,
 )
 from app.db import get_db
+from app.domain.completion import DECISION_OUTCOMES, validate_completion_contract
 from app.domain.enums import (
+    CommandState,
     CommandType,
     LifecycleState,
     RequestOutcome,
@@ -43,6 +45,12 @@ def _get_request_or_404(db: Session, request_id: uuid.UUID) -> Request:
     if request is None:
         raise HTTPException(status_code=404, detail="request not found")
     return request
+
+
+def _utcnow():
+    from datetime import datetime, timezone
+
+    return datetime.now(timezone.utc)
 
 
 @router.post("/requests", response_model=RequestOut, status_code=201)
@@ -102,6 +110,18 @@ def complete_work_item(work_item_id: uuid.UUID, body: CompleteWorkItemIn, db: Se
 
     from datetime import datetime, timezone
 
+    # Domain-first completion (audit A02): validate the CompletionContract in the
+    # same transaction that applies the final domain action. A contract violation
+    # leaves the Request and WorkItem untouched.
+    try:
+        decision = validate_completion_contract(work_item.task_definition_key, body.data)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+
+    request = db.get(Request, work_item.request_id)
+    if request is None:
+        raise HTTPException(status_code=404, detail="request not found")
+
     result = TaskResult(
         work_item_id=work_item.id,
         version=body.version,
@@ -111,6 +131,14 @@ def complete_work_item(work_item_id: uuid.UUID, body: CompleteWorkItemIn, db: Se
     db.add(result)
     work_item.state = WorkItemState.COMPLETED.value
     work_item.completed_at = result.created_at
+
+    closes_request = decision is not None
+    if closes_request:
+        # The final domain action assigns the business outcome atomically.
+        request.lifecycle_state = LifecycleState.CLOSED.value
+        request.outcome = DECISION_OUTCOMES[decision]
+        request.closed_at = result.created_at
+
     _enqueue_command(
         db,
         work_item.request_id,
@@ -130,10 +158,25 @@ def complete_work_item(work_item_id: uuid.UUID, body: CompleteWorkItemIn, db: Se
 
 @router.post("/requests/{request_id}/cancel", response_model=RequestOut)
 def cancel_request(request_id: uuid.UUID, body: CancelRequestIn, db: Session = Depends(get_db)):
+    # Domain-first cancellation (audit A01): the Request acquires its business
+    # outcome IMMEDIATELY, in the same transaction that enqueues the engine
+    # command. The dispatcher then performs technical convergence (terminating
+    # the engine process) as a subsequent step; it never decides the outcome.
     request = _get_request_or_404(db, request_id)
     if request.lifecycle_state != LifecycleState.ACTIVE.value:
         raise HTTPException(status_code=409, detail="request is not ACTIVE")
 
+    request.lifecycle_state = LifecycleState.CLOSED.value
+    request.outcome = RequestOutcome.CANCELLED.value
+    request.closed_at = _utcnow()
+    db.execute(
+        update(WorkItem)
+        .where(
+            WorkItem.request_id == request.id,
+            WorkItem.state == WorkItemState.ACTIVE.value,
+        )
+        .values(state=WorkItemState.CANCELLED.value)
+    )
     _enqueue_command(
         db,
         request.id,
@@ -148,6 +191,31 @@ def cancel_request(request_id: uuid.UUID, body: CancelRequestIn, db: Session = D
 @router.post("/admin/reconcile", response_model=ReconcileResult)
 def admin_reconcile(db: Session = Depends(get_db)):
     return reconcile_once(db, build_adapter)
+
+
+@router.post("/admin/commands/{command_id}/requeue", response_model=CommandOut)
+def admin_requeue_command(command_id: uuid.UUID, db: Session = Depends(get_db)):
+    """Requeue a FAILED technical command (audit A01b).
+
+    A command whose technical retries are exhausted stays FAILED; the domain
+    outcome is unchanged (it was decided at enqueue time). This endpoint is the
+    minimal recovery path: reset to PENDING with a fresh attempt budget so the
+    engine convergence operation can be retried after a long outage, without
+    re-running the domain action and without touching the business outcome.
+    """
+    command = db.get(WorkflowCommand, command_id)
+    if command is None:
+        raise HTTPException(status_code=404, detail="command not found")
+    if command.state != CommandState.FAILED.value:
+        raise HTTPException(status_code=409, detail=f"command not FAILED (state={command.state})")
+    command.state = CommandState.PENDING.value
+    command.attempts = 0
+    command.last_error = None
+    command.processed_at = None
+    command.processing_started_at = None
+    db.commit()
+    db.refresh(command)
+    return command
 
 
 # ---- fault injection control surface (benchmark/test only) -----------------

@@ -1,0 +1,12 @@
+{
+  "mode": "demo",
+  "engine": "OPERATON",
+  "request_id": "3678130a-76e7-4729-af3f-be143a2801e2",
+  "instance_id": "d03696df-a0b1-11f1-b2b9-72c3867d056b",
+  "outcome": "COMPLETED",
+  "next_steps": [
+    "Browse cockpit: http://localhost:8080/app/cockpit",
+    "Query REST: curl http://localhost:8080/engine-rest/process-instance?processDefinitionKey=LONG_VISIT_POC",
+    "Repeat with: make incident-<engine>"
+  ]
+}

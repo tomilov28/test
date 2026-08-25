@@ -1,16 +1,19 @@
 """Start/stop/status helpers for the benchmark FastAPI app and worker daemon.
 
 Both run as detached processes on the host (the shared Postgres + engines run in
-Docker). Pidfiles under artifacts/operaton/ let `make up-operaton` and
-`make down` manage their lifecycle deterministically.
+Docker). The FastAPI app is a SHARED process (not engine-specific, audit A10):
+its pid/log live under artifacts/ (single location), NOT under an engine
+subdirectory. Workers keep an engine-specific pid/log so both engines can run a
+daemon worker independently.
 
 Usage:
     .venv/bin/python -m scripts.stackctl start-app
     .venv/bin/python -m scripts.stackctl stop-app
     .venv/bin/python -m scripts.stackctl status-app
-    .venv/bin/python -m scripts.stackctl start-worker
-    .venv/bin/python -m scripts.stackctl stop-worker
-    .venv/bin/python -m scripts.stackctl status-worker
+    .venv/bin/python -m scripts.stackctl start-worker --engine OPERATON
+    .venv/bin/python -m scripts.stackctl stop-worker --engine OPERATON
+    .venv/bin/python -m scripts.stackctl stop-all
+    .venv/bin/python -m scripts.stackctl check-stale
 """
 
 import argparse
@@ -24,6 +27,11 @@ import httpx
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VENV_PY = os.path.join(ROOT, ".venv", "bin", "python")
+
+# Shared-process locations (audit A10): the app is NOT engine-specific.
+ARTIFACTS_ROOT = os.path.join(ROOT, "artifacts")
+APP_PIDFILE = os.path.join(ARTIFACTS_ROOT, "app.pid")
+APP_LOG = os.path.join(ARTIFACTS_ROOT, "app.log")
 
 ARTIFACT_DIRS = {
     "OPERATON": os.path.join(ROOT, "artifacts", "operaton"),
@@ -40,16 +48,30 @@ ENGINE_PROBE_PATHS = {
 
 API_BASE = "http://localhost:8000"
 
+# Host process fingerprints that must NOT survive `make down` (audit A10).
+APP_FINGERPRINTS = ["uvicorn app.main:app"]
+WORKER_FINGERPRINTS = ["scripts.worker"]
+
 
 def _paths(engine: str) -> dict:
     artifacts = ARTIFACT_DIRS[engine]
     return {
         "artifacts": artifacts,
-        "app_pidfile": os.path.join(artifacts, "app.pid"),
-        "app_log": os.path.join(artifacts, "app.log"),
         "worker_pidfile": os.path.join(artifacts, "worker.pid"),
         "worker_log": os.path.join(artifacts, "worker.log"),
     }
+
+
+def _find_pids(fingerprints: list[str]) -> list[int]:
+    """Find host process ids whose command line contains any fingerprint."""
+    pids: list[int] = []
+    for fp in fingerprints:
+        try:
+            out = subprocess.run(["pgrep", "-f", fp], capture_output=True, text=True).stdout
+            pids.extend(int(p) for p in out.split() if p.strip())
+        except Exception:
+            continue
+    return sorted(set(pids))
 
 
 def _pid_alive(pidfile: str) -> int | None:
@@ -139,6 +161,8 @@ def main() -> int:
             "start-worker",
             "stop-worker",
             "status-worker",
+            "stop-all",
+            "check-stale",
         ],
     )
     parser.add_argument(
@@ -151,8 +175,8 @@ def main() -> int:
     if args.action == "start-app":
         _spawn(
             "app",
-            paths["app_pidfile"],
-            paths["app_log"],
+            APP_PIDFILE,
+            APP_LOG,
             [VENV_PY, "-u", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"],
         )
         deadline = time.time() + 30
@@ -162,11 +186,12 @@ def main() -> int:
         return 0 if _app_healthy() else 1
 
     if args.action == "stop-app":
-        _stop_pid(paths["app_pidfile"], "app")
+        _stop_pid(APP_PIDFILE, "app")
+        _kill_fingerprint(APP_FINGERPRINTS, "app")
         return 0
 
     if args.action == "status-app":
-        _status("app", paths["app_pidfile"], _app_healthy())
+        _status("app", APP_PIDFILE, _app_healthy())
         return 0
 
     if args.action == "start-worker":
@@ -186,13 +211,48 @@ def main() -> int:
 
     if args.action == "stop-worker":
         _stop_pid(paths["worker_pidfile"], "worker")
+        _kill_fingerprint([f"scripts.worker --engine {args.engine}"], "worker")
         return 0
 
     if args.action == "status-worker":
         _status("worker", paths["worker_pidfile"], _engine_up(args.engine))
         return 0
 
+    if args.action == "stop-all":
+        _stop_pid(APP_PIDFILE, "app")
+        for engine in ARTIFACT_DIRS:
+            _stop_pid(_paths(engine)["worker_pidfile"], f"worker[{engine}]")
+        _kill_fingerprint(APP_FINGERPRINTS + WORKER_FINGERPRINTS, "stale host processes")
+        return 0
+
+    if args.action == "check-stale":
+        return check_stale()
+
     return 2
+
+
+def _kill_fingerprint(fingerprints: list[str], name: str) -> None:
+    """Terminate any leftover host process matching the fingerprints (A10)."""
+    pids = _find_pids(fingerprints)
+    for pid in pids:
+        try:
+            print(f"{name}: stopping stale pid {pid}")
+            os.kill(pid, signal.SIGTERM)
+        except OSError:
+            continue
+    deadline = time.time() + 15
+    while time.time() < deadline and _find_pids(fingerprints):
+        time.sleep(0.5)
+
+
+def check_stale() -> int:
+    """Verify no benchmark host processes are left after `make down` (A10)."""
+    stale = _find_pids(APP_FINGERPRINTS + WORKER_FINGERPRINTS)
+    if stale:
+        print(f"STALE benchmark host processes found: {stale}", file=sys.stderr)
+        return 1
+    print("no stale benchmark host processes")
+    return 0
 
 
 if __name__ == "__main__":

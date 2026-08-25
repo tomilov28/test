@@ -1,27 +1,38 @@
 {
-  "collected_at": "2026-08-24T19:36:19.072216+00:00",
+  "collected_at": "2026-08-25T20:27:00.607728+00:00",
   "containers": [
     {
-      "BlockIO": "2.08MB / 98.3kB",
-      "CPUPerc": "11.52%",
-      "Container": "605e13f20bc1abbd850dbfd99ddd29020967df8662f6bbfe6a5a6d4100b8405f",
-      "ID": "605e13f20bc1",
-      "MemPerc": "27.84%",
-      "MemUsage": "285.1MiB / 1GiB",
-      "Name": "benchmark-flowable",
-      "NetIO": "353kB / 240kB",
-      "PIDs": "38"
+      "BlockIO": "126MB / 885kB",
+      "CPUPerc": "1.40%",
+      "Container": "fe0b829b2b23563363b658dad4f21b143e3a6efcd50324496a8215a8b3e97a40",
+      "ID": "fe0b829b2b23",
+      "MemPerc": "36.30%",
+      "MemUsage": "371.7MiB / 1GiB",
+      "Name": "benchmark-operaton",
+      "NetIO": "4.91MB / 5.73MB",
+      "PIDs": "44"
     },
     {
-      "BlockIO": "696MB / 91.2MB",
-      "CPUPerc": "0.02%",
-      "Container": "0e9b5ce6efd266e55f9b58db64ac91702127c51eb49893c87c08d320fdbe1893",
-      "ID": "0e9b5ce6efd2",
-      "MemPerc": "1.10%",
-      "MemUsage": "87.32MiB / 7.779GiB",
+      "BlockIO": "671MB / 170MB",
+      "CPUPerc": "0.18%",
+      "Container": "90ab389bd4090c63cc73875c12d49bc2119e9a0b50b22e7af71f7796596eb5a3",
+      "ID": "90ab389bd409",
+      "MemPerc": "1.65%",
+      "MemUsage": "131MiB / 7.779GiB",
       "Name": "workflow-benchmark-postgres-1",
-      "NetIO": "75.3MB / 103MB",
-      "PIDs": "18"
+      "NetIO": "33.6MB / 33.2MB",
+      "PIDs": "28"
+    },
+    {
+      "BlockIO": "44.9MB / 115kB",
+      "CPUPerc": "46.59%",
+      "Container": "aa437b6f50bc40dddd4f07dc21fb1dd2497b6a5a1c6923fbf2c520243a913613",
+      "ID": "aa437b6f50bc",
+      "MemPerc": "29.10%",
+      "MemUsage": "298MiB / 1GiB",
+      "Name": "benchmark-flowable",
+      "NetIO": "619kB / 513kB",
+      "PIDs": "38"
     }
   ]
 }

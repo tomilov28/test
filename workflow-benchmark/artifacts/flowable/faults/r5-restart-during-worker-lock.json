@@ -3,16 +3,16 @@
   "engine": "FLOWABLE",
   "steps": [],
   "before_restart": {
-    "instance_id": "8b649e84-9fff-11f1-a3e6-16836dca3dfc",
+    "instance_id": "937c1631-a0ba-11f1-80e6-6edaf17c70b0",
     "locked_external_task": {
-      "id": "8b64c59d-9fff-11f1-a3e6-16836dca3dfc",
-      "worker_id": "benchmark-flowable-worker-717f23ee"
+      "id": "937c645a-a0ba-11f1-80e6-6edaf17c70b0",
+      "worker_id": "benchmark-flowable-worker-2c916848"
     },
-    "lock_owner": "benchmark-flowable-worker-717f23ee"
+    "lock_owner": "benchmark-flowable-worker-2c916848"
   },
   "after_restart": {
     "reacquired_and_completed": true,
-    "reacquire_latency_s": 59.4
+    "reacquire_latency_s": 69.9
   },
   "final": {
     "request_state": "CLOSED",

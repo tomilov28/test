@@ -4,7 +4,9 @@ services:
     container_name: benchmark-operaton
     ports:
       - "8080:8080"
-    mem_limit: ${OPERATON_MEM_LIMIT:-512m}
+    # Resource parity (Part B): both engines capped at cpus=2 and 1024m so RSS
+    # and CPU measurements are comparable (same limits for both engines).
+    mem_limit: ${OPERATON_MEM_LIMIT:-1024m}
     cpus: 2
     environment:
       # Official Operaton image config (operaton-docker README):
@@ -17,6 +19,17 @@ services:
       WAIT_FOR_TIMEOUT: "60"
       # Official recommendation: limit container to 2g, give JVM 70% -> ~1.4g heap.
       JAVA_OPTS: ${OPERATON_JAVA_OPTS:--XX:MaxRAMPercentage=70.0}
+      # Audit A11: the Operaton "Run" distro bundles an example module
+      # (invoice / ReviewInvoice) that auto-deploys demo workload. Disable it
+      # via the official configuration property while keeping REST + Cockpit.
+      # Relaxed-binding env var for `operaton.bpm.run.example.enabled`.
+      OPERATON_BPM_RUN_EXAMPLE_ENABLED: "false"
+      # A freshly recreated (empty) engine DB does not reliably trigger Operaton's
+      # one-time schema bootstrap on container restart; ask the engine to create
+      # its schema idempotently on every boot so `make reset-state` + `up-operaton`
+      # works with an empty `operaton` database.
+      # Relaxed-binding env var for `operaton.bpm.database-schema-update`.
+      OPERATON_BPM_DATABASE_SCHEMA_UPDATE: "true"
     depends_on:
       postgres:
         condition: service_healthy

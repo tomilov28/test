@@ -22,6 +22,8 @@ import pytest
 from app.workers.external_worker import ExternalTaskWorker
 from app.workflow.operaton import OperatonAdapter
 
+from tests.conftest import require_engine_fixture
+
 pytestmark = pytest.mark.integration
 
 ENGINE_BASE = os.environ.get("ENGINE_OPERATON_URL", "http://localhost:8080/engine-rest")
@@ -32,16 +34,7 @@ V2_BPMN = os.path.join(FIXTURES_DIR, "long_visit_poc_v2.bpmn")
 PROCESS_KEY = "LONG_VISIT_POC"
 ENGINE_NAME = "OPERATON"
 
-
-def _engine_available() -> bool:
-    try:
-        r = httpx.get(f"{ENGINE_BASE}/engine", timeout=3.0)
-        return r.status_code == 200
-    except Exception:
-        return False
-
-
-pytestmark = [pytestmark, pytest.mark.skipif(not _engine_available(), reason="Operaton engine not reachable")]
+require_engine_fixture("Operaton", f"{ENGINE_BASE}/engine")
 
 
 def _wait_for(predicate, timeout: float = 20.0, interval: float = 0.5, label: str = "condition"):
@@ -375,9 +368,16 @@ def test_t11_cancellation_marks_everything(env):
     assert req["outcome"] == "CANCELLED"
     assert req["closed_at"] is not None
 
-    # active engine tasks disappeared
-    assert adapter.get_process_instance(instance_id).state == "ENDED"
-    assert adapter.get_active_human_tasks(instance_id) == []
+    # domain-first (A01): the request is CLOSED immediately, but the engine
+    # termination is a background command -- wait for it to converge.
+    _wait_for(
+        lambda: adapter.get_process_instance(instance_id).state == "ENDED",
+        label="engine instance ENDED after cancel",
+    )
+    _wait_for(
+        lambda: adapter.get_active_human_tasks(instance_id) == [],
+        label="engine human tasks cleared after cancel",
+    )
 
     # local WorkItems CANCELLED
     items = work_items(api, request["id"])

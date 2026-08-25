@@ -75,6 +75,7 @@ class CommandOut(BaseModel):
     state: str
     attempts: int
     last_error: str | None
+    payload: dict[str, Any] = Field(default_factory=dict)
     created_at: datetime
     processed_at: datetime | None
 
@@ -94,6 +95,7 @@ class ReconcileResult(BaseModel):
     work_items_upserted: int
     completed_requests: int
     errors: list[dict[str, str]]
+    anomalies: list[dict[str, str]] = Field(default_factory=list)
 
 
 class FaultArmIn(BaseModel):

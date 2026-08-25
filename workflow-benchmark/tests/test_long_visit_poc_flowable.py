@@ -28,6 +28,8 @@ import pytest
 from app.workers.flowable_worker import FlowableExternalTaskWorker
 from app.workflow.flowable import FlowableAdapter
 
+from tests.conftest import require_engine_fixture
+
 pytestmark = pytest.mark.integration
 
 ENGINE_BASE = os.environ.get("ENGINE_FLOWABLE_URL", "http://localhost:8081/flowable-rest/service")
@@ -39,23 +41,7 @@ V2_BPMN = os.path.join(FIXTURES_DIR, "long_visit_v2.bpmn")
 PROCESS_KEY = "LONG_VISIT_POC"
 ENGINE_NAME = "FLOWABLE"
 
-
-def _engine_available() -> bool:
-    # Retry briefly: right after a container recreate the Spring context can
-    # still be warming up while Tomcat already answers the probe.
-    deadline = time.time() + 20.0
-    while time.time() < deadline:
-        try:
-            r = httpx.get(f"{ENGINE_BASE}/management/engine", auth=("rest-admin", "test"), timeout=3.0)
-            if r.status_code == 200:
-                return True
-        except Exception:
-            pass
-        time.sleep(1.0)
-    return False
-
-
-pytestmark = [pytestmark, pytest.mark.skipif(not _engine_available(), reason="Flowable engine not reachable")]
+require_engine_fixture("Flowable", f"{ENGINE_BASE}/management/engine")
 
 
 def _wait_for(predicate, timeout: float = 20.0, interval: float = 0.5, label: str = "condition"):
@@ -386,9 +372,18 @@ def test_t11_cancellation_marks_everything(env):
     assert req["outcome"] == "CANCELLED"
     assert req["closed_at"] is not None
 
-    # active engine tasks disappeared
-    assert adapter.get_process_instance(instance_id).state == "ENDED"
-    assert adapter.get_active_human_tasks(instance_id) == []
+    # domain-first (A01): the request is CLOSED immediately, but the engine
+    # termination is a background command -- wait for it to converge.
+    _wait_for(
+        lambda: adapter.get_process_instance(instance_id).state == "ENDED",
+        timeout=30.0,
+        label="engine instance ENDED after cancel",
+    )
+    _wait_for(
+        lambda: adapter.get_active_human_tasks(instance_id) == [],
+        timeout=30.0,
+        label="engine human tasks cleared after cancel",
+    )
 
     # local WorkItems CANCELLED
     items = work_items(api, request["id"])

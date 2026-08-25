@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-08-24T19:36:19.072216+00:00",
+  "collected_at": "2026-08-25T20:27:00.607728+00:00",
   "engine": {
     "name": "Flowable",
     "version": "8.0.0",
@@ -7,49 +7,72 @@
   },
   "images": [
     {
-      "Containers": "1",
-      "CreatedAt": "2026-02-27 16:33:55 +0000 UTC",
-      "CreatedSince": "5 months ago",
-      "Digest": "<none>",
-      "ID": "708dfa32f27b",
-      "Repository": "flowable/flowable-rest",
-      "SharedSize": "N/A",
-      "Size": "517MB",
-      "Tag": "8.0.0",
-      "UniqueSize": "N/A"
-    }
-  ],
-  "containers": 2,
-  "docker_stats": [
-    {
-      "BlockIO": "2.08MB / 98.3kB",
-      "CPUPerc": "11.52%",
-      "Container": "605e13f20bc1abbd850dbfd99ddd29020967df8662f6bbfe6a5a6d4100b8405f",
-      "ID": "605e13f20bc1",
-      "MemPerc": "27.84%",
-      "MemUsage": "285.1MiB / 1GiB",
-      "Name": "benchmark-flowable",
-      "NetIO": "353kB / 240kB",
-      "PIDs": "38"
+      "ref": "flowable/flowable-rest:8.0.0",
+      "id": "sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+      "repo_digests": [
+        "flowable/flowable-rest@sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d"
+      ],
+      "created": "2026-02-27T16:33:55.896899042Z",
+      "size_bytes": 172432893,
+      "config_entrypoint": [
+        "/flowable-entrypoint.sh"
+      ]
     },
     {
-      "BlockIO": "696MB / 91.2MB",
-      "CPUPerc": "0.02%",
-      "Container": "0e9b5ce6efd266e55f9b58db64ac91702127c51eb49893c87c08d320fdbe1893",
-      "ID": "0e9b5ce6efd2",
-      "MemPerc": "1.10%",
-      "MemUsage": "87.32MiB / 7.779GiB",
-      "Name": "workflow-benchmark-postgres-1",
-      "NetIO": "75.3MB / 103MB",
-      "PIDs": "18"
+      "ref": "postgres:16",
+      "id": "sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5",
+      "repo_digests": [
+        "postgres@sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5"
+      ],
+      "created": "2026-08-13T19:16:08.705640299Z",
+      "size_bytes": 160248400,
+      "config_entrypoint": [
+        "docker-entrypoint.sh"
+      ]
     }
   ],
-  "engine_boot_seconds": 15.237,
+  "containers": 3,
+  "docker_stats": [
+    {
+      "BlockIO": "126MB / 885kB",
+      "CPUPerc": "1.40%",
+      "Container": "fe0b829b2b23563363b658dad4f21b143e3a6efcd50324496a8215a8b3e97a40",
+      "ID": "fe0b829b2b23",
+      "MemPerc": "36.30%",
+      "MemUsage": "371.7MiB / 1GiB",
+      "Name": "benchmark-operaton",
+      "NetIO": "4.91MB / 5.73MB",
+      "PIDs": "44"
+    },
+    {
+      "BlockIO": "671MB / 170MB",
+      "CPUPerc": "0.18%",
+      "Container": "90ab389bd4090c63cc73875c12d49bc2119e9a0b50b22e7af71f7796596eb5a3",
+      "ID": "90ab389bd409",
+      "MemPerc": "1.65%",
+      "MemUsage": "131MiB / 7.779GiB",
+      "Name": "workflow-benchmark-postgres-1",
+      "NetIO": "33.6MB / 33.2MB",
+      "PIDs": "28"
+    },
+    {
+      "BlockIO": "44.9MB / 115kB",
+      "CPUPerc": "46.59%",
+      "Container": "aa437b6f50bc40dddd4f07dc21fb1dd2497b6a5a1c6923fbf2c520243a913613",
+      "ID": "aa437b6f50bc",
+      "MemPerc": "29.10%",
+      "MemUsage": "298MiB / 1GiB",
+      "Name": "benchmark-flowable",
+      "NetIO": "619kB / 513kB",
+      "PIDs": "38"
+    }
+  ],
+  "engine_boot_seconds": 20.765,
   "adapter_loc": {
-    "app/workflow/flowable.py": 341,
+    "app/workflow/flowable.py": 381,
     "app/workers/flowable_worker.py": 125
   },
-  "adapter_loc_total": 466,
+  "adapter_loc_total": 506,
   "bpmn_vendor_extensions": {
     "bpmn/flowable/long_visit_v1.bpmn": {
       "vendor_namespace_declarations": 1,
@@ -64,40 +87,68 @@
     "process_definitions": [
       {
         "category": "http://benchmark.local/bpmn/long-visit-poc",
-        "deploymentId": "13f83a09-9ff3-11f1-a013-222188ad4bfa",
-        "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/13f83a09-9ff3-11f1-a013-222188ad4bfa",
+        "deploymentId": "52f8a690-a0c3-11f1-bf75-66645932e34c",
+        "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/52f8a690-a0c3-11f1-bf75-66645932e34c",
         "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
         "diagramResource": null,
         "graphicalNotationDefined": false,
-        "id": "LONG_VISIT_POC:1:1408dbdb-9ff3-11f1-a013-222188ad4bfa",
+        "id": "LONG_VISIT_POC:1:5318b1b2-a0c3-11f1-bf75-66645932e34c",
         "key": "LONG_VISIT_POC",
         "name": "Long Visit POC",
-        "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/13f83a09-9ff3-11f1-a013-222188ad4bfa/resources/benchmark-fixture-long_visit_v1.bpmn.bpmn",
+        "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/52f8a690-a0c3-11f1-bf75-66645932e34c/resources/benchmark-fixture-long_visit_v1.bpmn.bpmn",
         "startFormDefined": false,
         "suspended": false,
         "tenantId": "",
-        "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:1:1408dbdb-9ff3-11f1-a013-222188ad4bfa",
+        "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:1:5318b1b2-a0c3-11f1-bf75-66645932e34c",
         "version": 1
       },
       {
         "category": "http://benchmark.local/bpmn/long-visit-poc",
-        "deploymentId": "140ea83c-9ff3-11f1-a013-222188ad4bfa",
-        "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/140ea83c-9ff3-11f1-a013-222188ad4bfa",
+        "deploymentId": "53216443-a0c3-11f1-bf75-66645932e34c",
+        "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/53216443-a0c3-11f1-bf75-66645932e34c",
         "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
         "diagramResource": null,
         "graphicalNotationDefined": false,
-        "id": "LONG_VISIT_POC:2:1416224e-9ff3-11f1-a013-222188ad4bfa",
+        "id": "LONG_VISIT_POC:2:53431d15-a0c3-11f1-bf75-66645932e34c",
         "key": "LONG_VISIT_POC",
         "name": "Long Visit POC",
-        "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/140ea83c-9ff3-11f1-a013-222188ad4bfa/resources/benchmark-fixture-long_visit_v2.bpmn.bpmn",
+        "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/53216443-a0c3-11f1-bf75-66645932e34c/resources/benchmark-fixture-long_visit_v2.bpmn.bpmn",
         "startFormDefined": false,
         "suspended": false,
         "tenantId": "",
-        "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:2:1416224e-9ff3-11f1-a013-222188ad4bfa",
+        "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:2:53431d15-a0c3-11f1-bf75-66645932e34c",
         "version": 2
       }
     ],
-    "deployments_count": 3,
+    "deployments": [
+      {
+        "url": "http://localhost:8081/flowable-rest/service/repository/deployments/528c773d-a0c3-11f1-bf75-66645932e34c",
+        "category": null,
+        "deploymentTime": "2026-08-25T20:26:58.920Z",
+        "id": "528c773d-a0c3-11f1-bf75-66645932e34c",
+        "name": "benchmark-fixture-credit_decision",
+        "parentDeploymentId": "528c773d-a0c3-11f1-bf75-66645932e34c",
+        "tenantId": ""
+      },
+      {
+        "url": "http://localhost:8081/flowable-rest/service/repository/deployments/52f8a690-a0c3-11f1-bf75-66645932e34c",
+        "category": null,
+        "deploymentTime": "2026-08-25T20:26:59.628Z",
+        "id": "52f8a690-a0c3-11f1-bf75-66645932e34c",
+        "name": "benchmark-fixture-long_visit_v1",
+        "parentDeploymentId": "52f8a690-a0c3-11f1-bf75-66645932e34c",
+        "tenantId": ""
+      },
+      {
+        "url": "http://localhost:8081/flowable-rest/service/repository/deployments/53216443-a0c3-11f1-bf75-66645932e34c",
+        "category": null,
+        "deploymentTime": "2026-08-25T20:26:59.896Z",
+        "id": "53216443-a0c3-11f1-bf75-66645932e34c",
+        "name": "benchmark-fixture-long_visit_v2",
+        "parentDeploymentId": "53216443-a0c3-11f1-bf75-66645932e34c",
+        "tenantId": ""
+      }
+    ],
     "running_instances": [],
     "engine_info": {
       "exception": null,
@@ -105,6 +156,8 @@
       "resourceUrl": null,
       "version": "8.0.0"
     },
+    "deadletter_jobs": [],
+    "timer_jobs": [],
     "external_jobs": []
   }
 }

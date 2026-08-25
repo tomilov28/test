@@ -57,6 +57,7 @@ ENGINE_PROBE = {"OPERATON": "/engine", "FLOWABLE": "/management/engine"}
 ADAPTERS = {"OPERATON": OperatonAdapter, "FLOWABLE": FlowableAdapter}
 WORKERS = {"OPERATON": ExternalTaskWorker, "FLOWABLE": FlowableExternalTaskWorker}
 ARTIFACTS = {e: os.path.join(ROOT, "artifacts", e.lower()) for e in ("OPERATON", "FLOWABLE")}
+ARTIFACTS_ROOT = os.path.join(ROOT, "artifacts")
 
 
 def log(msg: str) -> None:
@@ -230,6 +231,34 @@ def _command_in_state(api: httpx.Client, request_id: str, command_type: str, sta
     return None
 
 
+def _command_by_id(api: httpx.Client, request_id: str, command_id: str) -> dict | None:
+    for c in command_states(api, request_id):
+        if c["id"] == command_id:
+            return c
+    return None
+
+
+def _recover_command(api: httpx.Client, request_id: str, command_id: str, label: str = "command") -> dict:
+    """Wait for a SPECIFIC technical command to reach DONE, requeueing it (the
+    minimal recovery path) if its retry budget is exhausted. The domain outcome
+    is never re-decided; only the engine-convergence step is retried."""
+    def _terminal() -> dict | None:
+        cmd = _command_by_id(api, request_id, command_id)
+        return cmd if cmd and cmd["state"] in ("DONE", "FAILED") else None
+
+    for _ in range(4):
+        outcome = wait_for(_terminal, timeout=120.0, label=f"{label} terminal")
+        if outcome["state"] == "DONE":
+            return outcome
+        if outcome["state"] == "FAILED":
+            log(f"{label} exhausted retries; requeueing (minimal recovery path)")
+            requeue = api.post(f"/admin/commands/{command_id}/requeue")
+            requeue.raise_for_status()
+            assert requeue.json()["state"] == "PENDING"
+            continue
+    raise AssertionError(f"{label} did not reach DONE after repeated requeue")
+
+
 def no_failed_commands(api: httpx.Client, request_id: str) -> bool:
     return not [c for c in command_states(api, request_id) if c["state"] == "FAILED"]
 
@@ -257,21 +286,25 @@ def _kill_app() -> None:
         time.sleep(0.5)
 
 
-def _start_app() -> int:
-    # track the pid in every engine's artifact dir so `make down` finds it
-    for engine in ("OPERATON", "FLOWABLE"):
-        os.makedirs(ARTIFACTS[engine], exist_ok=True)
-    with open(os.path.join(ARTIFACTS["OPERATON"], "app.log"), "ab") as log_fh:
+def _start_app(env: dict[str, str] | None = None) -> int:
+    # Shared process (audit A10): the app's pid/log live in one place, not per
+    # engine. `make down` uses stackctl stop-all which reads this pidfile.
+    os.makedirs(ARTIFACTS_ROOT, exist_ok=True)
+    app_log = os.path.join(ARTIFACTS_ROOT, "app.log")
+    full_env = dict(os.environ)
+    full_env.update(env or {})
+    app_pid = os.path.join(ARTIFACTS_ROOT, "app.pid")
+    with open(app_log, "ab") as log_fh:
         proc = subprocess.Popen(
             [VENV_PY, "-u", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"],
             stdout=log_fh,
             stderr=log_fh,
             cwd=ROOT,
             start_new_session=True,
+            env=full_env,
         )
-    for engine in ("OPERATON", "FLOWABLE"):
-        with open(os.path.join(ARTIFACTS[engine], "app.pid"), "w") as fh:
-            fh.write(str(proc.pid))
+    with open(app_pid, "w") as fh:
+        fh.write(str(proc.pid))
     wait_for(app_up, timeout=30.0, interval=1.0, label="app back after restart")
     log(f"app started (pid {proc.pid})")
     return proc.pid
@@ -288,6 +321,20 @@ def restart_engine(engine: str) -> None:
     service = "operaton" if engine == "OPERATON" else "flowable"
     subprocess.run(f"{COMPOSE[engine]} restart {service}".split(), check=True, capture_output=True)
     wait_for(lambda: engine_up(engine), timeout=180.0, interval=2.0, label="engine back after restart")
+
+
+def stop_engine(engine: str) -> None:
+    log(f"stopping {engine} container")
+    service = "operaton" if engine == "OPERATON" else "flowable"
+    subprocess.run(f"{COMPOSE[engine]} stop {service}".split(), check=True, capture_output=True)
+    wait_for(lambda: not engine_up(engine), timeout=60.0, interval=1.0, label="engine down")
+
+
+def start_engine(engine: str) -> None:
+    log(f"starting {engine} container")
+    service = "operaton" if engine == "OPERATON" else "flowable"
+    subprocess.run(f"{COMPOSE[engine]} start {service}".split(), check=True, capture_output=True)
+    wait_for(lambda: engine_up(engine), timeout=180.0, interval=2.0, label="engine back after start")
 
 
 def set_up_request_for_cancel(api: httpx.Client, adapter, engine: str, tag: str) -> tuple[str, str]:
@@ -714,11 +761,352 @@ def scenario_deadlock(api: httpx.Client, adapter, engine: str, n: int = 25) -> d
     return evidence
 
 
+# ---- phase 5 audit scenarios (A01/A02) ---------------------------------------
+
+
+def _arm(api: httpx.Client, engine: str, operation: str, mode: str, remaining: int = -1) -> None:
+    resp = api.post(
+        "/admin/faults/arm",
+        json={"engine": engine, "operation": operation, "mode": mode, "remaining": remaining},
+    )
+    resp.raise_for_status()
+
+
+def _clear(api: httpx.Client, engine: str) -> None:
+    api.post("/admin/faults/clear", json={"engine": engine}).raise_for_status()
+
+
+def _cancel_command(api: httpx.Client, request_id: str) -> dict:
+    resp = api.post(f"/requests/{request_id}/cancel", json={"reason": "audit-a01"})
+    resp.raise_for_status()
+    return resp.json()
+
+
+def scenario_a01a(api: httpx.Client, adapter, engine: str) -> dict:
+    """A01a: engine unavailable during cancellation. The domain outcome
+    (CLOSED/CANCELLED) must be committed immediately; the engine termination is
+    a subsequent convergence step. A real container outage (30-60s restart)
+    usually outlasts the dispatcher's technical retry budget, so the CANCEL
+    command reaches FAILED and is recovered via the minimal requeue endpoint;
+    the domain outcome is never re-decided by either path."""
+    log(f"=== A01a [{engine}]: domain-first cancel with engine down ===")
+    evidence: dict = {"scenario": "a01a", "engine": engine, "steps": []}
+    drain_external_topic(engine)
+    request = create_request(api, engine, tag="a01a")
+    request_id = request["id"]
+    instance_id = wait_instance(api, request_id)
+    run_external_task(engine, instance_id)
+    wait_parallel(adapter, instance_id)
+    reconcile(api)
+
+    stop_engine(engine)
+    try:
+        resp = _cancel_command(api, request_id)
+        assert resp["lifecycle_state"] == "CLOSED" and resp["outcome"] == "CANCELLED", resp
+        req = api.get(f"/requests/{request_id}").json()
+        assert req["closed_at"] is not None
+        items = api.get(f"/requests/{request_id}/work-items").json()
+        assert all(wi["state"] == "CANCELLED" for wi in items), items
+        evidence["domain_outcome_immediate"] = {
+            "lifecycle_state": req["lifecycle_state"],
+            "outcome": req["outcome"],
+            "closed_at": req["closed_at"],
+            "work_items": sorted((wi["task_definition_key"], wi["state"]) for wi in items),
+        }
+    finally:
+        start_engine(engine)
+
+    # convergence: the CANCEL_PROCESS either succeeded automatically (engine
+    # returned within the retry budget) or exhausted its budget to FAILED and is
+    # recovered with the requeue endpoint. Either way the domain outcome is the
+    # single source of truth and never changes.
+    cancel_cmd = wait_for(
+        lambda: _cancel_terminal(api, request_id), timeout=90.0, label="CANCEL_PROCESS terminal state"
+    )
+    outcome = _recover_command(api, request_id, cancel_cmd["id"], label="CANCEL_PROCESS")
+    assert outcome["state"] == "DONE", outcome
+    state = wait_for(
+        lambda: adapter.get_process_instance(instance_id).state, timeout=60.0, label="instance ENDED"
+    )
+    assert state == "ENDED", state
+    evidence["convergence"] = {
+        "cancel_command": outcome,
+        "engine_instance_state": state,
+        "engine_terminated": True,
+        "requeue_required": outcome.get("requeued", False),
+    }
+    req = api.get(f"/requests/{request_id}").json()
+    assert req["outcome"] == "CANCELLED"
+    save_evidence(engine, "a01a-domain-first-cancel-engine-down.json", evidence)
+    log(f"=== A01a [{engine}] PASS ===")
+    return evidence
+
+
+def scenario_a01b(api: httpx.Client, adapter, engine: str) -> dict:
+    """A01b: long outage - CANCEL_PROCESS exhausts technical retries while the
+    Request stays CLOSED/CANCELLED; the FAILED command can be requeued and then
+    converges (engine terminated) without re-running any domain action."""
+    log(f"=== A01b [{engine}]: exhausted cancel retries + requeue ===")
+    evidence: dict = {"scenario": "a01b", "engine": engine, "steps": []}
+    drain_external_topic(engine)
+    request = create_request(api, engine, tag="a01b")
+    request_id = request["id"]
+    instance_id = wait_instance(api, request_id)
+    run_external_task(engine, instance_id)
+    wait_parallel(adapter, instance_id)
+    reconcile(api)
+
+    # Persistent technical failure on the CANCEL engine call.
+    _arm(api, engine, "cancel_process", "fail", remaining=-1)
+    try:
+        resp = _cancel_command(api, request_id)
+        assert resp["lifecycle_state"] == "CLOSED" and resp["outcome"] == "CANCELLED", resp
+        cmd = wait_for(
+            lambda: _command_in_state(api, request_id, "CANCEL_PROCESS", "FAILED"),
+            timeout=90.0,
+            label="CANCEL_PROCESS FAILED",
+        )
+        assert cmd["attempts"] >= 5, cmd
+        req = api.get(f"/requests/{request_id}").json()
+        assert req["lifecycle_state"] == "CLOSED" and req["outcome"] == "CANCELLED", req
+        evidence["exhausted"] = {"command": cmd, "request": req["lifecycle_state"] + "/" + req["outcome"]}
+    finally:
+        _clear(api, engine)
+
+    # requeue the FAILED technical command (minimal recovery path)
+    requeue = api.post(f"/admin/commands/{cmd['id']}/requeue")
+    requeue.raise_for_status()
+    assert requeue.json()["state"] == "PENDING"
+    outcome = wait_for(
+        lambda: _cancel_terminal(api, request_id), timeout=90.0, label="CANCEL_PROCESS DONE after requeue"
+    )
+    assert outcome["state"] == "DONE", outcome
+    state = wait_for(
+        lambda: adapter.get_process_instance(instance_id).state, timeout=60.0, label="instance ENDED"
+    )
+    assert state == "ENDED", state
+    req = api.get(f"/requests/{request_id}").json()
+    assert req["outcome"] == "CANCELLED"
+    evidence["after_requeue"] = {
+        "cancel_command": outcome,
+        "engine_instance_state": state,
+        "request_outcome_unchanged": req["outcome"],
+    }
+    save_evidence(engine, "a01b-cancel-exhausted-requeue.json", evidence)
+    log(f"=== A01b [{engine}] PASS ===")
+    return evidence
+
+
+def scenario_a01c(api: httpx.Client, adapter, engine: str) -> dict:
+    """A01c: cancellation before START_PROCESS was dispatched. The START
+    dispatcher must honour the domain state (never start new work) and converge
+    any instance an earlier ambiguous START created, so no orphan survives."""
+    log(f"=== A01c [{engine}]: cancel before START dispatched ===")
+    evidence: dict = {"scenario": "a01c", "engine": engine, "steps": []}
+
+    # Phase 1: run the app with the outbox dispatcher DISABLED so the START
+    # command stays PENDING deterministically.
+    _kill_app()
+    try:
+        _start_app(env={"OUTBOX_DISPATCHER_ENABLED": "false", "RECONCILER_ENABLED": "false"})
+        request = create_request(api, engine, tag="a01c")
+        request_id = request["id"]
+        cmds = command_states(api, request_id)
+        start = next(c for c in cmds if c["command_type"] == "START_PROCESS")
+        assert start["state"] == "PENDING", start
+        # domain-first cancel while the START is still pending
+        resp = _cancel_command(api, request_id)
+        assert resp["lifecycle_state"] == "CLOSED" and resp["outcome"] == "CANCELLED", resp
+        evidence["start_pending_before_cancel"] = start["state"]
+    finally:
+        # Phase 2: kill the dispatcher-disabled instance, then start a NORMAL
+        # app (dispatcher + reconciler on) so the engine converges.
+        _kill_app()
+        _start_app()
+
+    wait_for(
+        lambda: all(
+            c["state"] == "DONE"
+            for c in command_states(api, request_id)
+            if c["command_type"] in ("START_PROCESS", "CANCEL_PROCESS")
+        ),
+        timeout=60.0,
+        label="START + CANCEL both DONE",
+    )
+    req = api.get(f"/requests/{request_id}").json()
+    assert req["lifecycle_state"] == "CLOSED" and req["outcome"] == "CANCELLED", req
+    # no orphan engine instance for this business key: START never ran, so no
+    # process was created for this key.
+    matches = adapter.find_process_instance_by_business_key(PROCESS_KEY, request["number"])
+    running = [m for m in matches if m.state != "ENDED"]
+    evidence["engine_instances_for_business_key"] = [m.process_instance_id for m in matches]
+    evidence["running_instances_for_business_key"] = [m.process_instance_id for m in running]
+    assert len(running) == 0, f"orphan running engine process survived cancellation: {running}"
+    save_evidence(engine, "a01c-cancel-before-start.json", evidence)
+    log(f"=== A01c [{engine}] PASS ===")
+    return evidence
+
+
+def scenario_a02a(api: httpx.Client, adapter, engine: str) -> dict:
+    """A02a: engine unavailable during the final domain action. The Request must
+    become terminal IMMEDIATELY (CLOSED/COMPLETED) with COMPLETE_TASK pending/
+    failed; after the engine returns it eventually reaches END."""
+    log(f"=== A02a [{engine}]: domain-first completion with engine down ===")
+    evidence: dict = {"scenario": "a02a", "engine": engine, "steps": []}
+    drain_external_topic(engine)
+    request = create_request(api, engine, tag="a02a")
+    request_id = request["id"]
+    instance_id = wait_instance(api, request_id)
+    run_external_task(engine, instance_id)
+    wait_parallel(adapter, instance_id)
+    reconcile(api)
+    complete_work_item(api, request_id, "finance_check", {"result": "OK", "balance_sufficient": True})
+    complete_work_item(api, request_id, "relative_check", {"result": "OK", "relatives_verified": True})
+    if engine == "FLOWABLE":
+        fire_timers(adapter, [instance_id])
+    wait_activity(adapter, instance_id, "final_decision", present=True)
+    reconcile(api)
+
+    stop_engine(engine)
+    try:
+        # complete the final_decision work item through the harness
+        items = api.get(f"/requests/{request_id}/work-items").json()
+        target = next(
+            wi for wi in items if wi["task_definition_key"] == "final_decision" and wi["state"] == "ACTIVE"
+        )
+        done = api.post(f"/work-items/{target['id']}/complete", json={"data": {"decision": "APPROVE"}, "version": 1})
+        done.raise_for_status()
+        req = api.get(f"/requests/{request_id}").json()
+        assert req["lifecycle_state"] == "CLOSED" and req["outcome"] == "COMPLETED", req
+        assert req["closed_at"] is not None
+        evidence["domain_outcome_immediate"] = {
+            "lifecycle_state": req["lifecycle_state"],
+            "outcome": req["outcome"],
+            "closed_at": req["closed_at"],
+        }
+        complete_cmd = next(
+            c for c in command_states(api, request_id) if c["command_type"] == "COMPLETE_TASK"
+        )
+        evidence["complete_task_state"] = complete_cmd["state"]
+    finally:
+        start_engine(engine)
+
+    # convergence: COMPLETE_TASK either completed automatically after the engine
+    # returned within the retry budget, or exhausted its budget to FAILED and is
+    # recovered via requeue. The domain outcome (COMPLETED) is never re-decided.
+    # The final_decision COMPLETE_TASK is identified by its payload (other
+    # COMPLETE_TASK commands belong to the parallel human tasks).
+    final_cmds = [
+        c
+        for c in command_states(api, request_id)
+        if c["command_type"] == "COMPLETE_TASK" and c.get("payload", {}).get("task_definition_key") == "final_decision"
+    ]
+    assert final_cmds, "no COMPLETE_TASK for final_decision found"
+    outcome = _recover_command(api, request_id, final_cmds[0]["id"], label="COMPLETE_TASK(final_decision)")
+    assert outcome["state"] == "DONE", outcome
+    state = wait_for(
+        lambda: adapter.get_process_instance(instance_id).state, timeout=90.0, label="instance ENDED"
+    )
+    assert state == "ENDED", state
+    req = api.get(f"/requests/{request_id}").json()
+    assert req["outcome"] == "COMPLETED"
+    evidence["convergence"] = {"complete_task": outcome, "engine_instance_state": state}
+    save_evidence(engine, "a02a-domain-completion-engine-down.json", evidence)
+    log(f"=== A02a [{engine}] PASS ===")
+    return evidence
+
+
+def scenario_a02b(api: httpx.Client, adapter, engine: str) -> dict:
+    """A02b: invalid completion contract (missing decision). The Request must
+    NOT close and the WorkItem must NOT complete; a 422 is returned."""
+    log(f"=== A02b [{engine}]: invalid completion contract ===")
+    evidence: dict = {"scenario": "a02b", "engine": engine, "steps": []}
+    drain_external_topic(engine)
+    request = create_request(api, engine, tag="a02b")
+    request_id = request["id"]
+    instance_id = wait_instance(api, request_id)
+    run_external_task(engine, instance_id)
+    wait_parallel(adapter, instance_id)
+    reconcile(api)
+    complete_work_item(api, request_id, "finance_check", {"result": "OK", "balance_sufficient": True})
+    complete_work_item(api, request_id, "relative_check", {"result": "OK", "relatives_verified": True})
+    if engine == "FLOWABLE":
+        fire_timers(adapter, [instance_id])
+    wait_activity(adapter, instance_id, "final_decision", present=True)
+    reconcile(api)
+
+    items = api.get(f"/requests/{request_id}/work-items").json()
+    target = next(
+        wi for wi in items if wi["task_definition_key"] == "final_decision" and wi["state"] == "ACTIVE"
+    )
+    resp = api.post(f"/work-items/{target['id']}/complete", json={"data": {}, "version": 1})
+    assert resp.status_code == 422, resp.text
+    req = api.get(f"/requests/{request_id}").json()
+    assert req["lifecycle_state"] == "ACTIVE" and req["outcome"] is None, req
+    items = api.get(f"/requests/{request_id}/work-items").json()
+    final = next(wi for wi in items if wi["task_definition_key"] == "final_decision")
+    assert final["state"] == "ACTIVE", final
+    evidence["contract_violation"] = {
+        "http_status": resp.status_code,
+        "detail": resp.json().get("detail"),
+        "request_stays_active": req["lifecycle_state"] == "ACTIVE" and req["outcome"] is None,
+        "work_item_stays_active": final["state"] == "ACTIVE",
+    }
+    # clean up: valid decision closes it
+    ok = api.post(f"/work-items/{target['id']}/complete", json={"data": {"decision": "REJECT"}, "version": 1})
+    ok.raise_for_status()
+    req = wait_closed(api, request_id, outcome="REJECTED")
+    evidence["cleanup"] = {"outcome": req["outcome"]}
+    save_evidence(engine, "a02b-invalid-completion-contract.json", evidence)
+    log(f"=== A02b [{engine}] PASS ===")
+    return evidence
+
+
+def scenario_a02c(api: httpx.Client, adapter, engine: str) -> dict:
+    """A02c: engine unexpectedly ENDED without a domain action. The reconciler
+    must NOT turn the Request into COMPLETED; it records the workflow/domain
+    anomaly in the benchmark diagnostics and leaves the Request ACTIVE."""
+    log(f"=== A02c [{engine}]: engine ended without domain outcome ===")
+    evidence: dict = {"scenario": "a02c", "engine": engine, "steps": []}
+    drain_external_topic(engine)
+    request = create_request(api, engine, tag="a02c")
+    request_id = request["id"]
+    instance_id = wait_instance(api, request_id)
+    run_external_task(engine, instance_id)
+    wait_parallel(adapter, instance_id)
+    reconcile(api)
+
+    # terminate the engine process directly (technical), skipping the domain layer
+    adapter.cancel_process(process_instance_id=instance_id, reason="a02c-unexpected-end")
+    state = wait_for(
+        lambda: adapter.get_process_instance(instance_id).state, timeout=60.0, label="instance ENDED"
+    )
+    assert state == "ENDED", state
+
+    summary = reconcile(api)
+    req = api.get(f"/requests/{request_id}").json()
+    evidence["after_reconcile"] = {
+        "request_state": req["lifecycle_state"],
+        "request_outcome": req["outcome"],
+        "reconcile_anomalies": summary.get("anomalies", []),
+        "completed_requests": summary.get("completed_requests", 0),
+    }
+    assert req["lifecycle_state"] == "ACTIVE", req
+    assert req["outcome"] is None, req
+    assert summary.get("completed_requests", 0) == 0
+    anomalies = summary.get("anomalies", [])
+    assert any(a["request_id"] == request_id for a in anomalies), anomalies
+    save_evidence(engine, "a02c-engine-ended-without-outcome.json", evidence)
+    log(f"=== A02c [{engine}] PASS ===")
+    return evidence
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine", choices=["OPERATON", "FLOWABLE"], required=True)
     parser.add_argument(
-        "--scenario", choices=["r1", "r2", "r3", "r4", "r5", "stress", "deadlock", "all"],
+        "--scenario",
+        choices=["r1", "r2", "r3", "r4", "r5", "stress", "deadlock", "a01a", "a01b", "a01c", "a02a", "a02b", "a02c", "all"],
         default="all",
     )
     parser.add_argument("--api", default=API_BASE)
@@ -739,7 +1127,7 @@ def main() -> int:
     results: dict = {}
     try:
         wanted = (
-            ["r1", "r2", "r3", "r4", "r5", "stress"]
+            ["r1", "r2", "r3", "r4", "r5", "stress", "a01a", "a01b", "a01c", "a02a", "a02b", "a02c"]
             if args.scenario == "all"
             else [args.scenario]
         )
@@ -759,6 +1147,18 @@ def main() -> int:
             results["stress"] = scenario_stress(api, adapter, engine, n=args.stress_n)
         if "deadlock" in wanted:
             results["deadlock"] = scenario_deadlock(api, adapter, engine, n=args.deadlock_n)
+        if "a01a" in wanted:
+            results["a01a"] = scenario_a01a(api, adapter, engine)
+        if "a01b" in wanted:
+            results["a01b"] = scenario_a01b(api, adapter, engine)
+        if "a01c" in wanted:
+            results["a01c"] = scenario_a01c(api, adapter, engine)
+        if "a02a" in wanted:
+            results["a02a"] = scenario_a02a(api, adapter, engine)
+        if "a02b" in wanted:
+            results["a02b"] = scenario_a02b(api, adapter, engine)
+        if "a02c" in wanted:
+            results["a02c"] = scenario_a02c(api, adapter, engine)
         save_evidence(engine, "summary.json", {"results": results})
         print(json.dumps({"scenarios": results}, indent=2, default=str))
         return 0

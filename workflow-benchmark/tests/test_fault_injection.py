@@ -42,6 +42,12 @@ PARALLEL_TASKS = {"finance_check", "relative_check"}
 
 PROBE_PATHS = {"OPERATON": "/engine", "FLOWABLE": "/management/engine"}
 
+FIXTURE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "bpmn")
+V1_BPMNS = {
+    "OPERATON": os.path.join(FIXTURE_DIR, "operaton", "long_visit_poc.bpmn"),
+    "FLOWABLE": os.path.join(FIXTURE_DIR, "flowable", "long_visit_v1.bpmn"),
+}
+
 
 def _engine_up(engine: str) -> bool:
     deadline = time.time() + 15.0
@@ -195,7 +201,7 @@ def reconcile(api: httpx.Client) -> dict:
 
 
 @pytest.fixture(autouse=True)
-def _clean_topic(api):
+def _clean_topic(api, engine):
     """Drain leftover external jobs before each test.
 
     Operaton/Flowable external-task acquisition returns a fixed-size batch
@@ -203,27 +209,26 @@ def _clean_topic(api):
     instance's job out of the batch, so each test starts with a clean topic.
     """
     yield
-    for engine in ENGINES:
-        worker = (
-            ExternalTaskWorker(engine_url=ENGINE_BASES["OPERATON"])
-            if engine == "OPERATON"
-            else FlowableExternalTaskWorker(engine_url=ENGINE_BASES["FLOWABLE"])
-        )
-        try:
-            deadline = time.time() + 60.0
-            idle = 0
-            while time.time() < deadline:
-                before = worker.results["fetched"]
-                worker.poll_once()
-                if worker.results["fetched"] == before:
-                    idle += 1
-                    if idle >= 3:
-                        break
-                else:
-                    idle = 0
-                time.sleep(1.0)
-        finally:
-            worker.close()
+    worker = (
+        ExternalTaskWorker(engine_url=ENGINE_BASES[engine])
+        if engine == "OPERATON"
+        else FlowableExternalTaskWorker(engine_url=ENGINE_BASES[engine])
+    )
+    try:
+        deadline = time.time() + 60.0
+        idle = 0
+        while time.time() < deadline:
+            before = worker.results["fetched"]
+            worker.poll_once()
+            if worker.results["fetched"] == before:
+                idle += 1
+                if idle >= 3:
+                    break
+            else:
+                idle = 0
+            time.sleep(1.0)
+    finally:
+        worker.close()
 
 
 # -- tests ---------------------------------------------------------------------
@@ -486,9 +491,51 @@ def test_invariants_single_instance_and_no_revert(api, engine):
         clear_faults(api, engine)
 
 
-ENGINES = [e for e in ("OPERATON", "FLOWABLE") if _engine_up(e)]
+BENCH_ENGINE = os.environ.get("BENCH_ENGINE", "OPERATON").upper()
 
 
-@pytest.fixture(params=ENGINES, scope="module")
-def engine(request):
-    return request.param
+@pytest.fixture(scope="module")
+def engine():
+    """Target engine for this run (BENCH_ENGINE env). Audit A08: a down target
+    engine FAILS the run; it must never silently skip the engine's tests."""
+    assert BENCH_ENGINE in ("OPERATON", "FLOWABLE"), f"invalid BENCH_ENGINE: {BENCH_ENGINE}"
+    if not _engine_up(BENCH_ENGINE):
+        pytest.fail(
+            f"{BENCH_ENGINE} engine not reachable at {ENGINE_BASES[BENCH_ENGINE]} "
+            "- target engine down must FAIL, not skip"
+        )
+    return BENCH_ENGINE
+
+
+def _drop_process_key(adapter, process_key: str) -> None:
+    """Cancel running instances and delete all deployments for a process key."""
+    for instance_id in adapter.get_running_instances(process_key):
+        adapter.cancel_process(instance_id)
+    for definition in adapter.get_process_definitions(process_key):
+        adapter.delete_deployment(definition["deploymentId"])
+
+
+@pytest.fixture(scope="module", autouse=True)
+def deployed(engine):
+    """Ensure LONG_VISIT_POC v1 is deployed on the target engine.
+
+    The scenario tests exercise the full start->parallel->decision path, but
+    this module does not own the LONG_VISIT_POC fixture: when the integration
+    suite runs test_long_visit_poc.py first, that module's teardown deletes the
+    deployment. Redeploy v1 here (and clean up at teardown) so the module is
+    self-contained regardless of run order (audit A07 reproducibility).
+    """
+    adapter = _adapter(engine)
+    try:
+        _drop_process_key(adapter, PROCESS_KEY)
+        with open(V1_BPMNS[engine]) as fh:
+            xml = fh.read()
+        adapter.deploy_process(xml, PROCESS_KEY, name="fixture-long_visit_v1")
+        versions = {d["version"] for d in adapter.get_process_definitions(PROCESS_KEY)}
+        assert 1 in versions, f"v1 fixture should deploy as version 1: {versions}"
+        yield
+    finally:
+        try:
+            _drop_process_key(adapter, PROCESS_KEY)
+        finally:
+            adapter.close()

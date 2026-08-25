@@ -39,6 +39,12 @@ class _FaultSpec:
         self.remaining = remaining
         self.injected = 0
 
+    def is_active(self) -> bool:
+        """Armed and still injecting: remaining<0 means "always"; remaining>0 is
+        the count of injections still to happen. remaining==0 => NOT active (the
+        fault must never fire again)."""
+        return self.remaining != 0
+
     def consume(self) -> None:
         if self.remaining > 0:
             self.remaining -= 1
@@ -106,7 +112,8 @@ class FaultInjectingAdapter:
 
     def _inject_fail(self, operation: str) -> None:
         spec = controller.spec(self._engine, operation)
-        if spec is not None and spec.mode == "fail":
+        # remaining==0 => the fault is exhausted and must NOT fire again (A05).
+        if spec is not None and spec.mode == "fail" and spec.is_active():
             spec.injected += 1
             spec.consume()
             logger.warning("fault injected engine=%s op=%s mode=fail", self._engine, operation)
@@ -114,7 +121,7 @@ class FaultInjectingAdapter:
 
     def _inject_loss(self, operation: str) -> None:
         spec = controller.spec(self._engine, operation)
-        if spec is None or spec.mode != "loss":
+        if spec is None or spec.mode != "loss" or not spec.is_active():
             return
         # The real call succeeded (caller is about to return); hide it.
         spec.injected += 1
@@ -204,7 +211,10 @@ class FaultInjectingAdapter:
 
 
 def maybe_wrap(engine: str, adapter) -> "FaultInjectingAdapter":
-    """Wrap an adapter when a fault is armed for its engine, else return as-is."""
-    if controller.snapshot().get(engine):
+    """Wrap an adapter when an ACTIVE fault is armed for its engine, else return
+    as-is. An exhausted arm (remaining==0) never fires, so it does not trigger
+    wrapping either (A05)."""
+    arms = controller.snapshot().get(engine, {})
+    if any(arms.get(op, {}).get("remaining", 0) != 0 for op in arms):
         return FaultInjectingAdapter(engine, adapter)
     return adapter

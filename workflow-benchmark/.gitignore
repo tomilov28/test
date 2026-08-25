@@ -8,6 +8,7 @@ artifacts/outbox/
 artifacts/reconcile/
 artifacts/operaton/*.pid
 artifacts/flowable/*.pid
+artifacts/*.pid
 
 # runtime logs (evidence lives in benchmark.json / api-evidence / faults/)
 artifacts/**/*.log
