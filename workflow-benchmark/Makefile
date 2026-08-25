@@ -133,26 +133,26 @@ test-flowable: _flowable-infra
 # ---- fault recovery (phase 4/5) ------------------------------------------
 
 fault-operaton: _operaton-infra
-	$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
-	BENCH_ENGINE=OPERATON $(PYTHON) -m pytest -m integration \
+	set -o pipefail; $(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
+	set -o pipefail; BENCH_ENGINE=OPERATON $(PYTHON) -m pytest -m integration \
 		--junitxml=artifacts/operaton/fault-test-results.xml \
 		$(OPERATON_TESTS) 2>&1 | tee artifacts/operaton/fault-suite.log
 	# The integration suite drops its LONG_VISIT_POC fixture in module teardown;
 	# redeploy before the scenarios so they can start processes (audit A07).
 	$(PYTHON) -m scripts.deploy_fixtures --engine OPERATON --reset
-	$(PYTHON) -m scripts.fault_scenarios --engine OPERATON 2>&1 | tee artifacts/operaton/fault-scenarios.log
+	set -o pipefail; $(PYTHON) -m scripts.fault_scenarios --engine OPERATON 2>&1 | tee artifacts/operaton/fault-scenarios.log
 	$(PYTHON) -m scripts.collect_artifacts --engine OPERATON
 	@echo "== fault-operaton done =="
 
 fault-flowable: _flowable-infra
-	$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
-	BENCH_ENGINE=FLOWABLE $(PYTHON) -m pytest -m integration \
+	set -o pipefail; $(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
+	set -o pipefail; BENCH_ENGINE=FLOWABLE $(PYTHON) -m pytest -m integration \
 		--junitxml=artifacts/flowable/fault-test-results.xml \
 		$(FLOWABLE_TESTS) 2>&1 | tee artifacts/flowable/fault-suite.log
 	# The integration suite drops its LONG_VISIT_POC fixture in module teardown;
 	# redeploy before the scenarios so they can start processes (audit A07).
 	$(PYTHON) -m scripts.deploy_fixtures --engine FLOWABLE --reset
-	$(PYTHON) -m scripts.fault_scenarios --engine FLOWABLE 2>&1 | tee artifacts/flowable/fault-scenarios.log
+	set -o pipefail; $(PYTHON) -m scripts.fault_scenarios --engine FLOWABLE 2>&1 | tee artifacts/flowable/fault-scenarios.log
 	$(PYTHON) -m scripts.deploy_fixtures --engine FLOWABLE --reset
 	$(PYTHON) -m scripts.collect_artifacts --engine FLOWABLE
 	@echo "== fault-flowable done =="

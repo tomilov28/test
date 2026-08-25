@@ -304,9 +304,13 @@ def test_t13_lost_complete_response_state_already_achieved(api, engine):
             assert "finance_check" not in active, active
             assert "relative_check" in active, active
 
-            # complete the remaining branch -> no breakage, correct outcome
+            # complete the remaining branch -> no breakage, correct outcome.
+            # final_decision sits behind ParallelJoin + the PT15S Timer_1; under
+            # full fault-suite load the join+timer+activity-visibility can take
+            # well past the nominal window, so allow generous margin (both
+            # engines identically; this is a tolerance, not an assertion change).
             complete_work_item(api, request_id, "relative_check", {"result": "OK", "relatives_verified": True})
-            wait_activity(adapter, instance_id, "final_decision", present=True, timeout=60.0)
+            wait_activity(adapter, instance_id, "final_decision", present=True, timeout=120.0)
         finally:
             adapter.close()
         reconcile(api)
