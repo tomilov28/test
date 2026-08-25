@@ -96,12 +96,12 @@ create-enginedbs:
 
 down:
 	$(PYTHON) -m scripts.stackctl stop-all
-	$(COMPOSE_ALL) down
+	COMPOSE_PROFILES=engine-operaton,engine-flowable $(COMPOSE_ALL) down
 
 # Authoritative clean reset (audit A09): stop app/workers/engines, drop the
 # PostgreSQL volume (wipes app + engine DBs), recreate + migrate + redeploy.
 reset-state: down
-	docker compose -f docker-compose.yml -f docker-compose.operaton.yml -f docker-compose.flowable.yml down -v
+	COMPOSE_PROFILES=engine-operaton,engine-flowable docker compose -f docker-compose.yml -f docker-compose.operaton.yml -f docker-compose.flowable.yml down -v
 	$(COMPOSE) up -d postgres
 	$(PYTHON) scripts/wait_for_db.py
 	$(PYTHON) scripts/create_databases.py
