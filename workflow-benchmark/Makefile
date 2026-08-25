@@ -15,7 +15,8 @@ FLOWABLE_TESTS := tests/test_flowable_integration.py tests/test_long_visit_poc_f
 	up-operaton up-flowable down reset-state clean \
 	test-operaton test-flowable fault-operaton fault-flowable \
 	collect-operaton collect-flowable measure-resources \
-	demo-operaton demo-flowable incident-operaton incident-flowable report
+	demo-operaton demo-flowable incident-operaton incident-flowable \
+	benchmark report
 
 # ---- bootstrap -----------------------------------------------------------
 
@@ -105,7 +106,7 @@ reset-state: down
 	$(PYTHON) scripts/wait_for_db.py
 	$(PYTHON) scripts/create_databases.py
 	$(PYTHON) -m alembic upgrade head
-	$(PYTHON) -m scripts.stackctl check-stale || true
+	$(PYTHON) -m scripts.stackctl check-stale
 	@echo "== reset-state done: app DB migrated, engine DBs empty =="
 
 # ---- benchmark / test targets --------------------------------------------
@@ -113,7 +114,7 @@ reset-state: down
 # Audit A08: test-operaton runs ONLY Operaton integration tests; a down
 # Operaton engine FAILS the run (never a silent skip). Same for test-flowable.
 test-operaton: _operaton-infra
-	-$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
+	$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
 	BENCH_ENGINE=OPERATON $(PYTHON) -m pytest -q -m integration \
 		--junitxml=artifacts/operaton/test-results.xml $(OPERATON_TESTS)
 	$(PYTHON) -m scripts.operaton_scenarios --scenario all
@@ -121,7 +122,7 @@ test-operaton: _operaton-infra
 	@echo "== test-operaton done =="
 
 test-flowable: _flowable-infra
-	-$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
+	$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
 	BENCH_ENGINE=FLOWABLE $(PYTHON) -m pytest -q -m integration \
 		--junitxml=artifacts/flowable/test-results.xml $(FLOWABLE_TESTS)
 	$(PYTHON) -m scripts.flowable_scenarios --scenario all
@@ -132,7 +133,7 @@ test-flowable: _flowable-infra
 # ---- fault recovery (phase 4/5) ------------------------------------------
 
 fault-operaton: _operaton-infra
-	-$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
+	$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
 	BENCH_ENGINE=OPERATON $(PYTHON) -m pytest -m integration \
 		--junitxml=artifacts/operaton/fault-test-results.xml \
 		$(OPERATON_TESTS) 2>&1 | tee artifacts/operaton/fault-suite.log
@@ -144,7 +145,7 @@ fault-operaton: _operaton-infra
 	@echo "== fault-operaton done =="
 
 fault-flowable: _flowable-infra
-	-$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
+	$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
 	BENCH_ENGINE=FLOWABLE $(PYTHON) -m pytest -m integration \
 		--junitxml=artifacts/flowable/fault-test-results.xml \
 		$(FLOWABLE_TESTS) 2>&1 | tee artifacts/flowable/fault-suite.log
@@ -177,23 +178,42 @@ measure-resources: _operaton-infra
 	@echo "== measure-resources done =="
 
 # ---- demo / incident (Part C) --------------------------------------------
+#
+# ops_demo drives its own inline external worker (complete or terminal-fail),
+# so the daemon worker started by up-<engine> is stopped first to avoid a race
+# on the external task lock (deterministic demo/incident outcome).
 
 demo-operaton: up-operaton
+	$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
 	$(PYTHON) -m scripts.ops_demo --engine OPERATON --mode demo
 	@echo "== stack left running =="
 
 demo-flowable: up-flowable
+	$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
 	$(PYTHON) -m scripts.ops_demo --engine FLOWABLE --mode demo
 	@echo "== stack left running =="
 
 incident-operaton: up-operaton
+	$(PYTHON) -m scripts.stackctl stop-worker --engine OPERATON
 	$(PYTHON) -m scripts.ops_demo --engine OPERATON --mode incident
 	@echo "== stack left running =="
 
 incident-flowable: up-flowable
+	$(PYTHON) -m scripts.stackctl stop-worker --engine FLOWABLE
 	$(PYTHON) -m scripts.ops_demo --engine FLOWABLE --mode incident
 	@echo "== stack left running =="
 
+# ---- Phase 6 authoritative benchmark / report -----------------------------
+
+# Full authoritative benchmark: captures environment, runs unit tests, resets
+# clean state, runs the complete Operaton and Flowable benchmark, collects the
+# evidence into an immutable artifacts/runs/<UTC>-<SHA>/ directory, builds the
+# report inputs and generates REPORT.md. Any mandatory stage failure aborts the
+# run with a non-zero exit.
+benchmark:
+	$(PYTHON) -m scripts.run_benchmark
+
+# (re)generate REPORT.md from the newest or a named run.
 report:
-	@echo "see OPERATIONS_COMPARISON.md / AUDIT_REMEDIATION.md / RESOURCE_METHODOLOGY.md"
-	@true
+	@test -n "$(RUN)" || test -d artifacts/runs || { echo "no benchmark runs found; run 'make benchmark' first"; exit 1; }
+	$(PYTHON) -m scripts.generate_report --run $(if $(RUN),$(RUN),$(shell ls -1dt artifacts/runs/* | head -1))

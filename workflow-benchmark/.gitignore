@@ -6,9 +6,19 @@ __pycache__/
 artifacts/benchmark/
 artifacts/outbox/
 artifacts/reconcile/
-artifacts/operaton/*.pid
-artifacts/flowable/*.pid
 artifacts/*.pid
 
-# runtime logs (evidence lives in benchmark.json / api-evidence / faults/)
+# Runtime logs and pid files are never tracked (Phase 6). Authoritative logs
+# are preserved inside the immutable run directories under artifacts/runs/ on
+# disk; only their sha256 entries (and non-log evidence) are committed.
 artifacts/**/*.log
+artifacts/**/*.pid
+
+# Working scratch evidence dirs (regenerated every run). Authoritative machine
+# evidence is copied into artifacts/runs/<UTC_TIMESTAMP>-<GIT_SHA>/ per run.
+artifacts/operaton/
+artifacts/flowable/
+artifacts/environment.txt
+artifacts/pre-operaton-start.txt
+artifacts/post-operaton-start.txt
+artifacts/resource-preflight.txt
