@@ -20638,3 +20638,696 @@ INFO:     127.0.0.1:39126 - "GET /requests/4f2ee0d1-9273-44bf-abb1-16c23e63aa0b 
 2026-08-25 20:30:08,451 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
 2026-08-25 20:30:08,460 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
 2026-08-25 20:30:08,460 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:10,488 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,496 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,497 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,528 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,537 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,539 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,565 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,581 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,582 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,622 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,628 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,628 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,667 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,674 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,675 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,711 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,726 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,732 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,764 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,769 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,770 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,796 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,802 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,803 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,825 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,831 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,831 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,881 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,894 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,895 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,917 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:10,924 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:10,925 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:10,952 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:10,958 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:10,959 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:10,981 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:10,986 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,002 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,027 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,032 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,033 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,056 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,062 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,062 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,087 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,093 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,093 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,116 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,122 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,123 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,150 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,155 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,156 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,177 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,182 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,182 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,204 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,211 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,212 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,244 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,252 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,253 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,291 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:11,297 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:11,297 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:11,325 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,332 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,332 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,354 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,362 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,362 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,384 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,390 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,390 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,421 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,431 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,432 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,458 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,463 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,464 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,486 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,491 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,491 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,514 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,527 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,527 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,554 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,562 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,578 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,605 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,611 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,611 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,632 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,638 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,639 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:11,662 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:11,667 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:11,668 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:13,699 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,707 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,707 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,735 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,741 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,741 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,761 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,767 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,767 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,788 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,794 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,794 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,815 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,836 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,836 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,858 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,868 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,869 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,892 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,900 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,901 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,923 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,928 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,929 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,950 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,955 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,956 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:13,980 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:13,986 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:13,987 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:14,011 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:14,017 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:14,017 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:14,039 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,044 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,045 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,066 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,072 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,088 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,121 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,126 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,126 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,148 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,153 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,153 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,174 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,181 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,181 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,202 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,209 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,210 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,232 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,238 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,239 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,270 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,281 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,281 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,318 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,328 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,328 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,397 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,413 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,414 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,466 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:14,481 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:14,482 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:14,508 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,513 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,514 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,537 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,544 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,545 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,569 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,576 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,577 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,598 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,605 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,605 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,626 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,632 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,632 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,656 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,662 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,663 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,684 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,689 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,690 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,712 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,738 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,739 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,761 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,766 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,767 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,789 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,796 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,796 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:14,818 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:14,824 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:14,824 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:16,850 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:16,856 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:16,857 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:16,880 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:16,887 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:16,887 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:16,912 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:16,918 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:16,919 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:16,940 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:16,947 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:16,948 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:16,985 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:16,991 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:16,991 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,016 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:17,021 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:17,022 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,043 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:17,049 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:17,050 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,072 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:17,077 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:17,078 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,100 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:17,105 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:17,106 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,127 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:17,135 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:17,135 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,165 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:17,173 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:17,174 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:17,197 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,203 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,203 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,226 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,231 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,248 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,273 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,279 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,280 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,302 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,307 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,308 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,328 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,334 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,334 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,355 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,361 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,362 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,395 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,401 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,401 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,423 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,429 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,429 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,451 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,456 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,457 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,481 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,486 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,487 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,529 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:17,535 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:17,535 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:17,564 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,570 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,571 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,592 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,597 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,598 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,621 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,653 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,654 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,678 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,685 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,686 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,712 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,723 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,724 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,746 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,752 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,752 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,774 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,783 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,784 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,805 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,815 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,827 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,860 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,866 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,866 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,891 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,897 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,898 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:17,927 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:17,946 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:17,952 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:19,996 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,005 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,009 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,043 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,056 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,057 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,080 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,086 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,087 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,108 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,114 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,115 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,134 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,169 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,170 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,194 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,200 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,200 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,222 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,229 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,229 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,250 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,256 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,256 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,277 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,285 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,286 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,308 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,314 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,314 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,337 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:20,342 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:20,343 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:20,370 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,377 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,377 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,399 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,405 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,416 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,446 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,455 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,455 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,492 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,500 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,501 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,526 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,532 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,532 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,554 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,560 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,560 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,586 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,592 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,592 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,614 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,619 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,620 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,641 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,646 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,647 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,668 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,674 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,674 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,715 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:20,721 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:20,721 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:20,757 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,778 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,778 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,806 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,824 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,827 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,851 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,857 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,857 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,879 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,885 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,885 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,907 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,913 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,914 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,935 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,941 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,941 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,963 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,969 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:20,969 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:20,990 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:20,996 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:21,020 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:21,050 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:21,057 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:21,057 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:21,084 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:21,091 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:21,091 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:21,114 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:21,121 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:21,122 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:23,166 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,176 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,177 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,203 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,209 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,210 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,234 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,242 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,242 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,267 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,272 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,273 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,318 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,325 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,326 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,349 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,354 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,355 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,375 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,381 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,381 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,404 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,410 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,410 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,431 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,437 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,438 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,464 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,469 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,470 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,491 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:23,499 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:23,500 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:23,531 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,539 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,540 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,563 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,570 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,590 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,621 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,627 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,628 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,649 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,655 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,655 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,678 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,685 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,685 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,709 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,716 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,716 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,738 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,748 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,748 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,773 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,781 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,781 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,803 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,819 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,820 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,841 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,848 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,848 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,881 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:23,887 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:23,887 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:23,909 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:23,915 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:23,915 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:23,936 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:23,942 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:23,942 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:23,965 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:23,973 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:23,973 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:23,999 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,016 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,016 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,039 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,045 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,045 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,066 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,071 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,072 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,095 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,100 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,101 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,122 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,128 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,143 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,166 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,172 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,172 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,197 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,204 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,205 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:24,232 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:24,238 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:24,238 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:26,271 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,288 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,289 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,328 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,335 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,336 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,358 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,364 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,365 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,388 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,397 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,398 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,420 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,453 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,454 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,505 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,521 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,522 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,565 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,571 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,572 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,623 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,651 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,654 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,681 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,688 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,689 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,721 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,732 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,736 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,765 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:26,776 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:26,779 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:26,822 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:26,831 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:26,831 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:26,855 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:26,861 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:26,877 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:26,914 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:26,922 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:26,922 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:26,955 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:26,964 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:26,965 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:26,995 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,002 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,003 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,029 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,036 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,037 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,059 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,066 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,066 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,100 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,109 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,109 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,137 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,143 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,143 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,173 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,179 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,179 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,233 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:27,244 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:27,244 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:27,301 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,321 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,322 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,365 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,379 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,384 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,419 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,430 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,432 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,454 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,460 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,460 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,484 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,506 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,506 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,543 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,549 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,550 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,572 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,578 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,579 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,603 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,611 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,629 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,654 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,660 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,661 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,683 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,689 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,690 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:27,712 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:27,718 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:27,719 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:29,746 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,752 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/162fb986-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,752 WARNING [app.workflow.reconciler] reconciler anomaly: request 15e002de-dc44-4ea5-882a-e8ad57f74d42 engine instance 162fb986-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,776 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,786 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/17799eb2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,786 WARNING [app.workflow.reconciler] reconciler anomaly: request 163a3f5e-6d02-48f5-a6da-37a3f0097682 engine instance 17799eb2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,810 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,816 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/31f826ef-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,816 WARNING [app.workflow.reconciler] reconciler anomaly: request fefb9f52-096a-4f8a-a72f-9e2f96290da7 engine instance 31f826ef-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,838 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,843 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/35df9a77-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,843 WARNING [app.workflow.reconciler] reconciler anomaly: request 619adca6-c5de-4966-b6f9-54d250c1c010 engine instance 35df9a77-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,880 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,887 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/37231615-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,888 WARNING [app.workflow.reconciler] reconciler anomaly: request 60a55ffb-2337-4c88-b5ea-44b89b4ef19f engine instance 37231615-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,912 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,917 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3aeaf3c2-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,918 WARNING [app.workflow.reconciler] reconciler anomaly: request 05109ddd-9a41-4fdf-9f04-00656a15b8fb engine instance 3aeaf3c2-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,943 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,950 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/3d6e1c3c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,951 WARNING [app.workflow.reconciler] reconciler anomaly: request f53afed9-bd0f-4e93-a20e-0a64ae2ca0fe engine instance 3d6e1c3c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:29,975 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:29,982 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/5fb019df-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:29,983 WARNING [app.workflow.reconciler] reconciler anomaly: request e236ab1a-9d21-4076-b867-e3bedd6c9bdd engine instance 5fb019df-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:30,013 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:30,018 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/684b7878-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:30,019 WARNING [app.workflow.reconciler] reconciler anomaly: request 90d8c0fe-fdfe-4790-80b2-648c73380efb engine instance 684b7878-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:30,040 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:30,047 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6ad72c72-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:30,047 WARNING [app.workflow.reconciler] reconciler anomaly: request a9417209-db80-477c-b033-eab454a7a9b3 engine instance 6ad72c72-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:30,076 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 200 "
+2026-08-25 20:30:30,083 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/6c1fb20c-a0bf-11f1-b081-cabcebda3540 "HTTP/1.1 404 "
+2026-08-25 20:30:30,083 WARNING [app.workflow.reconciler] reconciler anomaly: request da7babdf-8855-4590-a5ea-5ced4d002f3b engine instance 6c1fb20c-a0bf-11f1-b081-cabcebda3540 ended without a domain outcome; not closing
+2026-08-25 20:30:30,108 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,115 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,116 WARNING [app.workflow.reconciler] reconciler anomaly: request 5937fb53-313a-4967-a80e-5b56fe259088 engine instance cf1c01e6-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,139 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,145 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,157 WARNING [app.workflow.reconciler] reconciler anomaly: request e0cb9add-4415-40b9-b41d-d304e89d9198 engine instance d06a2cd0-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,190 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,198 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d41580a9-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,199 WARNING [app.workflow.reconciler] reconciler anomaly: request e70a4b2a-4f67-480b-b2c9-41cdfb787943 engine instance d41580a9-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,233 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,250 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/d92e2128-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,252 WARNING [app.workflow.reconciler] reconciler anomaly: request bd60c5a2-78eb-4fa3-833b-6567e97ba6a6 engine instance d92e2128-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,293 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,331 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/da752032-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,332 WARNING [app.workflow.reconciler] reconciler anomaly: request 9132f1e5-af92-4a12-9f8b-0bd39615e5f9 engine instance da752032-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,383 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,397 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/de470ff7-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,397 WARNING [app.workflow.reconciler] reconciler anomaly: request a2b074ac-eb65-459b-a50b-740a74822b27 engine instance de470ff7-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,429 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,437 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/e0c4931f-a0c0-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,437 WARNING [app.workflow.reconciler] reconciler anomaly: request 5135668b-f89d-4b6f-9452-82ad5daf1b6e engine instance e0c4931f-a0c0-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,460 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,466 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/112956ea-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,467 WARNING [app.workflow.reconciler] reconciler anomaly: request d70d2deb-0151-4aef-b1c4-d4081587ff2d engine instance 112956ea-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,491 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,501 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,502 WARNING [app.workflow.reconciler] reconciler anomaly: request fc39899d-5be4-4d84-acdc-d1950dd97d92 engine instance 19c2b9ae-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,561 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,567 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1c356768-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,568 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d6b7d9a-1e3a-427d-8b5c-f48f86ac781f engine instance 1c356768-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,598 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/task?active=true&processInstanceId=1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 200 "
+2026-08-25 20:30:30,604 INFO [httpx] HTTP Request: GET http://localhost:8080/engine-rest/process-instance/1d753970-a0c1-11f1-ac69-eae1f9f21007 "HTTP/1.1 404 "
+2026-08-25 20:30:30,605 WARNING [app.workflow.reconciler] reconciler anomaly: request daa55822-e05b-420d-98e5-b94173c8ad21 engine instance 1d753970-a0c1-11f1-ac69-eae1f9f21007 ended without a domain outcome; not closing
+2026-08-25 20:30:30,633 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,642 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/c9058e1e-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,643 WARNING [app.workflow.reconciler] reconciler anomaly: request 2360d2ee-da65-4e39-8dd1-3be3777bc364 engine instance c9058e1e-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,666 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,673 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/ca4735ea-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,674 WARNING [app.workflow.reconciler] reconciler anomaly: request 2e9049d3-6801-45b2-8af6-3472ddbaedc6 engine instance ca4735ea-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,698 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,704 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,704 WARNING [app.workflow.reconciler] reconciler anomaly: request c9614106-810c-4207-942c-a5efba615a97 engine instance d9ef3cb7-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,727 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,736 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e02708df-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,738 WARNING [app.workflow.reconciler] reconciler anomaly: request 35a29387-5605-4839-b72f-95cc6b78c2bf engine instance e02708df-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,765 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,780 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e163598d-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,780 WARNING [app.workflow.reconciler] reconciler anomaly: request e16e2b18-2045-48cf-a255-b337bdca62cd engine instance e163598d-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,804 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,811 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e52060ca-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,812 WARNING [app.workflow.reconciler] reconciler anomaly: request d49b4a65-badb-4429-b703-7379bb88b299 engine instance e52060ca-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,834 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,841 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/e7a07c04-a0c2-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,856 WARNING [app.workflow.reconciler] reconciler anomaly: request b4d588a8-952a-4117-b838-e5e076276e25 engine instance e7a07c04-a0c2-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,885 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,891 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/061c9807-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,891 WARNING [app.workflow.reconciler] reconciler anomaly: request 0d1b8735-fcaa-4168-b1ee-a25c12bb1fec engine instance 061c9807-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,912 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,918 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/0fe35740-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,918 WARNING [app.workflow.reconciler] reconciler anomaly: request f544f846-f810-4c96-ba53-1269b5db9f04 engine instance 0fe35740-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,940 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,948 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/12578b9a-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,948 WARNING [app.workflow.reconciler] reconciler anomaly: request 1f003ff6-790c-4101-b1ac-d82b33a726d0 engine instance 12578b9a-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
+2026-08-25 20:30:30,970 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/tasks?size=10000&processInstanceId=1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 200 "
+2026-08-25 20:30:30,977 INFO [httpx] HTTP Request: GET http://localhost:8081/flowable-rest/service/runtime/process-instances/1392cac4-a0c3-11f1-97dd-72771ac5c20b "HTTP/1.1 404 "
+2026-08-25 20:30:30,977 WARNING [app.workflow.reconciler] reconciler anomaly: request fb21c243-91bf-4028-a8ce-7a936811d53c engine instance 1392cac4-a0c3-11f1-97dd-72771ac5c20b ended without a domain outcome; not closing
