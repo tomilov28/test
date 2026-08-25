@@ -16,6 +16,9 @@ artifacts/**/*.pid
 
 # Working scratch evidence dirs (regenerated every run). Authoritative machine
 # evidence is copied into artifacts/runs/<UTC_TIMESTAMP>-<GIT_SHA>/ per run.
+# Run directories are preserved on disk but never committed; REPORT.md (derived
+# from the newest run) is the committed summary.
+artifacts/runs/
 artifacts/operaton/
 artifacts/flowable/
 artifacts/environment.txt

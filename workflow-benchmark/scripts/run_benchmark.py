@@ -246,7 +246,6 @@ def collect_engine_evidence(run: Run, engine: str) -> None:
 
     copy(os.path.join(src_dir, "test-results.xml"), os.path.join(eng_dir, "functional-junit.xml"))
     copy(os.path.join(src_dir, "fault-test-results.xml"), os.path.join(eng_dir, "fault-junit.xml"))
-    copy(os.path.join(eng_dir, "audit-junit.xml"), os.path.join(eng_dir, "audit-junit.xml"))
     copy(os.path.join(src_dir, "engine.log"), os.path.join(eng_dir, "engine.log"))
     copy(app_log_src, os.path.join(eng_dir, "app.log"))
     copy(os.path.join(src_dir, "worker.log"), os.path.join(eng_dir, "worker.log"))
@@ -470,6 +469,12 @@ def main() -> int:
         for engine in engines:
             run_engine(run, engine)
         run.stage("teardown", "make down", evidence=[])
+        run.stage(
+            "static-checks",
+            f"{VENV_PY} -m scripts.static_checks --run {run.run_dir}",
+            evidence=["static-checks.json"],
+            log_path=os.path.join(run.run_dir, "static-checks.log"),
+        )
         build_report_input(run)
         write_manifest(run)
         write_sha256sums(run)
