@@ -1,7 +1,7 @@
 # Benchmark Report: Operaton 2.1.4 vs Flowable 8.0.0
 
-**Authoritative run**: `20260825T222245Z-3475095`
-**Git**: `3475095dcb91103965fe3b9aa2290b01e7f72c5f` (dirty=True)
+**Authoritative run**: `20260825T232057Z-cb35f54`
+**Git**: `cb35f54f5cb8a69f98b6cbdedcb6a6b8bb1ce1c7` (dirty=False)
 **Evidence confidence**: HIGH
 
 ## Executive conclusion
@@ -54,9 +54,9 @@ Both engines pass the full functional, durability, fault-injection and Phase 5 a
 |---|---|---|---|
 | Cancellation domain-first (outcome committed before engine call) | PASS | PASS | a01a-domain-first-cancel-engine-down.json |
 | Completion domain-first (outcome committed before engine call) | PASS | PASS | a02a-domain-completion-engine-down.json |
-| CompletionContract validated (APPROVE/REJECT; invalid rejected) | BLOCKED | PASS | test_completion.py + a02b-invalid-completion-contract.json |
+| CompletionContract validated (APPROVE/REJECT; invalid rejected) | PASS | PASS | a02b-invalid-completion-contract.json |
 | Engine END without domain action is NOT COMPLETED (anomaly recorded) | PASS | PASS | a02c-engine-ended-without-outcome.json |
-| Technical failure never assigns a business outcome | PASS | PASS | test_t15_engine_failure_storage_not_business_outcome |
+| Technical failure never assigns a business outcome | PASS | PASS | fault-junit :: test_t15_engine_failure_storage_not_business_outcome |
 
 ## Failure / recovery comparison
 
@@ -103,8 +103,8 @@ Incident walkthrough (identical request -> stuck external task -> diagnose -> re
 
 Part B methodology: clean DB, only PostgreSQL + the target engine, app/workers stopped, >=60s settle, >=5 docker-stats samples over ~60s, median RSS. Parity: both engines capped at cpus=2 and mem=1024m (see RESOURCE_METHODOLOGY.md).
 
-- Operaton 2.1.4: median idle RSS **308.7 MiB**, median CPU **0.4%** (STRICTLY COMPARABLE)
-- Flowable 8.0.0: median idle RSS **274.6 MiB**, median CPU **0.3%** (STRICTLY COMPARABLE)
+- Operaton 2.1.4: median idle RSS **319.7 MiB**, median CPU **0.2%** (STRICTLY COMPARABLE)
+- Flowable 8.0.0: median idle RSS **269.4 MiB**, median CPU **0.2%** (STRICTLY COMPARABLE)
 
 The Operaton distribution bundles Cockpit/Tasklist webapps (Tomcat) and a larger JVM runtime; the Flowable REST image is a leaner headless container. Under equivalent limits Operaton used more idle memory; both are well within the 1024m cap.
 
@@ -131,7 +131,7 @@ Rationale per category:
 - **Operations/debugging** — Operaton: ships Cockpit/Tasklist webapps (demo/demo) for incident diagnosis. Flowable: OSS REST image is headless; diagnosis is REST-only.
 - **BPMN/versioning** — Operaton: passes version pinning, timer and restart scenarios. Flowable: passes version pinning, timer and restart scenarios.
 - **Failure handling** — Operaton: retries reset via the standard external-task endpoint. Flowable: recovery requires a dead-letter job move.
-- **Resource footprint** — Operaton: median idle RSS 308.7 MiB (cpus=2, mem=1024m). Flowable: median idle RSS 274.6 MiB (cpus=2, mem=1024m).
+- **Resource footprint** — Operaton: median idle RSS 319.7 MiB (cpus=2, mem=1024m). Flowable: median idle RSS 269.4 MiB (cpus=2, mem=1024m).
 - **Documentation/ecosystem** — Operaton: mature, actively maintained. Flowable: mature, actively maintained.
 
 ## Evidence matrix
@@ -158,10 +158,10 @@ Adopt **Operaton** as the default headless durable BPMN runtime behind the `Work
 - Operational advantage: Cockpit/Tasklist webapps bundled with the REST image make incident diagnosis (find-process -> failed activity -> error -> retries -> retry action -> history) substantially easier.
 - Simpler integration surface: no dead-letter job workflow is required for recovery; retries reset via the standard external-task endpoint.
 
-**Main risk**: REST-only troubleshooting (no OSS management UI); diagnosing incidents relies entirely on the management/deadletter REST surface.
+**Main risk**: higher idle memory footprint (median RSS ~63 MiB above Flowable under identical 1024m cap) and the Run distro carries webapps that must be disabled/ignored for a headless deployment.
 
 **Switching cost**: MEDIUM. The WorkflowAdapter seam keeps the domain/outbox/dispatcher/reconciler/API identical; the engine-specific surface is adapters + workers + BPMN extensions + deployment overlays.
 
 ---
 
-Generated automatically from run evidence `20260825T222245Z-3475095` (manifest.json + report-input.json). Not derived from PROGRESS.md.
+Generated automatically from run evidence `20260825T232057Z-cb35f54` (manifest.json + report-input.json). Not derived from PROGRESS.md.

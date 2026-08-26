@@ -256,22 +256,31 @@ def main() -> int:
     A("|---|---|---|---|")
     arch = [
         ("Cancellation domain-first (outcome committed before engine call)",
-         "a01a-domain-first-cancel-engine-down.json", "a01a-domain-first-cancel-engine-down.json"),
+         "a01a-domain-first-cancel-engine-down.json", None, None),
         ("Completion domain-first (outcome committed before engine call)",
-         "a02a-domain-completion-engine-down.json", "a02a-domain-completion-engine-down.json"),
+         "a02a-domain-completion-engine-down.json", None, None),
         ("CompletionContract validated (APPROVE/REJECT; invalid rejected)",
-         "test_completion.py + a02b-invalid-completion-contract.json", "a02b-invalid-completion-contract.json"),
+         "a02b-invalid-completion-contract.json", "unit", "test_completion"),
         ("Engine END without domain action is NOT COMPLETED (anomaly recorded)",
-         "a02c-engine-ended-without-outcome.json", "a02c-engine-ended-without-outcome.json"),
+         "a02c-engine-ended-without-outcome.json", None, None),
         ("Technical failure never assigns a business outcome",
-         "test_t15_engine_failure_storage_not_business_outcome", "test_t15_engine_failure_storage_not_business_outcome"),
+         None, "fault", "test_t15_engine_failure_storage_not_business_outcome"),
     ]
-    for name, op_ev, fl_ev in arch:
-        op_ok = any(op_ev.rsplit(".", 1)[0] in f for f in data["operaton"]["evidence_files"]) or \
-            test_passed(data["operaton"]["fault_junit"], op_ev)
-        fl_ok = any(fl_ev.rsplit(".", 1)[0] in f for f in data["flowable"]["evidence_files"]) or \
-            test_passed(data["flowable"]["fault_junit"], fl_ev)
-        A(f"| {name} | {'PASS' if op_ok else 'BLOCKED'} | {'PASS' if fl_ok else 'BLOCKED'} | {op_ev} |")
+
+    def _arch_ok(data: dict, key: str, file_ev, junit_key, needle) -> bool:
+        if file_ev:
+            if any(file_ev.rsplit(".", 1)[0] in f for f in data[key]["evidence_files"]):
+                return True
+        if junit_key:
+            if test_passed(data[key][f"{junit_key}_junit"], needle):
+                return True
+        return False
+
+    for name, file_ev, junit_key, needle in arch:
+        op_ok = _arch_ok(data, "operaton", file_ev, junit_key, needle)
+        fl_ok = _arch_ok(data, "flowable", file_ev, junit_key, needle)
+        ev = file_ev or f"tests/{needle}.py (unit)" if junit_key == "unit" else file_ev or f"fault-junit :: {needle}"
+        A(f"| {name} | {'PASS' if op_ok else 'BLOCKED'} | {'PASS' if fl_ok else 'BLOCKED'} | {ev} |")
     A("")
 
     # ---- failure/recovery ----
@@ -433,7 +442,7 @@ def main() -> int:
     for r in reasons[winner.lower()]:
         A(f"- {r}")
     A("")
-    if winner == "operaton":
+    if winner.lower() == "operaton":
         A("**Main risk**: higher idle memory footprint (median RSS ~63 MiB above Flowable under "
           "identical 1024m cap) and the Run distro carries webapps that must be disabled/ignored for "
           "a headless deployment.")
