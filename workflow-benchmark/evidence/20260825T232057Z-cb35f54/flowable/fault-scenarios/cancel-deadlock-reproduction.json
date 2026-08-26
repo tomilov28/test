@@ -1,0 +1,184 @@
+{
+  "scenario": "deadlock",
+  "engine": "FLOWABLE",
+  "iterations": 25,
+  "recurrence": 0,
+  "events": [
+    {
+      "iteration": 0,
+      "request_id": "f9db563f-7aa1-474c-a3a6-51e70a8e84be",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 1,
+      "request_id": "f979f8c1-25ac-4564-9e09-57d91a7e6a75",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 2,
+      "request_id": "d2229d31-5686-4c49-a105-8b497c984cf5",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 3,
+      "request_id": "dd629152-53d5-4595-b2a2-85aa63841e09",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 4,
+      "request_id": "e1d27c19-9c7f-45b2-922e-aafbddca2440",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 5,
+      "request_id": "f86f7c52-7891-45bd-8da2-2a7ee86514f5",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 6,
+      "request_id": "44049f52-7994-4bf3-a1cc-986051182929",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 7,
+      "request_id": "8f9d03d5-57c0-483c-a6e5-a08f38c69a10",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 8,
+      "request_id": "fc407650-4290-4c42-8479-ab241e2ef25e",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 9,
+      "request_id": "fbcbbf58-b682-4c54-a208-29d9416e1315",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 10,
+      "request_id": "b5dc81d3-084e-4f31-8f20-717e92883fdb",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 11,
+      "request_id": "7f70de90-01b9-4236-bdff-28df4e02026d",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 12,
+      "request_id": "5f900067-b46b-4821-8b36-a869be5e054a",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 13,
+      "request_id": "4e727a82-e2b5-4d20-841b-5b39a6f308be",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 14,
+      "request_id": "38d384a7-53bd-482e-b4f5-4f056e94c89a",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 15,
+      "request_id": "422596bd-e73f-49de-b2db-c5cca1473cd3",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 16,
+      "request_id": "51d42388-c676-40f9-9a9b-80c2b59df845",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 17,
+      "request_id": "69276548-6241-43e8-8f53-02dbe986ef4c",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 18,
+      "request_id": "0bfc6bf6-58cc-443d-955c-7f6441559ed8",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 19,
+      "request_id": "b7c05ed8-fb3e-498b-af49-c3778cb8a9cc",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 20,
+      "request_id": "30c43ba4-104d-443c-9d76-ccce210eb2b5",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 21,
+      "request_id": "5c881516-ec25-445e-89ff-0f4d5cec00d0",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 22,
+      "request_id": "66f229fd-ce9f-4063-a37a-9494f69d1214",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 23,
+      "request_id": "1ae93972-8d3d-4fd2-a93b-15a471bb4cf1",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    },
+    {
+      "iteration": 24,
+      "request_id": "94b558dd-4349-4fc2-a805-abe20db2e31c",
+      "cancel_state": "DONE",
+      "attempts": 1,
+      "last_error": null
+    }
+  ],
+  "retries_converge": true
+}

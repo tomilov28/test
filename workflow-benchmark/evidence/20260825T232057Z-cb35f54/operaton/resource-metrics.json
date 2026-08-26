@@ -1,0 +1,86 @@
+{
+  "summary": {
+    "engine": "Operaton",
+    "version": "2.1.4",
+    "image_ref": "operaton/operaton:2.1.4",
+    "samples": 6,
+    "settle_seconds": 60,
+    "median_rss_bytes": 335229747,
+    "min_rss_bytes": 335020032,
+    "max_rss_bytes": 335649177,
+    "median_cpu_percent": 0.20500000000000002,
+    "max_cpu_percent": 5.93,
+    "sample_raw": [
+      {
+        "mem_usage_bytes": 335649177,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.22,
+        "container": "benchmark-operaton",
+        "id": "35ba4dbec56d"
+      },
+      {
+        "mem_usage_bytes": 335020032,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.16,
+        "container": "benchmark-operaton",
+        "id": "35ba4dbec56d"
+      },
+      {
+        "mem_usage_bytes": 335020032,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.19,
+        "container": "benchmark-operaton",
+        "id": "35ba4dbec56d"
+      },
+      {
+        "mem_usage_bytes": 335334604,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.75,
+        "container": "benchmark-operaton",
+        "id": "35ba4dbec56d"
+      },
+      {
+        "mem_usage_bytes": 335229747,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 5.93,
+        "container": "benchmark-operaton",
+        "id": "35ba4dbec56d"
+      },
+      {
+        "mem_usage_bytes": 335229747,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.18,
+        "container": "benchmark-operaton",
+        "id": "35ba4dbec56d"
+      }
+    ]
+  },
+  "parity": {
+    "cpu_limit_equal": true,
+    "mem_limit_equal": true,
+    "observed_cpu_limit": {
+      "cpus": 2
+    },
+    "comparable": true,
+    "verdict": "STRICTLY COMPARABLE"
+  },
+  "isolation": {
+    "containers": [
+      "benchmark-operaton",
+      "workflow-benchmark-postgres-1"
+    ],
+    "issues": [],
+    "valid": true
+  },
+  "identity": {
+    "container_id": "35ba4dbec56dbe11a14a89adb0349b18e93c93aed469c629f4deb74cb914d798",
+    "image_id": "sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+    "repo_digest": "operaton/operaton@sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+    "started_at": "2026-08-25T23:41:31.076709402Z",
+    "cpus": 0
+  },
+  "engine_probe": {
+    "name": "default",
+    "version": ""
+  }
+}

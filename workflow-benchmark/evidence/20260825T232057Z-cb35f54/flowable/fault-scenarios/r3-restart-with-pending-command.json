@@ -1,0 +1,48 @@
+{
+  "scenario": "r3",
+  "engine": "FLOWABLE",
+  "steps": [],
+  "before_restart": {
+    "request_id": "2af4e540-d193-464d-803d-ade241c581f9",
+    "command": {
+      "id": "39235732-3d49-45c8-a182-345c5ed6a1c4",
+      "request_id": "2af4e540-d193-464d-803d-ade241c581f9",
+      "command_type": "START_PROCESS",
+      "state": "PENDING",
+      "attempts": 0,
+      "last_error": null,
+      "payload": {
+        "process_key": "LONG_VISIT_POC",
+        "business_key": "REQ-0F3D76369247",
+        "variables": {
+          "initiator": "flowable-r3-0"
+        }
+      },
+      "created_at": "2026-08-25T23:51:55.622327Z",
+      "processed_at": null
+    }
+  },
+  "after_restart": {
+    "instance_id": "f6868cf7-a0df-11f1-9336-c6aa251d8923",
+    "command": {
+      "id": "39235732-3d49-45c8-a182-345c5ed6a1c4",
+      "request_id": "2af4e540-d193-464d-803d-ade241c581f9",
+      "command_type": "START_PROCESS",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "payload": {
+        "process_key": "LONG_VISIT_POC",
+        "business_key": "REQ-0F3D76369247",
+        "variables": {
+          "initiator": "flowable-r3-0"
+        }
+      },
+      "created_at": "2026-08-25T23:51:55.622327Z",
+      "processed_at": "2026-08-25T23:51:59.957030Z"
+    },
+    "engine_instances": [
+      "f6868cf7-a0df-11f1-9336-c6aa251d8923"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "url": "http://localhost:8081/flowable-rest/service/repository/deployments/85d63660-a0e1-11f1-9696-d6249e5e0df4",
+    "category": null,
+    "deploymentTime": "2026-08-26T00:03:09.869Z",
+    "id": "85d63660-a0e1-11f1-9696-d6249e5e0df4",
+    "name": "benchmark-fixture-credit_decision",
+    "parentDeploymentId": "85d63660-a0e1-11f1-9696-d6249e5e0df4",
+    "tenantId": ""
+  },
+  {
+    "url": "http://localhost:8081/flowable-rest/service/repository/deployments/8612a323-a0e1-11f1-9696-d6249e5e0df4",
+    "category": null,
+    "deploymentTime": "2026-08-26T00:03:10.265Z",
+    "id": "8612a323-a0e1-11f1-9696-d6249e5e0df4",
+    "name": "benchmark-fixture-long_visit_v1",
+    "parentDeploymentId": "8612a323-a0e1-11f1-9696-d6249e5e0df4",
+    "tenantId": ""
+  },
+  {
+    "url": "http://localhost:8081/flowable-rest/service/repository/deployments/8624a486-a0e1-11f1-9696-d6249e5e0df4",
+    "category": null,
+    "deploymentTime": "2026-08-26T00:03:10.382Z",
+    "id": "8624a486-a0e1-11f1-9696-d6249e5e0df4",
+    "name": "benchmark-fixture-long_visit_v2",
+    "parentDeploymentId": "8624a486-a0e1-11f1-9696-d6249e5e0df4",
+    "tenantId": ""
+  }
+]

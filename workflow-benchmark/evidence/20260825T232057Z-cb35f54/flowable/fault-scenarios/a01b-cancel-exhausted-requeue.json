@@ -1,0 +1,40 @@
+{
+  "scenario": "a01b",
+  "engine": "FLOWABLE",
+  "steps": [],
+  "exhausted": {
+    "command": {
+      "id": "ec7ddfe3-0b77-4290-b6a9-d285282657fe",
+      "request_id": "f4b091cf-d904-436c-b442-3c6108e56ef4",
+      "command_type": "CANCEL_PROCESS",
+      "state": "FAILED",
+      "attempts": 5,
+      "last_error": "_SimulatedConnectionError: simulated connection error (fault injection)",
+      "payload": {
+        "workflow_instance_id": "420b04db-a0e1-11f1-bb20-66ce5879ef8a",
+        "reason": "audit-a01"
+      },
+      "created_at": "2026-08-26T00:01:19.748640Z",
+      "processed_at": "2026-08-26T00:01:28.496610Z"
+    },
+    "request": "CLOSED/CANCELLED"
+  },
+  "after_requeue": {
+    "cancel_command": {
+      "id": "ec7ddfe3-0b77-4290-b6a9-d285282657fe",
+      "request_id": "f4b091cf-d904-436c-b442-3c6108e56ef4",
+      "command_type": "CANCEL_PROCESS",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "payload": {
+        "workflow_instance_id": "420b04db-a0e1-11f1-bb20-66ce5879ef8a",
+        "reason": "audit-a01"
+      },
+      "created_at": "2026-08-26T00:01:19.748640Z",
+      "processed_at": "2026-08-26T00:01:30.688871Z"
+    },
+    "engine_instance_state": "ENDED",
+    "request_outcome_unchanged": "CANCELLED"
+  }
+}

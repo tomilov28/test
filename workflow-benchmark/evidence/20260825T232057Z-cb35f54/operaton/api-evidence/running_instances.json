@@ -1,0 +1,13 @@
+[
+  {
+    "links": [],
+    "id": "c6fd6387-a0dc-11f1-bf3e-b66dddba0e69",
+    "definitionId": "LONG_VISIT_POC:1:9955c3f3-a0dc-11f1-bf3e-b66dddba0e69",
+    "businessKey": "REQ-70EFA0ED2C5D",
+    "caseInstanceId": null,
+    "ended": false,
+    "suspended": false,
+    "tenantId": null,
+    "definitionKey": "LONG_VISIT_POC"
+  }
+]

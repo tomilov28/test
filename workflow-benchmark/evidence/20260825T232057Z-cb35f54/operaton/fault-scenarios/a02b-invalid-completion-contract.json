@@ -1,0 +1,14 @@
+{
+  "scenario": "a02b",
+  "engine": "OPERATON",
+  "steps": [],
+  "contract_violation": {
+    "http_status": 422,
+    "detail": "completion contract violation: final_decision requires decision in ['APPROVE', 'REJECT'], got None",
+    "request_stays_active": true,
+    "work_item_stays_active": true
+  },
+  "cleanup": {
+    "outcome": "REJECTED"
+  }
+}

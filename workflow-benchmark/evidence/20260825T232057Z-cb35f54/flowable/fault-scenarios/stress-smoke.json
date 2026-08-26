@@ -1,0 +1,27 @@
+{
+  "scenario": "stress",
+  "engine": "FLOWABLE",
+  "n": 50,
+  "start": {
+    "requests_created": 50,
+    "all_instances_started": 50,
+    "start_elapsed_s": 11.58,
+    "throughput_start_per_s": 4.32
+  },
+  "instances_unique_per_request": true,
+  "external_drain": {
+    "elapsed_s": 12.55,
+    "remaining": 0
+  },
+  "completion": {
+    "closed": 50,
+    "all_completed": true,
+    "elapsed_s": 256.31,
+    "total_elapsed_s": 281.72,
+    "throughput_instances_per_s": 0.18
+  },
+  "no_failures": {
+    "failed_commands": 0,
+    "engine_failed_jobs": 0
+  }
+}

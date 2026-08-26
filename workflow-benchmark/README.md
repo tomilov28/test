@@ -75,7 +75,7 @@ Stack URLs after `make up-operaton` / `make demo-operaton`:
 
 | Component          | URL                                        |
 | ------------------ | ------------------------------------------ |
-| Swagger UI         | http://localhost:8080/engine-rest/swaggerui/ |
+| Engine REST        | http://localhost:8080/engine-rest          |
 | Operaton Cockpit   | http://localhost:8080/operaton/app/cockpit/ |
 | Operaton Tasklist  | http://localhost:8080/operaton/app/tasklist/ |
 | FastAPI docs       | http://localhost:8000/docs                 |

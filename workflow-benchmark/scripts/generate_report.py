@@ -12,8 +12,8 @@ manifest.json — never from PROGRESS.md. Covers:
   * operational troubleshooting
   * resource caveats
   * vendor lock-in + switching cost
-  * weighted scoring (Reliability 30 / Integration 25 / Ops 15 / BPMN 10 /
-    Failure 10 / Resource 5 / Docs 5)
+  * expert decision matrix (Reliability 30 / Integration 25 / Ops 15 / BPMN 10 /
+    Failure 10 / Resource 5 / Docs 5) with an explicit expert-judgement disclaimer
 
 Usage:
     .venv/bin/python -m scripts.generate_report --run <run_dir>
@@ -62,7 +62,61 @@ AUDIT_ROWS = [
     ("finite FaultController count", "tests/test_fault_injector.py"),
 ]
 
-R_SCENARIOS = ["r1", "r2", "r3", "r4", "r5", "stress", "a01a", "a01b", "a01c", "a02a", "a02b", "a02c"]
+# junit-referenced audit rows: exact testcase names that must be present in a
+# suite ("unit" = unit-junit.xml shared across engines; "audit" = per-engine
+# audit-junit.xml). A specific test PASS requires the exact testcase name.
+AUDIT_ROW_TESTS = {
+    "test_completion.py (unit)": ("unit", ["test_approve_maps_to_completed"]),
+    "tests/test_outbox_lease.py": ("audit", ["test_a03a_created_long_ago_but_claimed_now_not_stale"]),
+    "tests/test_outbox_lease.py a03b + test_dispatcher.py": ("audit", ["test_a03b_concurrent_claim_single_owner"]),
+    "tests/test_outbox_lease.py a03c": ("audit", ["test_a03c_crash_after_claim_rearmed_then_executes"]),
+    "tests/test_outbox_lease.py a03a/a03d": ("audit", ["test_a03a_created_long_ago_but_claimed_now_not_stale",
+                                                        "test_a03d_concurrent_rearm_and_start_no_duplicate_instance"]),
+    "test_dispatcher.py + test_fault_injection.py": ("unit", ["test_complete_task_state_already_achieved"]),
+    "tests/test_fault_injector.py": ("unit", ["test_fail_mode_injects_exactly_n_times"]),
+}
+
+# Restart/stress scenario files (per engine, under <run>/<engine>/fault-scenarios/).
+# A scenario PASS requires the file to exist, parse, and carry the expected
+# "scenario" id (stress additionally requires its recorded pass criteria).
+SCENARIO_FILES = {
+    "r1": "r1-restart-during-human-task.json",
+    "r2": "r2-restart-during-timer-wait.json",
+    "r3": "r3-restart-with-pending-command.json",
+    "r4": "r4-restart-post-engine-action.json",
+    "r5": "r5-restart-during-worker-lock.json",
+    "stress": "stress-smoke.json",
+}
+
+# Concrete api-evidence files that must exist per engine. Flowable names its
+# restart-trace files f07/f09 while Operaton uses t07/t09; the raw REST snapshot
+# set is engine-specific.
+MANDATORY_API_EVIDENCE = {
+    "operaton": [
+        "api-evidence/engine_info.json",
+        "api-evidence/deployments.json",
+        "api-evidence/process-definitions.json",
+        "api-evidence/running-instances.json",
+        "api-evidence/t07-full-restart.json",
+        "api-evidence/t09-durable-timer-restart.json",
+    ],
+    "flowable": [
+        "api-evidence/engine_info.json",
+        "api-evidence/deployments.json",
+        "api-evidence/process-definitions.json",
+        "api-evidence/running-instances.json",
+        "api-evidence/f07-full-restart.json",
+        "api-evidence/f09-durable-timer-restart.json",
+    ],
+}
+DURABILITY_FILES = {
+    "T07": {"operaton": "t07-full-restart.json", "flowable": "f07-full-restart.json"},
+    "T09": {"operaton": "t09-durable-timer-restart.json", "flowable": "f09-durable-timer-restart.json"},
+}
+MANDATORY_OPERATIONAL_EVIDENCE = [
+    "operational/demo.json",
+    "operational/incident.json",
+]
 
 WEIGHTS = {
     "Reliability/recovery": 30,
@@ -87,30 +141,78 @@ def load(run_dir: str) -> tuple[dict, dict]:
 
 
 def suite_status(suite: dict, name: str) -> str:
-    """PASS / FAIL / BLOCKED for a parsed junit dict."""
+    """PASS / FAIL / BLOCKED for a parsed junit dict.
+
+    PASS requires the suite to be present with zero failures, zero errors and
+    zero skipped tests.
+    """
     if not suite.get("present"):
         return "BLOCKED"
-    if suite.get("failures", 0) == 0 and suite.get("errors", 0) == 0:
+    if suite.get("failures", 0) == 0 and suite.get("errors", 0) == 0 and suite.get("skipped", 0) == 0:
         return "PASS"
     return "FAIL"
 
 
 def test_passed(suite: dict, needle: str) -> bool:
-    return any(needle in c for c in suite.get("testcases", []))
+    """True only when the exact testcase name (leaf after '::') equals needle."""
+    return any(c.split("::")[-1] == needle for c in suite.get("testcases", []))
 
 
-def evidence_conf(data: dict) -> str:
+def suite_present_pass(suite: dict) -> bool:
+    return suite_status(suite, "") == "PASS"
+
+
+def scenario_ok(run_dir: str, key: str, scen_id: str) -> bool:
+    """R1-R5/stress PASS only when the scenario JSON exists and parses.
+
+    The file must carry the expected scenario id; for the stress smoke the
+    recorded pass criteria (unique instance per request, zero failures) must be
+    true as well.
+    """
+    fname = SCENARIO_FILES[scen_id]
+    path = os.path.join(run_dir, key, "fault-scenarios", fname)
+    if not os.path.exists(path):
+        return False
+    try:
+        with open(path) as fh:
+            data = json.load(fh)
+    except Exception:
+        return False
+    if not isinstance(data, dict) or data.get("scenario") != scen_id:
+        return False
+    if scen_id == "stress":
+        nf = data.get("no_failures") or {}
+        return (data.get("instances_unique_per_request") is True
+                and nf.get("failed_commands") == 0
+                and nf.get("engine_failed_jobs") == 0)
+    return True
+
+
+def evidence_files_contain(data: dict, key: str, fragment: str) -> bool:
+    """True when evidence_files contains a path with the given fragment."""
+    return any(fragment in f for f in data[key].get("evidence_files", []))
+
+
+def evidence_conf(data: dict, run_dir: str) -> str:
+    """HIGH only when ALL mandatory evidence is present and valid per engine:
+    all three junit suites present+clean, resource metrics, every restart/stress
+    scenario parse, the concrete api-evidence + operational files, and the
+    operational incident path. Otherwise MEDIUM (<=2 gaps) or LOW.
+    """
     missing = []
     for key in ("operaton", "flowable"):
         e = data[key]
         for f in ("functional_junit", "fault_junit", "audit_junit"):
-            if not e[f].get("present"):
+            if not suite_present_pass(e[f]):
                 missing.append(f"{key}/{f}")
         if not e.get("resource_metrics"):
             missing.append(f"{key}/resource-metrics.json")
-        scen = e.get("fault_scenarios", {})
-        if len(scen) < 6:
-            missing.append(f"{key}/fault-scenarios/")
+        for scen in SCENARIO_FILES:
+            if not scenario_ok(run_dir, key, scen):
+                missing.append(f"{key}/fault-scenarios/{SCENARIO_FILES[scen]}")
+        for frag in MANDATORY_API_EVIDENCE[key] + MANDATORY_OPERATIONAL_EVIDENCE:
+            if not evidence_files_contain(data, key, frag):
+                missing.append(f"{key}/{frag}")
     if not missing:
         return "HIGH"
     if len(missing) <= 2:
@@ -119,7 +221,13 @@ def evidence_conf(data: dict) -> str:
 
 
 def rate(data: dict) -> dict:
-    """Data-driven scoring with documented rationale. Returns per-engine scores."""
+    """Expert decision matrix with explicit per-category rationale.
+
+    Scores are expert judgement informed by benchmark evidence; they are not
+    statistically derived benchmark measurements. Automated measurements are
+    used only where actually measured (e.g. median idle RSS from
+    resource-metrics.json).
+    """
     op, fl = data["operaton"], data["flowable"]
     op_rss = op.get("resource_metrics", {}).get("summary", {}).get("median_rss_bytes")
     fl_rss = fl.get("resource_metrics", {}).get("summary", {}).get("median_rss_bytes")
@@ -173,11 +281,21 @@ def main() -> int:
         with open(os.path.join(args.run, "static-checks.json")) as fh:
             sc = json.load(fh)
 
-    conf = evidence_conf(data)
+    conf = evidence_conf(data, args.run)
     scores = rate(data)
     op_total = scores["operaton"]["total"]
     fl_total = scores["flowable"]["total"]
     winner = "Operaton" if op_total >= fl_total else "Flowable"
+
+    # Resource delta is computed from the measured median idle RSS, not a
+    # hardcoded figure.
+    op_res = data["operaton"].get("resource_metrics", {})
+    fl_res = data["flowable"].get("resource_metrics", {})
+    op_s = op_res.get("summary", {})
+    fl_s = fl_res.get("summary", {})
+    op_rss_mib = round(op_s.get("median_rss_bytes", 0) / 1024 / 1024, 1) if op_s.get("median_rss_bytes") else None
+    fl_rss_mib = round(fl_s.get("median_rss_bytes", 0) / 1024 / 1024, 1) if fl_s.get("median_rss_bytes") else None
+    rss_delta_mib = round(abs((op_rss_mib or 0) - (fl_rss_mib or 0))) if op_rss_mib and fl_rss_mib else None
 
     lines: list[str] = []
     A = lines.append
@@ -192,13 +310,16 @@ def main() -> int:
     A(
         f"Both engines pass the full functional, durability, fault-injection and Phase 5 audit "
         f"suites with **zero failures / zero errors / zero unexpected skips**. Reliability is "
-        f"therefore judged equal (30/30 each). The weighted score favours **{winner}** "
+        f"therefore judged equal (30/30 each). The expert decision matrix favours **{winner}** "
         f"({op_total}/100 Operaton vs {fl_total}/100 Flowable): Operaton wins on operational "
         f"troubleshooting (bundled Cockpit/Tasklist webapps, no UI at all in the Flowable OSS REST "
         f"image) and marginally on integration simplicity; Flowable wins on idle resource footprint "
         f"and is a strong REST-only alternative. Recommended headless durable BPMN runtime behind the "
         f"`WorkflowAdapter`: **{winner}**."
     )
+    A("")
+    A("> Scores are expert judgement informed by benchmark evidence; they are not statistically "
+      "derived benchmark measurements.")
     A("")
     A(f"> Critical reliability/architecture findings: none for either engine. A critical failure "
       f"would override the score; none was observed across the authoritative runs.")
@@ -213,15 +334,16 @@ def main() -> int:
         cells = []
         for key in ("operaton", "flowable"):
             if suite_kind == "durability":
-                files = data[key]["evidence_files"]
-                ok = any(needle in f for f in files)
-                cells.append("PASS" if ok else "BLOCKED")
+                # durability PASS requires the concrete restart-trace evidence file
+                exp = DURABILITY_FILES[tno][key]
+                cells.append("PASS" if evidence_files_contain(data, key, exp) else "BLOCKED")
             elif suite_kind == "functional":
                 cells.append("PASS" if test_passed(data[key]["functional_junit"], needle) else "FAIL")
             else:
                 cells.append("PASS" if test_passed(data[key]["fault_junit"], needle) else "FAIL")
         if suite_kind == "durability":
-            ev = f"{needle} evidence in api-evidence/ (per engine)"
+            ev = (f"api-evidence/{DURABILITY_FILES[tno]['operaton']} / "
+                  f"{DURABILITY_FILES[tno]['flowable']} (per engine)")
         elif suite_kind == "functional":
             ev = f"functional-junit.xml :: {needle}"
         else:
@@ -237,14 +359,15 @@ def main() -> int:
     for name, evidence in AUDIT_ROWS:
         row = []
         for key in ("operaton", "flowable"):
-            scen = data[key]["fault_scenarios"]
-            if evidence.startswith("test"):
-                # unit/lease evidence: present if audit junit exists and passes
-                ok = data[key]["audit_junit"].get("present") and data[key]["audit_junit"].get("failures", 0) == 0
+            if evidence in AUDIT_ROW_TESTS:
+                # specific-test evidence: exact testcase name(s) required
+                suite_kind, needles = AUDIT_ROW_TESTS[evidence]
+                suite = data["unit"] if suite_kind == "unit" else data[key]["audit_junit"]
+                ok = suite_present_pass(suite) and all(test_passed(suite, n) for n in needles)
                 row.append("PASS" if ok else "BLOCKED")
             else:
                 base = evidence.rsplit(".", 1)[0]
-                ok = any(base in f for f in data[key]["evidence_files"])
+                ok = evidence_files_contain(data, key, base)
                 row.append("PASS" if ok else "BLOCKED")
         A(f"| {name} | {row[0]} | {row[1]} | {evidence} |")
     A("")
@@ -288,17 +411,25 @@ def main() -> int:
     A("")
     A("| Scenario | Operaton | Flowable |")
     A("|---|---|---|")
-    A("| R1 app restart during human task | PASS | PASS |")
-    A("| R2 app restart during timer wait | PASS | PASS |")
-    A("| R3 restart with PENDING command | PASS | PASS |")
-    A("| R4 restart post engine action | PASS | PASS |")
-    A("| R5 worker lock across restart | PASS | PASS |")
-    A("| 50-instance stress smoke | PASS | PASS |")
-    A("| Cancel/deadlock recurrence | n/a | recorded (0 in Phase 5 run; see fault-scenarios/cancel-deadlock-reproduction.json) |")
-    A("| Lost START response (T12) | PASS | PASS |")
-    A("| Lost COMPLETE response (T13) | PASS | PASS |")
-    A("| Lost CANCEL response (T14) | PASS | PASS |")
-    A("| Exhausted technical retries (T15) | PASS | PASS |")
+    for scen, label in [("r1", "R1 app restart during human task"),
+                        ("r2", "R2 app restart during timer wait"),
+                        ("r3", "R3 restart with PENDING command"),
+                        ("r4", "R4 restart post engine action"),
+                        ("r5", "R5 worker lock across restart"),
+                        ("stress", "50-instance stress smoke")]:
+        op = "PASS" if scenario_ok(args.run, "operaton", scen) else "BLOCKED"
+        fl = "PASS" if scenario_ok(args.run, "flowable", scen) else "BLOCKED"
+        A(f"| {label} | {op} | {fl} |")
+    deadlock_op = evidence_files_contain(data, "operaton", "cancel-deadlock-reproduction")
+    deadlock_fl = evidence_files_contain(data, "flowable", "cancel-deadlock-reproduction")
+    A(f"| Cancel/deadlock recurrence | {'recorded' if deadlock_op else 'n/a'} | "
+      f"{'recorded' if deadlock_fl else 'n/a'} | "
+      f"{'fault-scenarios/cancel-deadlock-reproduction.json' if (deadlock_op or deadlock_fl) else 'no reproduction file in this run (cancel covered by a01a/a01b/a01c)'} |")
+    for tno, needle, _suite, desc in [(r, n, s, d) for r, n, s, d in T_MATRIX if s == "fault"]:
+        label = desc[0].upper() + desc[1:]
+        op = "PASS" if test_passed(data["operaton"]["fault_junit"], needle) else "FAIL"
+        fl = "PASS" if test_passed(data["flowable"]["fault_junit"], needle) else "FAIL"
+        A(f"| {label} ({tno}) | {op} | {fl} |")
     A("")
 
     # ---- integration complexity ----
@@ -349,16 +480,12 @@ def main() -> int:
       ">=60s settle, >=5 docker-stats samples over ~60s, median RSS. Parity: both engines capped at "
       "cpus=2 and mem=1024m (see RESOURCE_METHODOLOGY.md).")
     A("")
-    op_rm = data["operaton"].get("resource_metrics", {})
-    fl_rm = data["flowable"].get("resource_metrics", {})
-    op_s = op_rm.get("summary", {})
-    fl_s = fl_rm.get("summary", {})
-    A(f"- Operaton 2.1.4: median idle RSS **{op_s.get('median_rss_bytes', 0)/1024/1024:.1f} MiB**, "
+    A(f"- Operaton 2.1.4: median idle RSS **{op_rss_mib or 0:.1f} MiB**, "
       f"median CPU **{op_s.get('median_cpu_percent', 0):.1f}%** "
-      f"({op_rm.get('parity', {}).get('verdict', '?')})")
-    A(f"- Flowable 8.0.0: median idle RSS **{fl_s.get('median_rss_bytes', 0)/1024/1024:.1f} MiB**, "
+      f"({op_res.get('parity', {}).get('verdict', '?')})")
+    A(f"- Flowable 8.0.0: median idle RSS **{fl_rss_mib or 0:.1f} MiB**, "
       f"median CPU **{fl_s.get('median_cpu_percent', 0):.1f}%** "
-      f"({fl_rm.get('parity', {}).get('verdict', '?')})")
+      f"({fl_res.get('parity', {}).get('verdict', '?')})")
     A("")
     A("The Operaton distribution bundles Cockpit/Tasklist webapps (Tomcat) and a larger JVM runtime; "
       "the Flowable REST image is a leaner headless container. Under equivalent limits Operaton used "
@@ -376,8 +503,13 @@ def main() -> int:
       f"deployment overlays and worker implementations must be re-created.")
     A("")
 
-    # ---- scoring ----
-    A("## Scoring")
+    # ---- expert decision matrix ----
+    A("## Expert decision matrix")
+    A("")
+    A("Scores are expert judgement informed by benchmark evidence; they are not "
+      "statistically derived benchmark measurements. Each score carries an explicit "
+      "rationale; automated measurements (median idle RSS) feed only the Resource "
+      "footprint row.")
     A("")
     A("| Category | Weight | Operaton | Flowable |")
     A("|---|---:|---:|---:|")
@@ -385,7 +517,7 @@ def main() -> int:
         A(f"| {cat} | {weight}% | {scores['operaton']['scores'][cat]['score']} | {scores['flowable']['scores'][cat]['score']} |")
     A(f"| **Total** | **100%** | **{op_total}** | **{fl_total}** |")
     A("")
-    A("Rationale per category:")
+    A("Rationale per category (expert-assigned scores):")
     for cat in WEIGHTS:
         A(f"- **{cat}** — Operaton: {scores['operaton']['scores'][cat]['rationale']}. "
           f"Flowable: {scores['flowable']['scores'][cat]['rationale']}.")
@@ -394,31 +526,60 @@ def main() -> int:
     # ---- evidence matrix ----
     A("## Evidence matrix")
     A("")
-    A("| Evidence | Operaton | Flowable |")
-    A("|---|---|---|")
-    for ev_name, key in [
-        ("functional JUnit", "functional_junit"),
-        ("fault JUnit", "fault_junit"),
-        ("audit regressions", "audit_junit"),
-        ("restart evidence", "evidence_files"),
-        ("timer evidence", "evidence_files"),
-        ("raw REST evidence", "evidence_files"),
-        ("engine logs", "evidence_files"),
-        ("resource samples", "resource_metrics"),
-        ("operational incident path", "evidence_files"),
-    ]:
-        def present(e, k, probe=None):
-            if k == "evidence_files":
-                return any((probe or ev_name.lower().replace(" ", "-")) in f for f in e[k]) or bool(e[k])
-            if k == "resource_metrics":
-                return bool(e.get(k))
-            return e.get(k, {}).get("present", False)
-        op = "PRESENT" if present(data["operaton"], key) else "MISSING"
-        fl = "PRESENT" if present(data["flowable"], key) else "MISSING"
-        A(f"| {ev_name} | {op} | {fl} |")
+    A("| Evidence | Expected file(s) | Operaton | Flowable |")
+    A("|---|---|---|---|")
+    # concrete expected file/pattern per evidence type; never bool(evidence_files)
+    EVIDENCE_PROBES = [
+        ("functional JUnit", "functional-junit.xml present + 0 failures/errors/skips", "functional_junit", None),
+        ("fault JUnit", "fault-junit.xml present + 0 failures/errors/skips", "fault_junit", None),
+        ("audit regressions", "audit-junit.xml present + 0 failures/errors/skips", "audit_junit", None),
+        ("restart evidence (r1-r5)", "fault-scenarios/r1..r5 JSON files parse", "scenarios", None),
+        ("timer evidence", "api-evidence/{t07|f07}-full-restart.json + {t09|f09}-durable-timer-restart.json", "timer", None),
+        ("raw REST evidence", "api-evidence/engine_info,deployments,process-definitions,running-instances", "files", "api-evidence"),
+        ("engine logs", "engine.log + app.log recorded in evidence_files", "files", "logs"),
+        ("resource samples", "resource-metrics.json with summary", "resource_metrics", None),
+        ("operational incident path", "operational/demo.json + operational/incident.json", "files", MANDATORY_OPERATIONAL_EVIDENCE),
+    ]
+    for ev_name, expected, kind, probes in EVIDENCE_PROBES:
+        cells = []
+        for key in ("operaton", "flowable"):
+            if kind == "scenarios":
+                ok = all(scenario_ok(args.run, key, s) for s in ("r1", "r2", "r3", "r4", "r5"))
+            elif kind == "timer":
+                ok = all(evidence_files_contain(data, key, p)
+                         for p in (DURABILITY_FILES["T07"][key], DURABILITY_FILES["T09"][key]))
+            elif kind == "files":
+                if probes == "api-evidence":
+                    ok = all(evidence_files_contain(data, key, p) for p in MANDATORY_API_EVIDENCE[key])
+                elif probes == "logs":
+                    ok = evidence_files_contain(data, key, "engine.log") and evidence_files_contain(data, key, "app.log")
+                else:
+                    ok = all(evidence_files_contain(data, key, p) for p in probes)
+            elif kind == "resource_metrics":
+                ok = bool(data[key].get("resource_metrics", {}).get("summary"))
+            else:
+                ok = suite_present_pass(data[key][kind])
+            cells.append("PRESENT" if ok else "MISSING")
+        A(f"| {ev_name} | {expected} | {cells[0]} | {cells[1]} |")
     A("")
     A(f"> Missing mandatory evidence above would be reported as FAIL/BLOCKED, not PASS. "
-      f"Current run: all mandatory evidence present -> confidence {conf}.")
+      f"Current run: all mandatory evidence present and valid -> confidence {conf}.")
+    A("")
+
+    # ---- independent-audit caveats ----
+    A("## Independent-audit caveats")
+    A("")
+    A("- The 22+22+10 (Operaton) and 23+23+10 (Flowable) functional/fault/audit "
+      "suites are repeated runs of overlapping test sets, not that many unique cases.")
+    A("- The 97/100 vs 91/100 totals are an expert decision matrix informed by "
+      "benchmark evidence, not a statistically derived result.")
+    A("- `query-before-start` provides retry idempotency but not strict exactly-once "
+      "under overlapping dispatch after lease expiry (see concurrency regression C01).")
+    A("- Flowable's ecosystem is substantially larger; the Operaton selection rests "
+      "primarily on operational fit.")
+    A("")
+    A("The Operaton recommendation stands unless the new concurrency regression "
+      "tests (C01/C02) expose a critical defect.")
     A("")
 
     # ---- recommendation ----
@@ -443,9 +604,10 @@ def main() -> int:
         A(f"- {r}")
     A("")
     if winner.lower() == "operaton":
-        A("**Main risk**: higher idle memory footprint (median RSS ~63 MiB above Flowable under "
-          "identical 1024m cap) and the Run distro carries webapps that must be disabled/ignored for "
-          "a headless deployment.")
+        delta = f"~{rss_delta_mib} MiB" if rss_delta_mib is not None else "n/a"
+        A(f"**Main risk**: higher idle memory footprint (median RSS {delta} above Flowable under "
+          f"identical 1024m cap) and the Run distro carries webapps that must be disabled/ignored for "
+          f"a headless deployment.")
     else:
         A("**Main risk**: REST-only troubleshooting (no OSS management UI); diagnosing incidents relies "
           "entirely on the management/deadletter REST surface.")
@@ -457,7 +619,8 @@ def main() -> int:
     A("---")
     A("")
     A(f"Generated automatically from run evidence `{run_id}` (manifest.json + report-input.json). "
-      f"Not derived from PROGRESS.md.")
+      f"Not derived from PROGRESS.md. Scores in the expert decision matrix are expert "
+      f"judgement informed by benchmark evidence, not statistically derived measurements.")
 
     out = os.path.join(ROOT, "REPORT.md")
     with open(out, "w") as fh:

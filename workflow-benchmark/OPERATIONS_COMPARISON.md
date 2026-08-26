@@ -27,8 +27,8 @@ engine instance id, the management URLs and credentials.
 
 | Engine | Result | Outcome |
 | ------ | ------ | ------- |
-| Operaton 2.1.4 | PASS (see `artifacts/operaton/faults/ops_demo_demo.json`) | `COMPLETED` |
-| Flowable 8.0.0 | PASS (see `artifacts/flowable/faults/ops_demo_demo.json`) | `COMPLETED` |
+| Operaton 2.1.4 | PASS (see `evidence/20260825T232057Z-cb35f54/operaton/operational/demo.json`) | `COMPLETED` |
+| Flowable 8.0.0 | PASS (see `evidence/20260825T232057Z-cb35f54/flowable/operational/demo.json`) | `COMPLETED` |
 
 Management surfaces used by an operator after the demo:
 
@@ -57,7 +57,7 @@ process to a completed outcome.
   then the external worker completes the task.
 - UI path (Cockpit): Process Instances -> search by business key -> Incidents
   tab -> Retry (or set retries via REST).
-- Evidence: `artifacts/operaton/faults/ops_demo_incident.json`.
+- Evidence: `evidence/20260825T232057Z-cb35f54/operaton/operational/incident.json`.
 
 ### Flowable (OSS)
 
@@ -73,7 +73,7 @@ process to a completed outcome.
 - Recovery action: `POST /service/management/deadletter-jobs/{job_id}
   {"action": "move"}` moves the job back from the dead-letter queue to the
   normal queue, then the external worker completes it.
-- Evidence: `artifacts/flowable/faults/ops_demo_incident.json`.
+- Evidence: `evidence/20260825T232057Z-cb35f54/flowable/operational/incident.json`.
 
 ## Mechanics that differ (and why the contract still holds)
 

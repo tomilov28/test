@@ -1,0 +1,144 @@
+{
+  "scenario": "f07",
+  "steps": [
+    {
+      "step": "start",
+      "request_id": "2dfe3d09-42b9-42a7-85ce-6725b7db0bbe",
+      "instance_id": "3f811067-a0df-11f1-982a-a6d0f927b750"
+    },
+    {
+      "step": "partial progress",
+      "completed": [
+        "finance_check"
+      ]
+    }
+  ],
+  "before_restart": {
+    "active_activities": [
+      "ParallelJoin",
+      "relative_check"
+    ],
+    "work_items": [
+      [
+        "finance_check",
+        "COMPLETED"
+      ],
+      [
+        "relative_check",
+        "ACTIVE"
+      ]
+    ]
+  },
+  "after_restart": {
+    "active_activities": [
+      "ParallelJoin",
+      "relative_check"
+    ],
+    "request_state": "ACTIVE",
+    "work_items": [
+      [
+        "finance_check",
+        "COMPLETED"
+      ],
+      [
+        "relative_check",
+        "ACTIVE"
+      ]
+    ]
+  },
+  "reconcile_after_restart": {
+    "summary": {
+      "requests_seen": 12,
+      "tasks_seen": 1,
+      "work_items_upserted": 1,
+      "completed_requests": 0,
+      "errors": [],
+      "anomalies": [
+        {
+          "request_id": "f588e26c-73cf-43d0-a4b4-bef0a631dd7a",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "eee45013-a0de-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "297dbcd6-008f-438e-a225-4bb65f6c8c2c",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "f02b27ff-a0de-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "feb3fb9b-1720-4b6a-8f2a-9567cf72a5c7",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "0a8f988c-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "7f2701aa-64f0-4910-a5f7-dbcb663822a2",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "0d27cfc4-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "b288a833-5a14-4dbd-bf09-674e0f69d81b",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "0e65ce22-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "84be3338-bc0c-4a84-8f1c-3fa0bcb06f13",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "12223a1f-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "c72e3ff7-00ff-42fd-bc37-2d526b8e0612",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "14a33fb9-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "3a274136-f07c-4fa5-925f-8b194b99e429",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "2e412b4c-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "6616368e-c0df-4b40-b7a9-75de04a6cb06",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "3801a8f5-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "fecde968-e4f1-43ef-b1d6-5785354989bc",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "3a73453f-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        },
+        {
+          "request_id": "313f1d08-9226-4aa6-8a97-e6c6c6d556d4",
+          "engine": "FLOWABLE",
+          "workflow_instance_id": "3bb1dfc9-a0df-11f1-982a-a6d0f927b750",
+          "kind": "engine_ended_without_domain_outcome",
+          "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+        }
+      ]
+    },
+    "work_item_count": 2
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED",
+    "instance_state": "ENDED",
+    "history_events": 19
+  }
+}

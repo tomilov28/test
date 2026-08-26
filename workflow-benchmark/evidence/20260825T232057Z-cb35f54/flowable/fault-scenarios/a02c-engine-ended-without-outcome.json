@@ -1,0 +1,173 @@
+{
+  "scenario": "a02c",
+  "engine": "FLOWABLE",
+  "steps": [],
+  "after_reconcile": {
+    "request_state": "ACTIVE",
+    "request_outcome": null,
+    "reconcile_anomalies": [
+      {
+        "request_id": "f588e26c-73cf-43d0-a4b4-bef0a631dd7a",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "eee45013-a0de-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "297dbcd6-008f-438e-a225-4bb65f6c8c2c",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "f02b27ff-a0de-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "feb3fb9b-1720-4b6a-8f2a-9567cf72a5c7",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "0a8f988c-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "7f2701aa-64f0-4910-a5f7-dbcb663822a2",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "0d27cfc4-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "b288a833-5a14-4dbd-bf09-674e0f69d81b",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "0e65ce22-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "84be3338-bc0c-4a84-8f1c-3fa0bcb06f13",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "12223a1f-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "c72e3ff7-00ff-42fd-bc37-2d526b8e0612",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "14a33fb9-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "3a274136-f07c-4fa5-925f-8b194b99e429",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "2e412b4c-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "6616368e-c0df-4b40-b7a9-75de04a6cb06",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "3801a8f5-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "fecde968-e4f1-43ef-b1d6-5785354989bc",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "3a73453f-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "313f1d08-9226-4aa6-8a97-e6c6c6d556d4",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "3bb1dfc9-a0df-11f1-982a-a6d0f927b750",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "c0e862b3-8b1e-49ff-81b9-71339402ac66",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "7d3cbe0c-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "8d41ff17-52a8-454b-97a9-1729f88fc5c2",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "7e7c42f8-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "0be29492-5a34-48d8-bc86-cab1e207136a",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "95476025-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "cb8694d8-a199-4c16-83cb-e62a875c8047",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "9a459add-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "1fa3401e-959b-4d40-8431-ab799e62a7a3",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "9b83c04b-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "1892263b-e873-4aaa-b6c7-1b8758388d8c",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "9f4a6578-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "66403269-562f-4297-99f2-a8c9544228ec",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "a1c7e8a2-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "b4fd6fc5-eba8-4cd2-b941-a413b3d1c7dd",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "c0288c65-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "6dade8f2-47cf-400b-aaa4-ded12b4a8964",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "c9e86dce-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "ea47ab2d-95f8-4284-8220-95bbff664e0b",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "cc57c028-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "4763f4c1-3ee1-4a75-a0ec-49d6bbcf6d82",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "cd9cea62-a0df-11f1-9336-c6aa251d8923",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      },
+      {
+        "request_id": "f8062f5c-5387-493a-a4dc-1673c6794909",
+        "engine": "FLOWABLE",
+        "workflow_instance_id": "81f48f47-a0e1-11f1-9696-d6249e5e0df4",
+        "kind": "engine_ended_without_domain_outcome",
+        "detail": "engine instance ended but no final domain action was recorded; request left ACTIVE"
+      }
+    ],
+    "completed_requests": 0
+  }
+}

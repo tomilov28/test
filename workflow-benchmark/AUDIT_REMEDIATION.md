@@ -62,16 +62,16 @@ anomaly and the request stays `ACTIVE`.
 
 - `a01a` - cancel while the engine is down: request is `CLOSED/CANCELLED`
   immediately; convergence completes when the engine returns (no requeue
-  needed). Evidence: `artifacts/operaton/faults/a01a-domain-first-cancel-engine-down.json`.
+  needed). Evidence: `evidence/20260825T232057Z-cb35f54/operaton/fault-scenarios/a01a-domain-first-cancel-engine-down.json`.
 - `a01b` - cancel while the engine outage outlasts the 5-attempt retry budget:
   the command reaches `FAILED` but the request stays `CLOSED/CANCELLED`.
   Recovery is the documented `/admin/commands/{id}/requeue`; after requeue the
   engine instance is terminated and the domain outcome is untouched.
-  Evidence: `artifacts/operaton/faults/a01b-cancel-exhausted-requeue.json`.
+  Evidence: `evidence/20260825T232057Z-cb35f54/operaton/fault-scenarios/a01b-cancel-exhausted-requeue.json`.
 - `a01c` - cancel arrives before `START_PROCESS` is dispatched: the process is
   never started. If an earlier ambiguous attempt already created an instance,
   it is converged (terminated) so no orphan survives. Evidence:
-  `artifacts/operaton/faults/a01c-cancel-before-start.json`.
+  `evidence/20260825T232057Z-cb35f54/operaton/fault-scenarios/a01c-cancel-before-start.json`.
 
 **Locked in by:** `tests/test_fault_injection.py::test_t14_lost_cancel_response_idempotent_termination`,
 `tests/test_dispatcher.py` (A01/A01c), scenario scripts a01a/a01b/a01c.
@@ -92,17 +92,19 @@ convergence, A04) and never writes a business outcome.
 
 **Sub-findings:**
 
-- `a02a` - completion while the engine is down: command reaches `FAILED`,
-  request stays `ACTIVE`, outcome stays `None`; requeue converges the engine
-  task without touching the domain result. Evidence:
-  `artifacts/operaton/faults/a02a-domain-completion-engine-down.json`.
+- `a02a` - completion while the engine is down: the final domain action is
+  committed immediately in the API transaction (`Request` -> `CLOSED`, outcome
+  `COMPLETED`/`REJECTED`); the `COMPLETE_TASK` command stays `PENDING` and
+  converges the engine task after the engine returns, without re-deciding the
+  business outcome. Evidence:
+  `evidence/20260825T232057Z-cb35f54/operaton/fault-scenarios/a02a-domain-completion-engine-down.json`.
 - `a02b` - invalid completion contract (e.g. `final_decision` without
   `APPROVE`/`REJECT`) is rejected by the API. Evidence:
-  `artifacts/operaton/faults/a02b-invalid-completion-contract.json`.
+  `evidence/20260825T232057Z-cb35f54/operaton/fault-scenarios/a02b-invalid-completion-contract.json`.
 - `a02c` - engine process ends without a domain outcome: the reconciler
   records an `engine_ended_without_domain_outcome` anomaly and leaves the
   request `ACTIVE` (no business decision). Evidence:
-  `artifacts/operaton/faults/a02c-engine-ended-without-outcome.json`.
+  `evidence/20260825T232057Z-cb35f54/operaton/fault-scenarios/a02c-engine-ended-without-outcome.json`.
 
 **Locked in by:** `tests/test_completion.py`, `tests/test_fault_injection.py::test_t13`,
 `tests/test_fault_injection.py::test_t15`, `tests/test_reconciler.py` (A02c).

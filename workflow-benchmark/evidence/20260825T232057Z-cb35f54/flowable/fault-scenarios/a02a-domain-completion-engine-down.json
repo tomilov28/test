@@ -1,0 +1,33 @@
+{
+  "scenario": "a02a",
+  "engine": "FLOWABLE",
+  "steps": [],
+  "domain_outcome_immediate": {
+    "lifecycle_state": "CLOSED",
+    "outcome": "COMPLETED",
+    "closed_at": "2026-08-26T00:02:09.800236Z"
+  },
+  "complete_task_state": "DONE",
+  "convergence": {
+    "complete_task": {
+      "id": "d7a34d40-c832-4c64-83c0-883052089bf2",
+      "request_id": "d1a34ce3-86a9-468a-9743-64a4e5c77bea",
+      "command_type": "COMPLETE_TASK",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "payload": {
+        "work_item_id": "407b502a-43fc-40ea-9fe1-d43b56cf1d9f",
+        "external_task_id": "60a83d40-a0e1-11f1-bb20-66ce5879ef8a",
+        "task_definition_key": "final_decision",
+        "data": {
+          "decision": "APPROVE"
+        },
+        "version": 1
+      },
+      "created_at": "2026-08-26T00:02:09.798606Z",
+      "processed_at": "2026-08-26T00:02:32.376907Z"
+    },
+    "engine_instance_state": "ENDED"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "mode": "incident",
+  "engine": "FLOWABLE",
+  "request_id": "a2de6ade-4088-48b4-ba5f-e0dbcd93d8ba",
+  "instance_id": "d9658261-a0e1-11f1-9696-d6249e5e0df4",
+  "terminal_failure": {
+    "job_id": "d965d08a-a0e1-11f1-9696-d6249e5e0df4",
+    "action": "fail",
+    "retries": 0
+  },
+  "diagnosis": {
+    "find_process": {
+      "state": "ACTIVE",
+      "instance_id": "d9658261-a0e1-11f1-9696-d6249e5e0df4"
+    },
+    "activity": {
+      "stuck_on": "load_prisoner_data",
+      "active": [
+        "load_prisoner_data"
+      ]
+    },
+    "failure": [
+      {
+        "job_id": "d965d08a-a0e1-11f1-9696-d6249e5e0df4",
+        "retries": 0,
+        "exception_message": "external service down (simulated terminal failure)"
+      }
+    ],
+    "error": {
+      "failed_jobs": 1,
+      "message": "external service down (simulated terminal failure)"
+    },
+    "retries": {
+      "remaining": 0,
+      "expected_terminal": true
+    },
+    "history": [
+      "HistoryEvent(activity_id='StartEvent_1', activity_type='startEvent', event_type='ended', started_at='2026-08-26T00:05:30.060Z', ended_at='2026-08-26T00:05:30.061Z', detail={})",
+      "HistoryEvent(activity_id='Flow_1', activity_type='sequenceFlow', event_type='ended', started_at='2026-08-26T00:05:30.061Z', ended_at='2026-08-26T00:05:30.061Z', detail={})",
+      "HistoryEvent(activity_id='load_prisoner_data', activity_type='externalWorkerServiceTask', event_type='started', started_at='2026-08-26T00:05:30.061Z', ended_at=None, detail={})"
+    ],
+    "rest_actions": {
+      "GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9658261-a0e1-11f1-9696-d6249e5e0df4": 1,
+      "GET http://localhost:8081/flowable-rest/service/runtime/executions": 1,
+      "GET http://localhost:8081/flowable-rest/service/management/deadletter-jobs": 1,
+      "GET http://localhost:8081/flowable-rest/service/history/historic-activity-instances": 1
+    }
+  },
+  "recovery": {
+    "action": "POST /management/deadletter-jobs/d965d08a-a0e1-11f1-9696-d6249e5e0df4 {action: move}",
+    "rest_actions": {
+      "GET http://localhost:8081/flowable-rest/service/runtime/process-instances/d9658261-a0e1-11f1-9696-d6249e5e0df4": 1,
+      "GET http://localhost:8081/flowable-rest/service/runtime/executions": 1,
+      "GET http://localhost:8081/flowable-rest/service/management/deadletter-jobs": 1,
+      "GET http://localhost:8081/flowable-rest/service/history/historic-activity-instances": 1
+    },
+    "result": "external job completed after dead-letter move"
+  },
+  "ui_steps": [
+    "OSS build has no Cockpit equivalent (management UI is EE-only)",
+    "Diagnosis/recovery is REST-only: management/deadletter-jobs + move action"
+  ],
+  "ui_actions": {
+    "type": "none",
+    "steps": 2
+  }
+}

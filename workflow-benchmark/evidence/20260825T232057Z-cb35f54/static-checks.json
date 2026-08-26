@@ -1,0 +1,64 @@
+{
+  "no_engine_db_credentials": {
+    "finding": "no engine DB credentials in app/scripts/tests",
+    "violations": {},
+    "pass": true
+  },
+  "no_engine_tables": {
+    "finding": "application code never references ACT_* engine tables",
+    "violations": {},
+    "pass": true
+  },
+  "adapters_use_rest_only": {
+    "finding": "adapters use REST (httpx) and no create_engine",
+    "httpx_in_adapters": true,
+    "violations": {},
+    "pass": true
+  },
+  "diagnostics_admin_only": {
+    "finding": "fault injection inert by default; armable only via admin API (/admin/faults)",
+    "production_path_references": {},
+    "arm_sites": {
+      "app/api/routes.py": [
+        262
+      ]
+    },
+    "non_admin_arm_sites": {},
+    "pass": true
+  },
+  "loc": {
+    "shared/domain": {
+      "files": {
+        "app/domain/models.py": 132,
+        "app/domain/completion.py": 46,
+        "app/api/routes.py": 293,
+        "app/api/schemas.py": 116,
+        "app/workflow/base.py": 80,
+        "app/workflow/dispatcher.py": 282,
+        "app/workflow/reconciler.py": 181,
+        "app/workflow/registry.py": 21,
+        "app/workflow/fault_injector.py": 220
+      },
+      "total": 1371
+    },
+    "operaton-specific": {
+      "files": {
+        "app/workflow/operaton.py": 323,
+        "app/workers/external_worker.py": 152,
+        "bpmn/operaton/long_visit_poc.bpmn": 76,
+        "bpmn/operaton/long_visit_poc_v2.bpmn": 82
+      },
+      "total": 633
+    },
+    "flowable-specific": {
+      "files": {
+        "app/workflow/flowable.py": 381,
+        "app/workers/flowable_worker.py": 125,
+        "bpmn/flowable/long_visit_v1.bpmn": 75,
+        "bpmn/flowable/long_visit_v2.bpmn": 81
+      },
+      "total": 662
+    }
+  },
+  "all_pass": true
+}

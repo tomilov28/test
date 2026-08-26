@@ -1,0 +1,898 @@
+{
+  "run_id": "20260825T232057Z-cb35f54",
+  "git": {
+    "sha": "cb35f54f5cb8a69f98b6cbdedcb6a6b8bb1ce1c7",
+    "dirty": false
+  },
+  "generated_at_utc": "2026-08-26T00:08:26Z",
+  "images": {
+    "operaton/operaton:2.1.4": {
+      "ref": "operaton/operaton:2.1.4",
+      "id": "sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+      "repo_digests": [
+        "operaton/operaton@sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410"
+      ],
+      "size_bytes": 290696849,
+      "created": "2026-08-21T09:51:02.930578209Z"
+    },
+    "flowable/flowable-rest:8.0.0": {
+      "ref": "flowable/flowable-rest:8.0.0",
+      "id": "sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+      "repo_digests": [
+        "flowable/flowable-rest@sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d"
+      ],
+      "size_bytes": 172432893,
+      "created": "2026-02-27T16:33:55.896899042Z"
+    },
+    "postgres:16": {
+      "ref": "postgres:16",
+      "id": "sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5",
+      "repo_digests": [
+        "postgres@sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5"
+      ],
+      "size_bytes": 160248400,
+      "created": "2026-08-13T19:16:08.705640299Z"
+    }
+  },
+  "unit": {
+    "tests": 37,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "testcases": [
+      "tests.test_completion::test_non_final_task_has_no_contract",
+      "tests.test_completion::test_approve_maps_to_completed",
+      "tests.test_completion::test_reject_maps_to_rejected",
+      "tests.test_completion::test_invalid_decision_raises[bad0]",
+      "tests.test_completion::test_invalid_decision_raises[bad1]",
+      "tests.test_completion::test_invalid_decision_raises[bad2]",
+      "tests.test_completion::test_invalid_decision_raises[bad3]",
+      "tests.test_dispatcher::test_start_process_command_marks_request",
+      "tests.test_dispatcher::test_failed_command_retries_then_fails",
+      "tests.test_dispatcher::test_cancel_command_converges_engine_not_outcome",
+      "tests.test_dispatcher::test_claim_is_atomic_and_excludes_processing",
+      "tests.test_dispatcher::test_start_process_reuses_existing_instance",
+      "tests.test_dispatcher::test_complete_task_state_already_achieved",
+      "tests.test_dispatcher::test_cancel_already_ended_skips_engine_call",
+      "tests.test_dispatcher::test_stale_processing_commands_are_rearmed",
+      "tests.test_dispatcher::test_created_long_ago_but_claimed_now_is_not_stale",
+      "tests.test_dispatcher::test_crash_after_claim_rearmed_then_executes",
+      "tests.test_dispatcher::test_claim_writes_lease_timestamp",
+      "tests.test_dispatcher::test_start_process_skips_start_when_request_cancelled",
+      "tests.test_dispatcher::test_complete_task_skips_engine_when_request_cancelled",
+      "tests.test_domain::test_request_create_and_lifecycle",
+      "tests.test_domain::test_work_item_unique_engine_task",
+      "tests.test_domain::test_task_result_versioning",
+      "tests.test_domain::test_workflow_command_states",
+      "tests.test_fault_injector::test_fail_mode_injects_exactly_n_times",
+      "tests.test_fault_injector::test_loss_mode_injects_exactly_n_times_then_stops",
+      "tests.test_fault_injector::test_arm_with_remaining_zero_never_injects",
+      "tests.test_fault_injector::test_maybe_wrap_does_not_wrap_exhausted_arm",
+      "tests.test_fault_injector::test_snapshot_reports_injected_and_remaining",
+      "tests.test_reconciler::test_upsert_work_item_is_idempotent",
+      "tests.test_reconciler::test_reconcile_creates_work_items",
+      "tests.test_reconciler::test_reconcile_survives_engine_absence",
+      "tests.test_reconciler::test_reconcile_does_not_close_on_engine_ended",
+      "tests.test_reconciler::test_reconcile_does_not_overwrite_concurrent_cancel",
+      "tests.test_registry::test_build_adapter_maps_engines",
+      "tests.test_registry::test_build_adapter_rejects_unknown",
+      "tests.test_registry::test_mock_adapter_full_cycle"
+    ],
+    "present": true
+  },
+  "operaton": {
+    "name": "Operaton",
+    "functional_junit": {
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        "tests.test_operaton_integration::test_deploy_start_tasks_complete_history",
+        "tests.test_operaton_integration::test_cancel_process",
+        "tests.test_operaton_integration::test_failed_jobs_empty_for_clean_instance",
+        "tests.test_long_visit_poc::test_t01_deploy_v1_is_version_1",
+        "tests.test_long_visit_poc::test_t02_start_outbox_creates_instance",
+        "tests.test_long_visit_poc::test_t03_external_worker_real_retry",
+        "tests.test_long_visit_poc::test_t04_parallel_tasks_two_work_items",
+        "tests.test_long_visit_poc::test_t05_idempotent_reconciliation",
+        "tests.test_long_visit_poc::test_t06_complete_one_branch",
+        "tests.test_long_visit_poc::test_t08_join_then_timer",
+        "tests.test_long_visit_poc::test_t10_versioning_old_v1_new_v2",
+        "tests.test_long_visit_poc::test_t11_cancellation_marks_everything",
+        "tests.test_fault_injection::test_t12_lost_start_response_single_instance",
+        "tests.test_fault_injection::test_t13_lost_complete_response_state_already_achieved",
+        "tests.test_fault_injection::test_t14_lost_cancel_response_idempotent_termination",
+        "tests.test_fault_injection::test_t15_exhausted_retries_request_stays_active",
+        "tests.test_fault_injection::test_t15_engine_failure_storage_not_business_outcome",
+        "tests.test_fault_injection::test_invariants_single_instance_and_no_revert",
+        "tests.test_outbox_lease::test_a03a_created_long_ago_but_claimed_now_not_stale",
+        "tests.test_outbox_lease::test_a03b_concurrent_claim_single_owner",
+        "tests.test_outbox_lease::test_a03c_crash_after_claim_rearmed_then_executes",
+        "tests.test_outbox_lease::test_a03d_concurrent_rearm_and_start_no_duplicate_instance"
+      ],
+      "present": true
+    },
+    "fault_junit": {
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        "tests.test_operaton_integration::test_deploy_start_tasks_complete_history",
+        "tests.test_operaton_integration::test_cancel_process",
+        "tests.test_operaton_integration::test_failed_jobs_empty_for_clean_instance",
+        "tests.test_long_visit_poc::test_t01_deploy_v1_is_version_1",
+        "tests.test_long_visit_poc::test_t02_start_outbox_creates_instance",
+        "tests.test_long_visit_poc::test_t03_external_worker_real_retry",
+        "tests.test_long_visit_poc::test_t04_parallel_tasks_two_work_items",
+        "tests.test_long_visit_poc::test_t05_idempotent_reconciliation",
+        "tests.test_long_visit_poc::test_t06_complete_one_branch",
+        "tests.test_long_visit_poc::test_t08_join_then_timer",
+        "tests.test_long_visit_poc::test_t10_versioning_old_v1_new_v2",
+        "tests.test_long_visit_poc::test_t11_cancellation_marks_everything",
+        "tests.test_fault_injection::test_t12_lost_start_response_single_instance",
+        "tests.test_fault_injection::test_t13_lost_complete_response_state_already_achieved",
+        "tests.test_fault_injection::test_t14_lost_cancel_response_idempotent_termination",
+        "tests.test_fault_injection::test_t15_exhausted_retries_request_stays_active",
+        "tests.test_fault_injection::test_t15_engine_failure_storage_not_business_outcome",
+        "tests.test_fault_injection::test_invariants_single_instance_and_no_revert",
+        "tests.test_outbox_lease::test_a03a_created_long_ago_but_claimed_now_not_stale",
+        "tests.test_outbox_lease::test_a03b_concurrent_claim_single_owner",
+        "tests.test_outbox_lease::test_a03c_crash_after_claim_rearmed_then_executes",
+        "tests.test_outbox_lease::test_a03d_concurrent_rearm_and_start_no_duplicate_instance"
+      ],
+      "present": true
+    },
+    "audit_junit": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        "tests.test_fault_injection::test_t12_lost_start_response_single_instance",
+        "tests.test_fault_injection::test_t13_lost_complete_response_state_already_achieved",
+        "tests.test_fault_injection::test_t14_lost_cancel_response_idempotent_termination",
+        "tests.test_fault_injection::test_t15_exhausted_retries_request_stays_active",
+        "tests.test_fault_injection::test_t15_engine_failure_storage_not_business_outcome",
+        "tests.test_fault_injection::test_invariants_single_instance_and_no_revert",
+        "tests.test_outbox_lease::test_a03a_created_long_ago_but_claimed_now_not_stale",
+        "tests.test_outbox_lease::test_a03b_concurrent_claim_single_owner",
+        "tests.test_outbox_lease::test_a03c_crash_after_claim_rearmed_then_executes",
+        "tests.test_outbox_lease::test_a03d_concurrent_rearm_and_start_no_duplicate_instance"
+      ],
+      "present": true
+    },
+    "fault_scenarios": {
+      "a01a": {
+        "file": "a01a-domain-first-cancel-engine-down.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "a01b": {
+        "file": "a01b-cancel-exhausted-requeue.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "a01c": {
+        "file": "a01c-cancel-before-start.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "a02a": {
+        "file": "a02a-domain-completion-engine-down.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "a02b": {
+        "file": "a02b-invalid-completion-contract.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "a02c": {
+        "file": "a02c-engine-ended-without-outcome.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "ops_demo_demo": {
+        "file": "ops_demo_demo.json",
+        "present": true
+      },
+      "ops_demo_incident": {
+        "file": "ops_demo_incident.json",
+        "present": true
+      },
+      "r1": {
+        "file": "r1-restart-during-human-task.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "r2": {
+        "file": "r2-restart-during-timer-wait.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "r3": {
+        "file": "r3-restart-with-pending-command.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "r4": {
+        "file": "r4-restart-post-engine-action.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "r5": {
+        "file": "r5-restart-during-worker-lock.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "stress": {
+        "file": "stress-smoke.json",
+        "present": true,
+        "engine": "OPERATON"
+      },
+      "summary": {
+        "file": "summary.json",
+        "present": true
+      }
+    },
+    "resource_metrics": {
+      "summary": {
+        "engine": "Operaton",
+        "version": "2.1.4",
+        "image_ref": "operaton/operaton:2.1.4",
+        "samples": 6,
+        "settle_seconds": 60,
+        "median_rss_bytes": 335229747,
+        "min_rss_bytes": 335020032,
+        "max_rss_bytes": 335649177,
+        "median_cpu_percent": 0.20500000000000002,
+        "max_cpu_percent": 5.93,
+        "sample_raw": [
+          {
+            "mem_usage_bytes": 335649177,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.22,
+            "container": "benchmark-operaton",
+            "id": "35ba4dbec56d"
+          },
+          {
+            "mem_usage_bytes": 335020032,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.16,
+            "container": "benchmark-operaton",
+            "id": "35ba4dbec56d"
+          },
+          {
+            "mem_usage_bytes": 335020032,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.19,
+            "container": "benchmark-operaton",
+            "id": "35ba4dbec56d"
+          },
+          {
+            "mem_usage_bytes": 335334604,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.75,
+            "container": "benchmark-operaton",
+            "id": "35ba4dbec56d"
+          },
+          {
+            "mem_usage_bytes": 335229747,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 5.93,
+            "container": "benchmark-operaton",
+            "id": "35ba4dbec56d"
+          },
+          {
+            "mem_usage_bytes": 335229747,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.18,
+            "container": "benchmark-operaton",
+            "id": "35ba4dbec56d"
+          }
+        ]
+      },
+      "parity": {
+        "cpu_limit_equal": true,
+        "mem_limit_equal": true,
+        "observed_cpu_limit": {
+          "cpus": 2
+        },
+        "comparable": true,
+        "verdict": "STRICTLY COMPARABLE"
+      },
+      "isolation": {
+        "containers": [
+          "benchmark-operaton",
+          "workflow-benchmark-postgres-1"
+        ],
+        "issues": [],
+        "valid": true
+      },
+      "identity": {
+        "container_id": "35ba4dbec56dbe11a14a89adb0349b18e93c93aed469c629f4deb74cb914d798",
+        "image_id": "sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+        "repo_digest": "operaton/operaton@sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+        "started_at": "2026-08-25T23:41:31.076709402Z",
+        "cpus": 0
+      },
+      "engine_probe": {
+        "name": "default",
+        "version": ""
+      }
+    },
+    "evidence_files": [
+      "operaton/api-evidence/all_process_definitions.json",
+      "operaton/api-evidence/deployments.json",
+      "operaton/api-evidence/engine_info.json",
+      "operaton/api-evidence/external-task-topics.json",
+      "operaton/api-evidence/external_task_topics.json",
+      "operaton/api-evidence/external_tasks.json",
+      "operaton/api-evidence/failed_jobs.json",
+      "operaton/api-evidence/incidents.json",
+      "operaton/api-evidence/process-definitions.json",
+      "operaton/api-evidence/process_definitions.json",
+      "operaton/api-evidence/running-instances.json",
+      "operaton/api-evidence/running_instances.json",
+      "operaton/api-evidence/t07-full-restart.json",
+      "operaton/api-evidence/t09-durable-timer-restart.json",
+      "operaton/app.log",
+      "operaton/audit-junit.xml",
+      "operaton/audit.log",
+      "operaton/demo.log",
+      "operaton/durability.log",
+      "operaton/engine.log",
+      "operaton/fault-junit.xml",
+      "operaton/fault-scenarios/a01a-domain-first-cancel-engine-down.json",
+      "operaton/fault-scenarios/a01b-cancel-exhausted-requeue.json",
+      "operaton/fault-scenarios/a01c-cancel-before-start.json",
+      "operaton/fault-scenarios/a02a-domain-completion-engine-down.json",
+      "operaton/fault-scenarios/a02b-invalid-completion-contract.json",
+      "operaton/fault-scenarios/a02c-engine-ended-without-outcome.json",
+      "operaton/fault-scenarios/ops_demo_demo.json",
+      "operaton/fault-scenarios/ops_demo_incident.json",
+      "operaton/fault-scenarios/r1-restart-during-human-task.json",
+      "operaton/fault-scenarios/r2-restart-during-timer-wait.json",
+      "operaton/fault-scenarios/r3-restart-with-pending-command.json",
+      "operaton/fault-scenarios/r4-restart-post-engine-action.json",
+      "operaton/fault-scenarios/r5-restart-during-worker-lock.json",
+      "operaton/fault-scenarios/stress-smoke.json",
+      "operaton/fault-scenarios/summary.json",
+      "operaton/fault.log",
+      "operaton/functional-junit.xml",
+      "operaton/incident.log",
+      "operaton/operational/demo.json",
+      "operaton/operational/incident.json",
+      "operaton/resource-measure.log",
+      "operaton/resource-metrics.json",
+      "operaton/worker.log"
+    ]
+  },
+  "flowable": {
+    "name": "Flowable",
+    "functional_junit": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        "tests.test_flowable_integration::test_deploy_start_tasks_complete_history",
+        "tests.test_flowable_integration::test_cancel_process",
+        "tests.test_flowable_integration::test_failed_jobs_empty_for_clean_instance",
+        "tests.test_flowable_integration::test_active_activity_ids",
+        "tests.test_long_visit_poc_flowable::test_t01_deploy_v1_is_version_1",
+        "tests.test_long_visit_poc_flowable::test_t02_start_outbox_creates_instance",
+        "tests.test_long_visit_poc_flowable::test_t03_external_worker_real_retry",
+        "tests.test_long_visit_poc_flowable::test_t04_parallel_tasks_two_work_items",
+        "tests.test_long_visit_poc_flowable::test_t05_idempotent_reconciliation",
+        "tests.test_long_visit_poc_flowable::test_t06_complete_one_branch",
+        "tests.test_long_visit_poc_flowable::test_t08_join_then_timer",
+        "tests.test_long_visit_poc_flowable::test_t10_versioning_old_v1_new_v2",
+        "tests.test_long_visit_poc_flowable::test_t11_cancellation_marks_everything",
+        "tests.test_fault_injection::test_t12_lost_start_response_single_instance",
+        "tests.test_fault_injection::test_t13_lost_complete_response_state_already_achieved",
+        "tests.test_fault_injection::test_t14_lost_cancel_response_idempotent_termination",
+        "tests.test_fault_injection::test_t15_exhausted_retries_request_stays_active",
+        "tests.test_fault_injection::test_t15_engine_failure_storage_not_business_outcome",
+        "tests.test_fault_injection::test_invariants_single_instance_and_no_revert",
+        "tests.test_outbox_lease::test_a03a_created_long_ago_but_claimed_now_not_stale",
+        "tests.test_outbox_lease::test_a03b_concurrent_claim_single_owner",
+        "tests.test_outbox_lease::test_a03c_crash_after_claim_rearmed_then_executes",
+        "tests.test_outbox_lease::test_a03d_concurrent_rearm_and_start_no_duplicate_instance"
+      ],
+      "present": true
+    },
+    "fault_junit": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        "tests.test_flowable_integration::test_deploy_start_tasks_complete_history",
+        "tests.test_flowable_integration::test_cancel_process",
+        "tests.test_flowable_integration::test_failed_jobs_empty_for_clean_instance",
+        "tests.test_flowable_integration::test_active_activity_ids",
+        "tests.test_long_visit_poc_flowable::test_t01_deploy_v1_is_version_1",
+        "tests.test_long_visit_poc_flowable::test_t02_start_outbox_creates_instance",
+        "tests.test_long_visit_poc_flowable::test_t03_external_worker_real_retry",
+        "tests.test_long_visit_poc_flowable::test_t04_parallel_tasks_two_work_items",
+        "tests.test_long_visit_poc_flowable::test_t05_idempotent_reconciliation",
+        "tests.test_long_visit_poc_flowable::test_t06_complete_one_branch",
+        "tests.test_long_visit_poc_flowable::test_t08_join_then_timer",
+        "tests.test_long_visit_poc_flowable::test_t10_versioning_old_v1_new_v2",
+        "tests.test_long_visit_poc_flowable::test_t11_cancellation_marks_everything",
+        "tests.test_fault_injection::test_t12_lost_start_response_single_instance",
+        "tests.test_fault_injection::test_t13_lost_complete_response_state_already_achieved",
+        "tests.test_fault_injection::test_t14_lost_cancel_response_idempotent_termination",
+        "tests.test_fault_injection::test_t15_exhausted_retries_request_stays_active",
+        "tests.test_fault_injection::test_t15_engine_failure_storage_not_business_outcome",
+        "tests.test_fault_injection::test_invariants_single_instance_and_no_revert",
+        "tests.test_outbox_lease::test_a03a_created_long_ago_but_claimed_now_not_stale",
+        "tests.test_outbox_lease::test_a03b_concurrent_claim_single_owner",
+        "tests.test_outbox_lease::test_a03c_crash_after_claim_rearmed_then_executes",
+        "tests.test_outbox_lease::test_a03d_concurrent_rearm_and_start_no_duplicate_instance"
+      ],
+      "present": true
+    },
+    "audit_junit": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        "tests.test_fault_injection::test_t12_lost_start_response_single_instance",
+        "tests.test_fault_injection::test_t13_lost_complete_response_state_already_achieved",
+        "tests.test_fault_injection::test_t14_lost_cancel_response_idempotent_termination",
+        "tests.test_fault_injection::test_t15_exhausted_retries_request_stays_active",
+        "tests.test_fault_injection::test_t15_engine_failure_storage_not_business_outcome",
+        "tests.test_fault_injection::test_invariants_single_instance_and_no_revert",
+        "tests.test_outbox_lease::test_a03a_created_long_ago_but_claimed_now_not_stale",
+        "tests.test_outbox_lease::test_a03b_concurrent_claim_single_owner",
+        "tests.test_outbox_lease::test_a03c_crash_after_claim_rearmed_then_executes",
+        "tests.test_outbox_lease::test_a03d_concurrent_rearm_and_start_no_duplicate_instance"
+      ],
+      "present": true
+    },
+    "fault_scenarios": {
+      "a01a": {
+        "file": "a01a-domain-first-cancel-engine-down.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "a01b": {
+        "file": "a01b-cancel-exhausted-requeue.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "a01c": {
+        "file": "a01c-cancel-before-start.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "a02a": {
+        "file": "a02a-domain-completion-engine-down.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "a02b": {
+        "file": "a02b-invalid-completion-contract.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "a02c": {
+        "file": "a02c-engine-ended-without-outcome.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "deadlock": {
+        "file": "cancel-deadlock-reproduction.json",
+        "present": true,
+        "engine": "FLOWABLE",
+        "recurrence": 0
+      },
+      "ops_demo_demo": {
+        "file": "ops_demo_demo.json",
+        "present": true
+      },
+      "ops_demo_incident": {
+        "file": "ops_demo_incident.json",
+        "present": true
+      },
+      "r1": {
+        "file": "r1-restart-during-human-task.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "r2": {
+        "file": "r2-restart-during-timer-wait.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "r3": {
+        "file": "r3-restart-with-pending-command.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "r4": {
+        "file": "r4-restart-post-engine-action.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "r5": {
+        "file": "r5-restart-during-worker-lock.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "stress": {
+        "file": "stress-smoke.json",
+        "present": true,
+        "engine": "FLOWABLE"
+      },
+      "summary": {
+        "file": "summary.json",
+        "present": true
+      }
+    },
+    "resource_metrics": {
+      "summary": {
+        "engine": "Flowable",
+        "version": "8.0.0",
+        "image_ref": "flowable/flowable-rest:8.0.0",
+        "samples": 6,
+        "settle_seconds": 60,
+        "median_rss_bytes": 282538803,
+        "min_rss_bytes": 281752371,
+        "max_rss_bytes": 283430092,
+        "median_cpu_percent": 0.24,
+        "max_cpu_percent": 8.83,
+        "sample_raw": [
+          {
+            "mem_usage_bytes": 281752371,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.18,
+            "container": "benchmark-flowable",
+            "id": "e66a6a3b623e"
+          },
+          {
+            "mem_usage_bytes": 282171801,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.3,
+            "container": "benchmark-flowable",
+            "id": "e66a6a3b623e"
+          },
+          {
+            "mem_usage_bytes": 282276659,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.16,
+            "container": "benchmark-flowable",
+            "id": "e66a6a3b623e"
+          },
+          {
+            "mem_usage_bytes": 283430092,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 5.07,
+            "container": "benchmark-flowable",
+            "id": "e66a6a3b623e"
+          },
+          {
+            "mem_usage_bytes": 282800947,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 8.83,
+            "container": "benchmark-flowable",
+            "id": "e66a6a3b623e"
+          },
+          {
+            "mem_usage_bytes": 283010662,
+            "mem_limit_bytes": 1073741824,
+            "cpu_percent": 0.18,
+            "container": "benchmark-flowable",
+            "id": "e66a6a3b623e"
+          }
+        ]
+      },
+      "parity": {
+        "cpu_limit_equal": true,
+        "mem_limit_equal": true,
+        "observed_cpu_limit": {
+          "cpus": 2
+        },
+        "comparable": true,
+        "verdict": "STRICTLY COMPARABLE"
+      },
+      "isolation": {
+        "containers": [
+          "benchmark-flowable",
+          "workflow-benchmark-postgres-1"
+        ],
+        "issues": [],
+        "valid": true
+      },
+      "identity": {
+        "container_id": "e66a6a3b623e149712cb901fe4fea2db3d52273edfa766b87b2d1072d6704496",
+        "image_id": "sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+        "repo_digest": "flowable/flowable-rest@sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+        "started_at": "2026-08-26T00:06:09.077384976Z",
+        "cpus": 0
+      },
+      "engine_probe": {
+        "name": "default",
+        "version": "8.0.0"
+      }
+    },
+    "evidence_files": [
+      "flowable/api-evidence/deadletter_jobs.json",
+      "flowable/api-evidence/deployments.json",
+      "flowable/api-evidence/engine_info.json",
+      "flowable/api-evidence/external-jobs.json",
+      "flowable/api-evidence/external_jobs.json",
+      "flowable/api-evidence/f07-full-restart.json",
+      "flowable/api-evidence/f09-durable-timer-restart.json",
+      "flowable/api-evidence/process-definitions.json",
+      "flowable/api-evidence/process_definitions.json",
+      "flowable/api-evidence/running-instances.json",
+      "flowable/api-evidence/running_instances.json",
+      "flowable/api-evidence/timer_jobs.json",
+      "flowable/app.log",
+      "flowable/audit-junit.xml",
+      "flowable/audit.log",
+      "flowable/demo.log",
+      "flowable/durability.log",
+      "flowable/engine.log",
+      "flowable/fault-junit.xml",
+      "flowable/fault-scenarios/a01a-domain-first-cancel-engine-down.json",
+      "flowable/fault-scenarios/a01b-cancel-exhausted-requeue.json",
+      "flowable/fault-scenarios/a01c-cancel-before-start.json",
+      "flowable/fault-scenarios/a02a-domain-completion-engine-down.json",
+      "flowable/fault-scenarios/a02b-invalid-completion-contract.json",
+      "flowable/fault-scenarios/a02c-engine-ended-without-outcome.json",
+      "flowable/fault-scenarios/cancel-deadlock-reproduction.json",
+      "flowable/fault-scenarios/ops_demo_demo.json",
+      "flowable/fault-scenarios/ops_demo_incident.json",
+      "flowable/fault-scenarios/r1-restart-during-human-task.json",
+      "flowable/fault-scenarios/r2-restart-during-timer-wait.json",
+      "flowable/fault-scenarios/r3-restart-with-pending-command.json",
+      "flowable/fault-scenarios/r4-restart-post-engine-action.json",
+      "flowable/fault-scenarios/r5-restart-during-worker-lock.json",
+      "flowable/fault-scenarios/stress-smoke.json",
+      "flowable/fault-scenarios/summary.json",
+      "flowable/fault.log",
+      "flowable/functional-junit.xml",
+      "flowable/incident.log",
+      "flowable/operational/demo.json",
+      "flowable/operational/incident.json",
+      "flowable/resource-measure.log",
+      "flowable/resource-metrics.json",
+      "flowable/worker.log"
+    ]
+  },
+  "stages": [
+    {
+      "stage": "unit",
+      "command": "/workspace/workflow-benchmark/.venv/bin/python -m pytest -q -m 'not integration' --junitxml=/workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54/unit/unit-junit.xml",
+      "started_at_utc": "2026-08-25T23:21:00Z",
+      "finished_at_utc": "2026-08-25T23:21:00Z",
+      "elapsed_s": 2.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "unit/unit-junit.xml"
+      ]
+    },
+    {
+      "stage": "reset-clean-state",
+      "command": "make reset-state",
+      "started_at_utc": "2026-08-25T23:21:06Z",
+      "finished_at_utc": "2026-08-25T23:21:06Z",
+      "elapsed_s": 6.4,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "environment/"
+      ]
+    },
+    {
+      "stage": "functional-durability-operaton",
+      "command": "make test-operaton",
+      "started_at_utc": "2026-08-25T23:25:12Z",
+      "finished_at_utc": "2026-08-25T23:25:12Z",
+      "elapsed_s": 245.2,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/functional-junit.xml",
+        "operaton/durability.log"
+      ]
+    },
+    {
+      "stage": "fault-audit-operaton",
+      "command": "make fault-operaton",
+      "started_at_utc": "2026-08-25T23:38:24Z",
+      "finished_at_utc": "2026-08-25T23:38:24Z",
+      "elapsed_s": 792.2,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/fault-junit.xml",
+        "operaton/fault-scenarios/"
+      ]
+    },
+    {
+      "stage": "audit-regressions-operaton",
+      "command": "BENCH_ENGINE=OPERATON /workspace/workflow-benchmark/.venv/bin/python -m pytest -m integration --junitxml=/workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54/operaton/audit-junit.xml tests/test_fault_injection.py tests/test_outbox_lease.py",
+      "started_at_utc": "2026-08-25T23:40:09Z",
+      "finished_at_utc": "2026-08-25T23:40:09Z",
+      "elapsed_s": 105.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/audit-junit.xml"
+      ]
+    },
+    {
+      "stage": "demo-operaton",
+      "command": "make demo-operaton",
+      "started_at_utc": "2026-08-25T23:40:45Z",
+      "finished_at_utc": "2026-08-25T23:40:45Z",
+      "elapsed_s": 35.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/operational/demo.json"
+      ]
+    },
+    {
+      "stage": "incident-operaton",
+      "command": "make incident-operaton",
+      "started_at_utc": "2026-08-25T23:41:22Z",
+      "finished_at_utc": "2026-08-25T23:41:22Z",
+      "elapsed_s": 37.2,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/operational/incident.json"
+      ]
+    },
+    {
+      "stage": "measure-resource-operaton",
+      "command": "make reset-state && docker compose -f docker-compose.yml -f docker-compose.operaton.yml up -d operaton && /workspace/workflow-benchmark/.venv/bin/python scripts/wait_for_engine.py --engine OPERATON && /workspace/workflow-benchmark/.venv/bin/python -m scripts.measure_resources --engine OPERATON",
+      "started_at_utc": "2026-08-25T23:43:55Z",
+      "finished_at_utc": "2026-08-25T23:43:55Z",
+      "elapsed_s": 153.1,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/resource-metrics.json"
+      ]
+    },
+    {
+      "stage": "teardown-operaton",
+      "command": "make down",
+      "started_at_utc": "2026-08-25T23:43:57Z",
+      "finished_at_utc": "2026-08-25T23:43:57Z",
+      "elapsed_s": 1.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "stage": "reset-clean-state",
+      "command": "make reset-state",
+      "started_at_utc": "2026-08-25T23:44:02Z",
+      "finished_at_utc": "2026-08-25T23:44:02Z",
+      "elapsed_s": 6.0,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "environment/"
+      ]
+    },
+    {
+      "stage": "functional-durability-flowable",
+      "command": "make test-flowable",
+      "started_at_utc": "2026-08-25T23:48:24Z",
+      "finished_at_utc": "2026-08-25T23:48:24Z",
+      "elapsed_s": 261.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/functional-junit.xml",
+        "flowable/durability.log"
+      ]
+    },
+    {
+      "stage": "fault-audit-flowable",
+      "command": "make fault-flowable",
+      "started_at_utc": "2026-08-26T00:03:13Z",
+      "finished_at_utc": "2026-08-26T00:03:13Z",
+      "elapsed_s": 888.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/fault-junit.xml",
+        "flowable/fault-scenarios/"
+      ]
+    },
+    {
+      "stage": "audit-regressions-flowable",
+      "command": "BENCH_ENGINE=FLOWABLE /workspace/workflow-benchmark/.venv/bin/python -m pytest -m integration --junitxml=/workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54/flowable/audit-junit.xml tests/test_fault_injection.py tests/test_outbox_lease.py",
+      "started_at_utc": "2026-08-26T00:04:41Z",
+      "finished_at_utc": "2026-08-26T00:04:41Z",
+      "elapsed_s": 88.1,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/audit-junit.xml"
+      ]
+    },
+    {
+      "stage": "demo-flowable",
+      "command": "make demo-flowable",
+      "started_at_utc": "2026-08-26T00:05:21Z",
+      "finished_at_utc": "2026-08-26T00:05:21Z",
+      "elapsed_s": 39.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/operational/demo.json"
+      ]
+    },
+    {
+      "stage": "incident-flowable",
+      "command": "make incident-flowable",
+      "started_at_utc": "2026-08-26T00:06:00Z",
+      "finished_at_utc": "2026-08-26T00:06:00Z",
+      "elapsed_s": 39.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/operational/incident.json"
+      ]
+    },
+    {
+      "stage": "measure-resource-flowable",
+      "command": "make reset-state && docker compose -f docker-compose.yml -f docker-compose.flowable.yml up -d flowable && /workspace/workflow-benchmark/.venv/bin/python scripts/wait_for_engine.py --engine FLOWABLE && /workspace/workflow-benchmark/.venv/bin/python -m scripts.measure_resources --engine FLOWABLE",
+      "started_at_utc": "2026-08-26T00:08:24Z",
+      "finished_at_utc": "2026-08-26T00:08:24Z",
+      "elapsed_s": 143.6,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/resource-metrics.json"
+      ]
+    },
+    {
+      "stage": "teardown-flowable",
+      "command": "make down",
+      "started_at_utc": "2026-08-26T00:08:25Z",
+      "finished_at_utc": "2026-08-26T00:08:25Z",
+      "elapsed_s": 1.8,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "stage": "teardown",
+      "command": "make down",
+      "started_at_utc": "2026-08-26T00:08:26Z",
+      "finished_at_utc": "2026-08-26T00:08:26Z",
+      "elapsed_s": 0.4,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "stage": "static-checks",
+      "command": "/workspace/workflow-benchmark/.venv/bin/python -m scripts.static_checks --run /workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54",
+      "started_at_utc": "2026-08-26T00:08:26Z",
+      "finished_at_utc": "2026-08-26T00:08:26Z",
+      "elapsed_s": 0.1,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "static-checks.json"
+      ]
+    }
+  ]
+}

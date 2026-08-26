@@ -1,0 +1,33 @@
+{
+  "scenario": "a02a",
+  "engine": "OPERATON",
+  "steps": [],
+  "domain_outcome_immediate": {
+    "lifecycle_state": "CLOSED",
+    "outcome": "COMPLETED",
+    "closed_at": "2026-08-25T23:37:13.628306Z"
+  },
+  "complete_task_state": "PENDING",
+  "convergence": {
+    "complete_task": {
+      "id": "52567c0f-bcf4-454a-b22d-8405de79a694",
+      "request_id": "2bd9715c-6396-4bd1-85af-0ebb63439617",
+      "command_type": "COMPLETE_TASK",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "payload": {
+        "work_item_id": "bfe5adfc-d841-4214-8ca8-ae31b08e8f11",
+        "external_task_id": "e4f6c4e6-a0dd-11f1-b15f-b63a399624f3",
+        "task_definition_key": "final_decision",
+        "data": {
+          "decision": "APPROVE"
+        },
+        "version": 1
+      },
+      "created_at": "2026-08-25T23:37:13.626653Z",
+      "processed_at": "2026-08-25T23:37:42.169865Z"
+    },
+    "engine_instance_state": "ENDED"
+  }
+}

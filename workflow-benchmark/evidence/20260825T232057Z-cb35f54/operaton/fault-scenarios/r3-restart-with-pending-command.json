@@ -1,0 +1,48 @@
+{
+  "scenario": "r3",
+  "engine": "OPERATON",
+  "steps": [],
+  "before_restart": {
+    "request_id": "f6ae8dde-42ff-42dd-b345-7c96a6e3994e",
+    "command": {
+      "id": "7151e96c-c9da-4a57-ab72-20551e80b388",
+      "request_id": "f6ae8dde-42ff-42dd-b345-7c96a6e3994e",
+      "command_type": "START_PROCESS",
+      "state": "PENDING",
+      "attempts": 0,
+      "last_error": null,
+      "payload": {
+        "process_key": "LONG_VISIT_POC",
+        "business_key": "REQ-70EFA0ED2C5D",
+        "variables": {
+          "initiator": "operaton-r3-0"
+        }
+      },
+      "created_at": "2026-08-25T23:29:07.316974Z",
+      "processed_at": null
+    }
+  },
+  "after_restart": {
+    "instance_id": "c6fd6387-a0dc-11f1-bf3e-b66dddba0e69",
+    "command": {
+      "id": "7151e96c-c9da-4a57-ab72-20551e80b388",
+      "request_id": "f6ae8dde-42ff-42dd-b345-7c96a6e3994e",
+      "command_type": "START_PROCESS",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "payload": {
+        "process_key": "LONG_VISIT_POC",
+        "business_key": "REQ-70EFA0ED2C5D",
+        "variables": {
+          "initiator": "operaton-r3-0"
+        }
+      },
+      "created_at": "2026-08-25T23:29:07.316974Z",
+      "processed_at": "2026-08-25T23:29:11.706026Z"
+    },
+    "engine_instances": [
+      "c6fd6387-a0dc-11f1-bf3e-b66dddba0e69"
+    ]
+  }
+}

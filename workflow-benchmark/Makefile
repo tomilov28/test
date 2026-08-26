@@ -52,7 +52,7 @@ test-integration:
 up-operaton: _operaton-infra
 	$(PYTHON) -m scripts.stackctl start-worker --engine OPERATON
 	@echo "== operaton stack up =="
-	@echo "  Swagger UI        : http://localhost:8080/engine-rest/swaggerui/"
+	@echo "  Engine REST       : http://localhost:8080/engine-rest"
 	@echo "  Operaton Cockpit  : http://localhost:8080/operaton/app/cockpit/"
 	@echo "  Operaton Tasklist : http://localhost:8080/operaton/app/tasklist/"
 	@echo "  API               : http://localhost:8000/docs"

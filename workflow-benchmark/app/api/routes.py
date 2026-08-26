@@ -108,8 +108,6 @@ def complete_work_item(work_item_id: uuid.UUID, body: CompleteWorkItemIn, db: Se
     if work_item.state != WorkItemState.ACTIVE.value:
         raise HTTPException(status_code=409, detail=f"work item not ACTIVE (state={work_item.state})")
 
-    from datetime import datetime, timezone
-
     # Domain-first completion (audit A02): validate the CompletionContract in the
     # same transaction that applies the final domain action. A contract violation
     # leaves the Request and WorkItem untouched.
@@ -122,22 +120,40 @@ def complete_work_item(work_item_id: uuid.UUID, body: CompleteWorkItemIn, db: Se
     if request is None:
         raise HTTPException(status_code=404, detail="request not found")
 
+    result_created_at = _utcnow()
+    closes_request = decision is not None
+    if closes_request:
+        # Terminal transition guard (C02): the final domain action acquires the
+        # Request row lock atomically via a conditional UPDATE. A concurrent
+        # CANCEL competes for the same row, so exactly one terminal action
+        # commits ("first committed wins") and the loser gets a 409. The guard
+        # runs BEFORE any WorkItem/TaskResult write so both paths lock the
+        # Request row first and no lock-order deadlock is possible.
+        upd = db.execute(
+            update(Request)
+            .where(Request.id == request.id, Request.lifecycle_state == LifecycleState.ACTIVE.value)
+            .values(
+                lifecycle_state=LifecycleState.CLOSED.value,
+                outcome=DECISION_OUTCOMES[decision],
+                closed_at=result_created_at,
+            )
+        )
+        if upd.rowcount != 1:
+            db.rollback()
+            raise HTTPException(status_code=409, detail="request already closed; terminal outcome is immutable")
+        request.lifecycle_state = LifecycleState.CLOSED.value
+        request.outcome = DECISION_OUTCOMES[decision]
+        request.closed_at = result_created_at
+
     result = TaskResult(
         work_item_id=work_item.id,
         version=body.version,
         data=body.data,
-        created_at=datetime.now(timezone.utc),
+        created_at=result_created_at,
     )
     db.add(result)
     work_item.state = WorkItemState.COMPLETED.value
-    work_item.completed_at = result.created_at
-
-    closes_request = decision is not None
-    if closes_request:
-        # The final domain action assigns the business outcome atomically.
-        request.lifecycle_state = LifecycleState.CLOSED.value
-        request.outcome = DECISION_OUTCOMES[decision]
-        request.closed_at = result.created_at
+    work_item.completed_at = result_created_at
 
     _enqueue_command(
         db,
@@ -166,9 +182,25 @@ def cancel_request(request_id: uuid.UUID, body: CancelRequestIn, db: Session = D
     if request.lifecycle_state != LifecycleState.ACTIVE.value:
         raise HTTPException(status_code=409, detail="request is not ACTIVE")
 
-    request.lifecycle_state = LifecycleState.CLOSED.value
-    request.outcome = RequestOutcome.CANCELLED.value
-    request.closed_at = _utcnow()
+    # Terminal transition guard (C02): acquire the Request row lock atomically
+    # with a conditional UPDATE so a concurrent final-domain-action commit
+    # ("first committed wins") determines the single terminal outcome. The
+    # guarded UPDATE runs BEFORE the bulk WorkItem update, so the lock order
+    # matches complete_work_item's (Request row first) and no deadlock occurs.
+    closed_at = _utcnow()
+    upd = db.execute(
+        update(Request)
+        .where(Request.id == request.id, Request.lifecycle_state == LifecycleState.ACTIVE.value)
+        .values(
+            lifecycle_state=LifecycleState.CLOSED.value,
+            outcome=RequestOutcome.CANCELLED.value,
+            closed_at=closed_at,
+        )
+    )
+    if upd.rowcount != 1:
+        db.rollback()
+        raise HTTPException(status_code=409, detail="request is not ACTIVE")
+
     db.execute(
         update(WorkItem)
         .where(

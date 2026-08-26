@@ -6,7 +6,9 @@
 
 ## Executive conclusion
 
-Both engines pass the full functional, durability, fault-injection and Phase 5 audit suites with **zero failures / zero errors / zero unexpected skips**. Reliability is therefore judged equal (30/30 each). The weighted score favours **Operaton** (97/100 Operaton vs 91/100 Flowable): Operaton wins on operational troubleshooting (bundled Cockpit/Tasklist webapps, no UI at all in the Flowable OSS REST image) and marginally on integration simplicity; Flowable wins on idle resource footprint and is a strong REST-only alternative. Recommended headless durable BPMN runtime behind the `WorkflowAdapter`: **Operaton**.
+Both engines pass the full functional, durability, fault-injection and Phase 5 audit suites with **zero failures / zero errors / zero unexpected skips**. Reliability is therefore judged equal (30/30 each). The expert decision matrix favours **Operaton** (97/100 Operaton vs 91/100 Flowable): Operaton wins on operational troubleshooting (bundled Cockpit/Tasklist webapps, no UI at all in the Flowable OSS REST image) and marginally on integration simplicity; Flowable wins on idle resource footprint and is a strong REST-only alternative. Recommended headless durable BPMN runtime behind the `WorkflowAdapter`: **Operaton**.
+
+> Scores are expert judgement informed by benchmark evidence; they are not statistically derived benchmark measurements.
 
 > Critical reliability/architecture findings: none for either engine. A critical failure would override the score; none was observed across the authoritative runs.
 
@@ -20,9 +22,9 @@ Both engines pass the full functional, durability, fault-injection and Phase 5 a
 | T04 parallel human tasks -> WorkItems | PASS | PASS | functional-junit.xml :: test_t04_parallel_tasks_two_work_items |
 | T05 reconciler idempotency | PASS | PASS | functional-junit.xml :: test_t05_idempotent_reconciliation |
 | T06 one branch completion | PASS | PASS | functional-junit.xml :: test_t06_complete_one_branch |
-| T07 full stack restart, shared DB preserved | PASS | PASS | full-restart evidence in api-evidence/ (per engine) |
+| T07 full stack restart, shared DB preserved | PASS | PASS | api-evidence/t07-full-restart.json / f07-full-restart.json (per engine) |
 | T08 parallel join + PT15S timer | PASS | PASS | functional-junit.xml :: test_t08_join_then_timer |
-| T09 durable timer across engine restart | PASS | PASS | durable-timer evidence in api-evidence/ (per engine) |
+| T09 durable timer across engine restart | PASS | PASS | api-evidence/t09-durable-timer-restart.json / f09-durable-timer-restart.json (per engine) |
 | T10 v1/v2 version pinning | PASS | PASS | functional-junit.xml :: test_t10_versioning_old_v1_new_v2 |
 | T11 domain-first cancellation | PASS | PASS | functional-junit.xml :: test_t11_cancellation_marks_everything |
 | T12 lost START response | PASS | PASS | fault-junit.xml :: test_t12_lost_start_response_single_instance |
@@ -68,7 +70,7 @@ Both engines pass the full functional, durability, fault-injection and Phase 5 a
 | R4 restart post engine action | PASS | PASS |
 | R5 worker lock across restart | PASS | PASS |
 | 50-instance stress smoke | PASS | PASS |
-| Cancel/deadlock recurrence | n/a | recorded (0 in Phase 5 run; see fault-scenarios/cancel-deadlock-reproduction.json) |
+| Cancel/deadlock recurrence | n/a | recorded | fault-scenarios/cancel-deadlock-reproduction.json |
 | Lost START response (T12) | PASS | PASS |
 | Lost COMPLETE response (T13) | PASS | PASS |
 | Lost CANCEL response (T14) | PASS | PASS |
@@ -76,7 +78,7 @@ Both engines pass the full functional, durability, fault-injection and Phase 5 a
 
 ## Integration complexity
 
-- Shared/domain LOC: **1337** (Request/WorkItem/TaskResult/domain lifecycle/completion/cancellation/outbox/FastAPI API — unchanged across engines)
+- Shared/domain LOC: **1371** (Request/WorkItem/TaskResult/domain lifecycle/completion/cancellation/outbox/FastAPI API — unchanged across engines)
 - Operaton-specific LOC: **633** (adapter + external worker + BPMN fixtures)
 - Flowable-specific LOC: **662** (adapter + external worker + BPMN fixtures)
 
@@ -112,7 +114,9 @@ The Operaton distribution bundles Cockpit/Tasklist webapps (Tomcat) and a larger
 
 Lock-in risk is contained by the `WorkflowAdapter` seam: the domain model, outbox, dispatcher, reconciler, FastAPI API and BPMN process semantics are engine-neutral. Only the adapter, external-worker protocol, BPMN vendor extensions and deployment/ops tooling change. Measured engine-specific surface (see Integration complexity). **Switching cost: MEDIUM** — moderate: both engines expose a Camunda-style REST/BPMN surface, but vendor extensions, deployment overlays and worker implementations must be re-created.
 
-## Scoring
+## Expert decision matrix
+
+Scores are expert judgement informed by benchmark evidence; they are not statistically derived benchmark measurements. Each score carries an explicit rationale; automated measurements (median idle RSS) feed only the Resource footprint row.
 
 | Category | Weight | Operaton | Flowable |
 |---|---:|---:|---:|
@@ -125,7 +129,7 @@ Lock-in risk is contained by the `WorkflowAdapter` seam: the domain model, outbo
 | Documentation/ecosystem | 5% | 5 | 5 |
 | **Total** | **100%** | **97** | **91** |
 
-Rationale per category:
+Rationale per category (expert-assigned scores):
 - **Reliability/recovery** — Operaton: identical 0/0/0 pass rates across functional/fault/audit suites. Flowable: identical 0/0/0 pass rates across functional/fault/audit suites.
 - **Integration simplicity** — Operaton: two config env vars (example off, schema-update); no dead-letter workflow. Flowable: extra dead-letter move workflow and a separate /external-job-api.
 - **Operations/debugging** — Operaton: ships Cockpit/Tasklist webapps (demo/demo) for incident diagnosis. Flowable: OSS REST image is headless; diagnosis is REST-only.
@@ -136,19 +140,28 @@ Rationale per category:
 
 ## Evidence matrix
 
-| Evidence | Operaton | Flowable |
-|---|---|---|
-| functional JUnit | PRESENT | PRESENT |
-| fault JUnit | PRESENT | PRESENT |
-| audit regressions | PRESENT | PRESENT |
-| restart evidence | PRESENT | PRESENT |
-| timer evidence | PRESENT | PRESENT |
-| raw REST evidence | PRESENT | PRESENT |
-| engine logs | PRESENT | PRESENT |
-| resource samples | PRESENT | PRESENT |
-| operational incident path | PRESENT | PRESENT |
+| Evidence | Expected file(s) | Operaton | Flowable |
+|---|---|---|---|
+| functional JUnit | functional-junit.xml present + 0 failures/errors/skips | PRESENT | PRESENT |
+| fault JUnit | fault-junit.xml present + 0 failures/errors/skips | PRESENT | PRESENT |
+| audit regressions | audit-junit.xml present + 0 failures/errors/skips | PRESENT | PRESENT |
+| restart evidence (r1-r5) | fault-scenarios/r1..r5 JSON files parse | PRESENT | PRESENT |
+| timer evidence | api-evidence/{t07|f07}-full-restart.json + {t09|f09}-durable-timer-restart.json | PRESENT | PRESENT |
+| raw REST evidence | api-evidence/engine_info,deployments,process-definitions,running-instances | PRESENT | PRESENT |
+| engine logs | engine.log + app.log recorded in evidence_files | PRESENT | PRESENT |
+| resource samples | resource-metrics.json with summary | PRESENT | PRESENT |
+| operational incident path | operational/demo.json + operational/incident.json | PRESENT | PRESENT |
 
-> Missing mandatory evidence above would be reported as FAIL/BLOCKED, not PASS. Current run: all mandatory evidence present -> confidence HIGH.
+> Missing mandatory evidence above would be reported as FAIL/BLOCKED, not PASS. Current run: all mandatory evidence present and valid -> confidence HIGH.
+
+## Independent-audit caveats
+
+- The 22+22+10 (Operaton) and 23+23+10 (Flowable) functional/fault/audit suites are repeated runs of overlapping test sets, not that many unique cases.
+- The 97/100 vs 91/100 totals are an expert decision matrix informed by benchmark evidence, not a statistically derived result.
+- `query-before-start` provides retry idempotency but not strict exactly-once under overlapping dispatch after lease expiry (see concurrency regression C01).
+- Flowable's ecosystem is substantially larger; the Operaton selection rests primarily on operational fit.
+
+The Operaton recommendation stands unless the new concurrency regression tests (C01/C02) expose a critical defect.
 
 ## Recommendation
 
@@ -158,10 +171,10 @@ Adopt **Operaton** as the default headless durable BPMN runtime behind the `Work
 - Operational advantage: Cockpit/Tasklist webapps bundled with the REST image make incident diagnosis (find-process -> failed activity -> error -> retries -> retry action -> history) substantially easier.
 - Simpler integration surface: no dead-letter job workflow is required for recovery; retries reset via the standard external-task endpoint.
 
-**Main risk**: higher idle memory footprint (median RSS ~63 MiB above Flowable under identical 1024m cap) and the Run distro carries webapps that must be disabled/ignored for a headless deployment.
+**Main risk**: higher idle memory footprint (median RSS ~50 MiB above Flowable under identical 1024m cap) and the Run distro carries webapps that must be disabled/ignored for a headless deployment.
 
 **Switching cost**: MEDIUM. The WorkflowAdapter seam keeps the domain/outbox/dispatcher/reconciler/API identical; the engine-specific surface is adapters + workers + BPMN extensions + deployment overlays.
 
 ---
 
-Generated automatically from run evidence `20260825T232057Z-cb35f54` (manifest.json + report-input.json). Not derived from PROGRESS.md.
+Generated automatically from run evidence `20260825T232057Z-cb35f54` (manifest.json + report-input.json). Not derived from PROGRESS.md. Scores in the expert decision matrix are expert judgement informed by benchmark evidence, not statistically derived measurements.

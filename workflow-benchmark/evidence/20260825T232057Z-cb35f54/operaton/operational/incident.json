@@ -1,0 +1,70 @@
+{
+  "mode": "incident",
+  "engine": "OPERATON",
+  "request_id": "20c18eb6-24b0-4b7d-9c68-69e3bda80a59",
+  "instance_id": "692348fc-a0de-11f1-ba99-8a4294f1c378",
+  "terminal_failure": {
+    "job_id": "69240c52-a0de-11f1-ba99-8a4294f1c378",
+    "action": "fail",
+    "retries": 0
+  },
+  "diagnosis": {
+    "find_process": {
+      "state": "ACTIVE",
+      "instance_id": "692348fc-a0de-11f1-ba99-8a4294f1c378"
+    },
+    "activity": {
+      "stuck_on": "load_prisoner_data",
+      "active": [
+        "load_prisoner_data"
+      ]
+    },
+    "failure": [
+      {
+        "job_id": "6943f067-a0de-11f1-ba99-8a4294f1c378",
+        "retries": 0,
+        "exception_message": "incident failedExternalTask on load_prisoner_data"
+      }
+    ],
+    "error": {
+      "failed_jobs": 1,
+      "message": "incident failedExternalTask on load_prisoner_data"
+    },
+    "retries": {
+      "remaining": 0,
+      "expected_terminal": true
+    },
+    "history": [
+      "HistoryEvent(activity_id='load_prisoner_data', activity_type='serviceTask', event_type='started', started_at='2026-08-25T23:40:53.234+0000', ended_at=None, detail={})",
+      "HistoryEvent(activity_id='StartEvent_1', activity_type='startEvent', event_type='ended', started_at='2026-08-25T23:40:53.233+0000', ended_at='2026-08-25T23:40:53.234+0000', detail={})"
+    ],
+    "rest_actions": {
+      "GET /process-instance/692348fc-a0de-11f1-ba99-8a4294f1c378": 1,
+      "GET /process-instance/692348fc-a0de-11f1-ba99-8a4294f1c378/activity-instances": 1,
+      "GET /job": 1,
+      "GET /incident": 1,
+      "GET /history/activity-instance": 1
+    }
+  },
+  "recovery": {
+    "action": "PUT /external-task/69240c52-a0de-11f1-ba99-8a4294f1c378/retries {retries:1}",
+    "rest_actions": {
+      "GET /process-instance/692348fc-a0de-11f1-ba99-8a4294f1c378": 1,
+      "GET /process-instance/692348fc-a0de-11f1-ba99-8a4294f1c378/activity-instances": 1,
+      "GET /job": 1,
+      "GET /incident": 1,
+      "GET /history/activity-instance": 1
+    },
+    "result": "external task completed after retry"
+  },
+  "ui_steps": [
+    "Cockpit -> Process Instances -> search by business key",
+    "Open instance -> Incidents tab (retries=0, exception shown)",
+    "Cockpit -> External Tasks / Job definitions",
+    "Incident -> Retry (or set retries via REST)"
+  ],
+  "ui_actions": {
+    "type": "cockpit",
+    "steps": 4
+  }
+}

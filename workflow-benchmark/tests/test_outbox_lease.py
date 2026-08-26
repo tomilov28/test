@@ -142,9 +142,11 @@ def test_a03b_concurrent_claim_single_owner(factory):
 
     a_ids = set(results["A"])
     b_ids = set(results["B"])
-    assert a_ids and not b_ids or b_ids and not a_ids, f"both dispatchers claimed rows: {results}"
-    claimed = a_ids | b_ids
-    assert len(claimed) == 5, f"expected all 5 claimed exactly once: {results}"
+    # SKIP LOCKED allows the two concurrent claimants to SPLIT the rows (fair
+    # sharing); the invariant is that a row is never claimed by both dispatchers
+    # and every claimable row is claimed exactly once.
+    assert not (a_ids & b_ids), f"a row was claimed by both dispatchers: {results}"
+    assert len(a_ids | b_ids) == 5, f"all 5 commands must be claimed exactly once: {results}"
     # no command has two owners
     session = factory()
     try:

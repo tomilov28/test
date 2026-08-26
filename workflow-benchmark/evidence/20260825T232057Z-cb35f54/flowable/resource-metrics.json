@@ -1,0 +1,86 @@
+{
+  "summary": {
+    "engine": "Flowable",
+    "version": "8.0.0",
+    "image_ref": "flowable/flowable-rest:8.0.0",
+    "samples": 6,
+    "settle_seconds": 60,
+    "median_rss_bytes": 282538803,
+    "min_rss_bytes": 281752371,
+    "max_rss_bytes": 283430092,
+    "median_cpu_percent": 0.24,
+    "max_cpu_percent": 8.83,
+    "sample_raw": [
+      {
+        "mem_usage_bytes": 281752371,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.18,
+        "container": "benchmark-flowable",
+        "id": "e66a6a3b623e"
+      },
+      {
+        "mem_usage_bytes": 282171801,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.3,
+        "container": "benchmark-flowable",
+        "id": "e66a6a3b623e"
+      },
+      {
+        "mem_usage_bytes": 282276659,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.16,
+        "container": "benchmark-flowable",
+        "id": "e66a6a3b623e"
+      },
+      {
+        "mem_usage_bytes": 283430092,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 5.07,
+        "container": "benchmark-flowable",
+        "id": "e66a6a3b623e"
+      },
+      {
+        "mem_usage_bytes": 282800947,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 8.83,
+        "container": "benchmark-flowable",
+        "id": "e66a6a3b623e"
+      },
+      {
+        "mem_usage_bytes": 283010662,
+        "mem_limit_bytes": 1073741824,
+        "cpu_percent": 0.18,
+        "container": "benchmark-flowable",
+        "id": "e66a6a3b623e"
+      }
+    ]
+  },
+  "parity": {
+    "cpu_limit_equal": true,
+    "mem_limit_equal": true,
+    "observed_cpu_limit": {
+      "cpus": 2
+    },
+    "comparable": true,
+    "verdict": "STRICTLY COMPARABLE"
+  },
+  "isolation": {
+    "containers": [
+      "benchmark-flowable",
+      "workflow-benchmark-postgres-1"
+    ],
+    "issues": [],
+    "valid": true
+  },
+  "identity": {
+    "container_id": "e66a6a3b623e149712cb901fe4fea2db3d52273edfa766b87b2d1072d6704496",
+    "image_id": "sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+    "repo_digest": "flowable/flowable-rest@sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+    "started_at": "2026-08-26T00:06:09.077384976Z",
+    "cpus": 0
+  },
+  "engine_probe": {
+    "name": "default",
+    "version": "8.0.0"
+  }
+}

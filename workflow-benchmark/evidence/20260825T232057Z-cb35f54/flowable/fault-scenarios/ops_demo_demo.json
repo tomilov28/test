@@ -1,0 +1,12 @@
+{
+  "mode": "demo",
+  "engine": "FLOWABLE",
+  "request_id": "b5591d92-fd55-4609-adcf-e9ed1ddcec47",
+  "instance_id": "c13bbf77-a0e1-11f1-9696-d6249e5e0df4",
+  "outcome": "COMPLETED",
+  "next_steps": [
+    "Browse cockpit: None",
+    "Query REST: curl http://localhost:8081/flowable-rest/service/process-instance?processDefinitionKey=LONG_VISIT_POC",
+    "Repeat with: make incident-<engine>"
+  ]
+}

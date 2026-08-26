@@ -1,0 +1,39 @@
+{
+  "scenario": "a01a",
+  "engine": "OPERATON",
+  "steps": [],
+  "domain_outcome_immediate": {
+    "lifecycle_state": "CLOSED",
+    "outcome": "CANCELLED",
+    "closed_at": "2026-08-25T23:35:32.340924Z",
+    "work_items": [
+      [
+        "finance_check",
+        "CANCELLED"
+      ],
+      [
+        "relative_check",
+        "CANCELLED"
+      ]
+    ]
+  },
+  "convergence": {
+    "cancel_command": {
+      "id": "62c8d595-896e-448a-8e3e-d2e4cde94313",
+      "request_id": "c6fe8fb8-73bd-45dd-97c9-b2184a839abd",
+      "command_type": "CANCEL_PROCESS",
+      "state": "DONE",
+      "attempts": 1,
+      "last_error": null,
+      "payload": {
+        "workflow_instance_id": "a8f21585-a0dd-11f1-bf3e-b66dddba0e69",
+        "reason": "audit-a01"
+      },
+      "created_at": "2026-08-25T23:35:32.339982Z",
+      "processed_at": "2026-08-25T23:36:02.629267Z"
+    },
+    "engine_instance_state": "ENDED",
+    "engine_terminated": true,
+    "requeue_required": false
+  }
+}

@@ -54,9 +54,9 @@ ARTIFACTS = {e: os.path.join(ROOT, "artifacts", e.lower()) for e in ("OPERATON",
 URLS = {
     "OPERATON": {
         "rest": ENGINE_BASES["OPERATON"],
-        "cockpit": "http://localhost:8080/app/cockpit",
-        "tasklist": "http://localhost:8080/app/tasklist",
-        "admin": "http://localhost:8080/app/admin",
+        "cockpit": "http://localhost:8080/operaton/app/cockpit/",
+        "tasklist": "http://localhost:8080/operaton/app/tasklist/",
+        "admin": "http://localhost:8080/operaton/app/admin/",
         "webapps": "http://localhost:8080",
         "creds": "demo / demo",
     },
@@ -67,6 +67,30 @@ URLS = {
         "creds": "rest-admin / test",
     },
 }
+
+UI_CHECKS = {
+    "OPERATON": ["cockpit", "tasklist", "admin"],
+    "FLOWABLE": [],
+}
+
+
+def probe_ui_urls(engine: str) -> dict:
+    """Light HTTP validation of the engine UI URLs (GET, redirects followed).
+
+    No browser automation: a 2xx/3xx final response is enough to confirm the URL
+    is live. Records per-URL status; absent entries mean no UI surface.
+    """
+    out = {}
+    for name in UI_CHECKS.get(engine, []):
+        url = URLS[engine][name]
+        try:
+            resp = httpx.get(url, follow_redirects=True, timeout=10.0)
+            out[name] = {"url": url, "status": resp.status_code,
+                         "ok": resp.status_code < 400}
+        except Exception as exc:
+            out[name] = {"url": url, "status": "error", "ok": False,
+                         "error": str(exc)}
+    return out
 
 UI_STEPS = {
     "OPERATON": [
@@ -273,6 +297,7 @@ def run_demo(engine: str) -> dict:
             "request_id": request_id,
             "instance_id": instance_id,
             "outcome": req["outcome"],
+            "ui": probe_ui_urls(engine),
             "next_steps": [
                 f"Browse cockpit: {URLS[engine].get('cockpit')}",
                 f"Query REST: curl {URLS[engine]['rest']}/process-instance?processDefinitionKey={PROCESS_KEY}",
@@ -398,6 +423,7 @@ def run_incident(engine: str) -> dict:
             "diagnosis": diagnosis,
             "recovery": recovery,
             "ui_steps": UI_STEPS[engine],
+            "ui": probe_ui_urls(engine),
             "ui_actions": {
                 "type": "none" if engine == "FLOWABLE" else "cockpit",
                 "steps": len(UI_STEPS[engine]) if engine == "FLOWABLE" else 4,

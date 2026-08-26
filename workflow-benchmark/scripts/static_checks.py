@@ -5,8 +5,11 @@ Verifies, from source (no runtime needed):
      knows the benchmark database URL; engine datasources live in docker-compose).
   2. The workflow adapters talk to the engines over public REST only.
   3. The application never reads/writes `ACT_*` / Flowable engine tables.
-  4. Diagnostic code (fault injection) is reachable only through the admin API,
-     never on the production request path.
+  4. Diagnostic code (fault injection) is inert by default and can only be armed
+     through the benchmark/admin control surface (/admin/faults). The injector is
+     imported into the runtime path via registry.maybe_wrap(), but adapters are
+     wrapped only while a fault is armed; nothing is armed in the default
+     production configuration.
   5. Shared vs engine-specific LOC (domain/api unchanged across engines; only
      adapter, worker protocol, BPMN and deployment/ops tooling differ).
 
@@ -140,7 +143,15 @@ def check_adapters_use_rest() -> dict:
 
 
 def check_diagnostics_admin_only() -> dict:
-    """Fault injection must not be reachable from the production request path."""
+    """Fault injection must be inert by default and armable only via admin API.
+
+    The injector (fault_injector.maybe_wrap) is imported into the runtime path
+    by app/workflow/registry.py and evaluated on every build_adapter call, so it
+    is not absent from the runtime path. It is, however, inert unless a fault is
+    armed: FaultController starts empty and adapters are wrapped only while an
+    active (non-exhausted) arm exists. The only arming surface outside the test
+    suite is the admin API (POST /admin/faults/arm).
+    """
     hits = {}
     for rel in PROD_FILES:
         path = os.path.join(ROOT, rel)
@@ -150,10 +161,25 @@ def check_diagnostics_admin_only() -> dict:
             for i, line in enumerate(fh, 1):
                 if re.search(r"\bfault[_ ]controller\b|\bFaultController\b", line, re.I):
                     hits.setdefault(rel, []).append(i)
-    # confirm the injection hook is gated by the admin-only controller import
+    # arming must be limited to the admin route; tests arm only through the same
+    # controller for unit coverage.
+    arm_sites = {}
+    for dp, _, fns in os.walk(os.path.join(ROOT, "app")):
+        for f in fns:
+            if not f.endswith(".py"):
+                continue
+            path = os.path.join(dp, f)
+            with open(path) as fh:
+                for i, line in enumerate(fh, 1):
+                    if re.search(r"\.arm\(", line):
+                        arm_sites.setdefault(os.path.relpath(path, ROOT), []).append(i)
+    non_admin_arms = {rel: n for rel, n in arm_sites.items() if rel != "app/api/routes.py"}
     admin_wired = os.path.exists(os.path.join(ROOT, "app/api/routes.py"))
-    return {"finding": "fault injection reachable only via admin API (/admin/faults)",
-            "production_path_references": hits, "pass": not hits and admin_wired}
+    return {"finding": "fault injection inert by default; armable only via admin API (/admin/faults)",
+            "production_path_references": hits,
+            "arm_sites": arm_sites,
+            "non_admin_arm_sites": non_admin_arms,
+            "pass": not hits and admin_wired and not non_admin_arms}
 
 
 def loc_report() -> dict:

@@ -1,0 +1,275 @@
+{
+  "run_id": "20260825T232057Z-cb35f54",
+  "started_at_utc": "2026-08-25T23:20:57Z",
+  "finished_at_utc": "2026-08-26T00:08:26Z",
+  "git": {
+    "sha": "cb35f54f5cb8a69f98b6cbdedcb6a6b8bb1ce1c7",
+    "dirty": false
+  },
+  "environment": {
+    "host": "Linux 00cc6987-fe3b-406c-a781-cdf35ac99e47 6.6.116 #4 SMP PREEMPT_DYNAMIC Tue Jan  6 08:26:42 UTC 2026 x86_64 GNU/Linux",
+    "nproc": "2",
+    "mem": "MemTotal:        8157088 kB",
+    "docker_version": "29.7.2",
+    "docker_compose_version": "Docker Compose version v5.5.0",
+    "python_version": "Python 3.12.14",
+    "images": {
+      "operaton/operaton:2.1.4": {
+        "ref": "operaton/operaton:2.1.4",
+        "id": "sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410",
+        "repo_digests": [
+          "operaton/operaton@sha256:590c837c9d798fa1e80a54ea492cda03fbbe58a0520e80a237f4f2763da72410"
+        ],
+        "size_bytes": 290696849,
+        "created": "2026-08-21T09:51:02.930578209Z"
+      },
+      "flowable/flowable-rest:8.0.0": {
+        "ref": "flowable/flowable-rest:8.0.0",
+        "id": "sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d",
+        "repo_digests": [
+          "flowable/flowable-rest@sha256:708dfa32f27b93180bb6e7a30684d881d995fe257f5b8413e14b20a55c25672d"
+        ],
+        "size_bytes": 172432893,
+        "created": "2026-02-27T16:33:55.896899042Z"
+      },
+      "postgres:16": {
+        "ref": "postgres:16",
+        "id": "sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5",
+        "repo_digests": [
+          "postgres@sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5"
+        ],
+        "size_bytes": 160248400,
+        "created": "2026-08-13T19:16:08.705640299Z"
+      }
+    }
+  },
+  "stages": [
+    {
+      "stage": "unit",
+      "command": "/workspace/workflow-benchmark/.venv/bin/python -m pytest -q -m 'not integration' --junitxml=/workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54/unit/unit-junit.xml",
+      "started_at_utc": "2026-08-25T23:21:00Z",
+      "finished_at_utc": "2026-08-25T23:21:00Z",
+      "elapsed_s": 2.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "unit/unit-junit.xml"
+      ]
+    },
+    {
+      "stage": "reset-clean-state",
+      "command": "make reset-state",
+      "started_at_utc": "2026-08-25T23:21:06Z",
+      "finished_at_utc": "2026-08-25T23:21:06Z",
+      "elapsed_s": 6.4,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "environment/"
+      ]
+    },
+    {
+      "stage": "functional-durability-operaton",
+      "command": "make test-operaton",
+      "started_at_utc": "2026-08-25T23:25:12Z",
+      "finished_at_utc": "2026-08-25T23:25:12Z",
+      "elapsed_s": 245.2,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/functional-junit.xml",
+        "operaton/durability.log"
+      ]
+    },
+    {
+      "stage": "fault-audit-operaton",
+      "command": "make fault-operaton",
+      "started_at_utc": "2026-08-25T23:38:24Z",
+      "finished_at_utc": "2026-08-25T23:38:24Z",
+      "elapsed_s": 792.2,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/fault-junit.xml",
+        "operaton/fault-scenarios/"
+      ]
+    },
+    {
+      "stage": "audit-regressions-operaton",
+      "command": "BENCH_ENGINE=OPERATON /workspace/workflow-benchmark/.venv/bin/python -m pytest -m integration --junitxml=/workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54/operaton/audit-junit.xml tests/test_fault_injection.py tests/test_outbox_lease.py",
+      "started_at_utc": "2026-08-25T23:40:09Z",
+      "finished_at_utc": "2026-08-25T23:40:09Z",
+      "elapsed_s": 105.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/audit-junit.xml"
+      ]
+    },
+    {
+      "stage": "demo-operaton",
+      "command": "make demo-operaton",
+      "started_at_utc": "2026-08-25T23:40:45Z",
+      "finished_at_utc": "2026-08-25T23:40:45Z",
+      "elapsed_s": 35.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/operational/demo.json"
+      ]
+    },
+    {
+      "stage": "incident-operaton",
+      "command": "make incident-operaton",
+      "started_at_utc": "2026-08-25T23:41:22Z",
+      "finished_at_utc": "2026-08-25T23:41:22Z",
+      "elapsed_s": 37.2,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/operational/incident.json"
+      ]
+    },
+    {
+      "stage": "measure-resource-operaton",
+      "command": "make reset-state && docker compose -f docker-compose.yml -f docker-compose.operaton.yml up -d operaton && /workspace/workflow-benchmark/.venv/bin/python scripts/wait_for_engine.py --engine OPERATON && /workspace/workflow-benchmark/.venv/bin/python -m scripts.measure_resources --engine OPERATON",
+      "started_at_utc": "2026-08-25T23:43:55Z",
+      "finished_at_utc": "2026-08-25T23:43:55Z",
+      "elapsed_s": 153.1,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "operaton/resource-metrics.json"
+      ]
+    },
+    {
+      "stage": "teardown-operaton",
+      "command": "make down",
+      "started_at_utc": "2026-08-25T23:43:57Z",
+      "finished_at_utc": "2026-08-25T23:43:57Z",
+      "elapsed_s": 1.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "stage": "reset-clean-state",
+      "command": "make reset-state",
+      "started_at_utc": "2026-08-25T23:44:02Z",
+      "finished_at_utc": "2026-08-25T23:44:02Z",
+      "elapsed_s": 6.0,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "environment/"
+      ]
+    },
+    {
+      "stage": "functional-durability-flowable",
+      "command": "make test-flowable",
+      "started_at_utc": "2026-08-25T23:48:24Z",
+      "finished_at_utc": "2026-08-25T23:48:24Z",
+      "elapsed_s": 261.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/functional-junit.xml",
+        "flowable/durability.log"
+      ]
+    },
+    {
+      "stage": "fault-audit-flowable",
+      "command": "make fault-flowable",
+      "started_at_utc": "2026-08-26T00:03:13Z",
+      "finished_at_utc": "2026-08-26T00:03:13Z",
+      "elapsed_s": 888.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/fault-junit.xml",
+        "flowable/fault-scenarios/"
+      ]
+    },
+    {
+      "stage": "audit-regressions-flowable",
+      "command": "BENCH_ENGINE=FLOWABLE /workspace/workflow-benchmark/.venv/bin/python -m pytest -m integration --junitxml=/workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54/flowable/audit-junit.xml tests/test_fault_injection.py tests/test_outbox_lease.py",
+      "started_at_utc": "2026-08-26T00:04:41Z",
+      "finished_at_utc": "2026-08-26T00:04:41Z",
+      "elapsed_s": 88.1,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/audit-junit.xml"
+      ]
+    },
+    {
+      "stage": "demo-flowable",
+      "command": "make demo-flowable",
+      "started_at_utc": "2026-08-26T00:05:21Z",
+      "finished_at_utc": "2026-08-26T00:05:21Z",
+      "elapsed_s": 39.7,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/operational/demo.json"
+      ]
+    },
+    {
+      "stage": "incident-flowable",
+      "command": "make incident-flowable",
+      "started_at_utc": "2026-08-26T00:06:00Z",
+      "finished_at_utc": "2026-08-26T00:06:00Z",
+      "elapsed_s": 39.3,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/operational/incident.json"
+      ]
+    },
+    {
+      "stage": "measure-resource-flowable",
+      "command": "make reset-state && docker compose -f docker-compose.yml -f docker-compose.flowable.yml up -d flowable && /workspace/workflow-benchmark/.venv/bin/python scripts/wait_for_engine.py --engine FLOWABLE && /workspace/workflow-benchmark/.venv/bin/python -m scripts.measure_resources --engine FLOWABLE",
+      "started_at_utc": "2026-08-26T00:08:24Z",
+      "finished_at_utc": "2026-08-26T00:08:24Z",
+      "elapsed_s": 143.6,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "flowable/resource-metrics.json"
+      ]
+    },
+    {
+      "stage": "teardown-flowable",
+      "command": "make down",
+      "started_at_utc": "2026-08-26T00:08:25Z",
+      "finished_at_utc": "2026-08-26T00:08:25Z",
+      "elapsed_s": 1.8,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "stage": "teardown",
+      "command": "make down",
+      "started_at_utc": "2026-08-26T00:08:26Z",
+      "finished_at_utc": "2026-08-26T00:08:26Z",
+      "elapsed_s": 0.4,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "stage": "static-checks",
+      "command": "/workspace/workflow-benchmark/.venv/bin/python -m scripts.static_checks --run /workspace/workflow-benchmark/artifacts/runs/20260825T232057Z-cb35f54",
+      "started_at_utc": "2026-08-26T00:08:26Z",
+      "finished_at_utc": "2026-08-26T00:08:26Z",
+      "elapsed_s": 0.1,
+      "exit_code": 0,
+      "status": "PASS",
+      "evidence": [
+        "static-checks.json"
+      ]
+    }
+  ],
+  "status": "COMPLETED"
+}

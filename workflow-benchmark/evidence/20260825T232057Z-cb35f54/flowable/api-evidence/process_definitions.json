@@ -1,0 +1,36 @@
+[
+  {
+    "category": "http://benchmark.local/bpmn/long-visit-poc",
+    "deploymentId": "8612a323-a0e1-11f1-9696-d6249e5e0df4",
+    "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/8612a323-a0e1-11f1-9696-d6249e5e0df4",
+    "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
+    "diagramResource": null,
+    "graphicalNotationDefined": false,
+    "id": "LONG_VISIT_POC:1:8621be55-a0e1-11f1-9696-d6249e5e0df4",
+    "key": "LONG_VISIT_POC",
+    "name": "Long Visit POC",
+    "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/8612a323-a0e1-11f1-9696-d6249e5e0df4/resources/benchmark-fixture-long_visit_v1.bpmn.bpmn",
+    "startFormDefined": false,
+    "suspended": false,
+    "tenantId": "",
+    "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:1:8621be55-a0e1-11f1-9696-d6249e5e0df4",
+    "version": 1
+  },
+  {
+    "category": "http://benchmark.local/bpmn/long-visit-poc",
+    "deploymentId": "8624a486-a0e1-11f1-9696-d6249e5e0df4",
+    "deploymentUrl": "http://localhost:8081/flowable-rest/service/repository/deployments/8624a486-a0e1-11f1-9696-d6249e5e0df4",
+    "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
+    "diagramResource": null,
+    "graphicalNotationDefined": false,
+    "id": "LONG_VISIT_POC:2:86323918-a0e1-11f1-9696-d6249e5e0df4",
+    "key": "LONG_VISIT_POC",
+    "name": "Long Visit POC",
+    "resource": "http://localhost:8081/flowable-rest/service/repository/deployments/8624a486-a0e1-11f1-9696-d6249e5e0df4/resources/benchmark-fixture-long_visit_v2.bpmn.bpmn",
+    "startFormDefined": false,
+    "suspended": false,
+    "tenantId": "",
+    "url": "http://localhost:8081/flowable-rest/service/repository/process-definitions/LONG_VISIT_POC:2:86323918-a0e1-11f1-9696-d6249e5e0df4",
+    "version": 2
+  }
+]

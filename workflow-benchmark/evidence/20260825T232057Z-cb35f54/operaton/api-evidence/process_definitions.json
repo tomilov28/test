@@ -1,0 +1,34 @@
+[
+  {
+    "id": "LONG_VISIT_POC:1:9955c3f3-a0dc-11f1-bf3e-b66dddba0e69",
+    "key": "LONG_VISIT_POC",
+    "category": "http://benchmark.local/bpmn/long-visit-poc",
+    "description": "Benchmark fixture v1: external prisoner data load, two parallel\n      human checks, intermediate timer, final decision.",
+    "name": "Long Visit POC",
+    "version": 1,
+    "resource": "LONG_VISIT_POC.bpmn",
+    "deploymentId": "9951f361-a0dc-11f1-bf3e-b66dddba0e69",
+    "diagram": null,
+    "suspended": false,
+    "tenantId": null,
+    "versionTag": null,
+    "historyTimeToLive": 180,
+    "startableInTasklist": true
+  },
+  {
+    "id": "LONG_VISIT_POC:2:995e9d97-a0dc-11f1-bf3e-b66dddba0e69",
+    "key": "LONG_VISIT_POC",
+    "category": "http://benchmark.local/bpmn/long-visit-poc",
+    "description": "Benchmark fixture v2: adds discipline_check to the parallel\n      section (three parallel human checks).",
+    "name": "Long Visit POC",
+    "version": 2,
+    "resource": "LONG_VISIT_POC.bpmn",
+    "deploymentId": "9958d135-a0dc-11f1-bf3e-b66dddba0e69",
+    "diagram": null,
+    "suspended": false,
+    "tenantId": null,
+    "versionTag": null,
+    "historyTimeToLive": 180,
+    "startableInTasklist": true
+  }
+]

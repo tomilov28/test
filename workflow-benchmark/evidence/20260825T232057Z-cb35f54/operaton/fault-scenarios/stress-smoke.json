@@ -1,0 +1,27 @@
+{
+  "scenario": "stress",
+  "engine": "OPERATON",
+  "n": 50,
+  "start": {
+    "requests_created": 50,
+    "all_instances_started": 50,
+    "start_elapsed_s": 11.74,
+    "throughput_start_per_s": 4.26
+  },
+  "instances_unique_per_request": true,
+  "external_drain": {
+    "elapsed_s": 12.04,
+    "remaining": 0
+  },
+  "completion": {
+    "closed": 50,
+    "all_completed": true,
+    "elapsed_s": 242.16,
+    "total_elapsed_s": 267.12,
+    "throughput_instances_per_s": 0.19
+  },
+  "no_failures": {
+    "failed_commands": 0,
+    "engine_failed_jobs": 0
+  }
+}

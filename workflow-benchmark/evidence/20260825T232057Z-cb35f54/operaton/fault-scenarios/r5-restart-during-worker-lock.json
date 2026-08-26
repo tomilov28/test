@@ -1,0 +1,21 @@
+{
+  "scenario": "r5",
+  "engine": "OPERATON",
+  "steps": [],
+  "before_restart": {
+    "instance_id": "db9e26c2-a0dc-11f1-bf3e-b66dddba0e69",
+    "locked_external_task": {
+      "id": "db9e74e8-a0dc-11f1-bf3e-b66dddba0e69",
+      "worker_id": "benchmark-worker-fdcd595f"
+    },
+    "lock_owner": "benchmark-worker-fdcd595f"
+  },
+  "after_restart": {
+    "reacquired_and_completed": true,
+    "reacquire_latency_s": 28.3
+  },
+  "final": {
+    "request_state": "CLOSED",
+    "outcome": "COMPLETED"
+  }
+}
